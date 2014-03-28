@@ -315,7 +315,7 @@ public class GameController : MonoBehaviour
 								m_ShowingScoring = 0;
 								Time.timeScale = 1.0f;
 								m_ScoreGroupIndex = 0;
-								m_ScoreOrbTimer = 1.5f;
+								m_ScoreOrbTimer = 1.6f;
 							}
 						}
 						else if (m_ShowingScoring == 2)
