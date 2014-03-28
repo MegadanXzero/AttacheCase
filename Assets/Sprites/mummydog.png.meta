@@ -1,0 +1,621 @@
+fileFormatVersion: 2
+guid: 54e645b85cbb00f439e995be167cc516
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 10
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: mummydog_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 433
+        width: 45
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_8
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 394
+        width: 52
+        height: 36
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 433
+        width: 46
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_9
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 394
+        width: 42
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_2
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 433
+        width: 47
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_10
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 394
+        width: 42
+        height: 31
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_11
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 394
+        width: 43
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_3
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 433
+        width: 48
+        height: 32
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_12
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 394
+        width: 44
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_4
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 433
+        width: 47
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_13
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 395
+        width: 20
+        height: 24
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_5
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 433
+        width: 49
+        height: 32
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_14
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 395
+        width: 21
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_15
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 394
+        width: 24
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_6
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 433
+        width: 51
+        height: 34
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_16
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 393
+        width: 26
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_17
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 393
+        width: 24
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_7
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 433
+        width: 52
+        height: 35
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_53
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 260
+        width: 43
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_54
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 260
+        width: 41
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_55
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 260
+        width: 41
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_56
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 260
+        width: 40
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_57
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 260
+        width: 40
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_58
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 260
+        width: 41
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_59
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 260
+        width: 41
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_60
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 260
+        width: 43
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_61
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 260
+        width: 43
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_62
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 224
+        width: 40
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_63
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 224
+        width: 40
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_64
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 224
+        width: 42
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_65
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 224
+        width: 42
+        height: 27
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_66
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 224
+        width: 42
+        height: 27
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_67
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 224
+        width: 42
+        height: 27
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_68
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 224
+        width: 43
+        height: 27
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_69
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 144
+        width: 34
+        height: 32
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_70
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 144
+        width: 33
+        height: 35
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_71
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 139
+        width: 30
+        height: 40
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_72
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 139
+        width: 31
+        height: 40
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_73
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 138
+        width: 31
+        height: 41
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_74
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 139
+        width: 31
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_75
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 138
+        width: 32
+        height: 41
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_76
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 138
+        width: 32
+        height: 40
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_77
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 138
+        width: 31
+        height: 36
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_78
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 139
+        width: 28
+        height: 34
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_79
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 103
+        width: 27
+        height: 29
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_80
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 103
+        width: 26
+        height: 28
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_81
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 103
+        width: 24
+        height: 28
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_82
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 103
+        width: 27
+        height: 28
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_83
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 103
+        width: 27
+        height: 27
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_84
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 103
+        width: 28
+        height: 28
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_85
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 103
+        width: 27
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_86
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 103
+        width: 27
+        height: 30
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_87
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 103
+        width: 30
+        height: 30
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_88
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 66
+        width: 32
+        height: 28
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_89
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 66
+        width: 34
+        height: 27
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_90
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 66
+        width: 35
+        height: 26
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_91
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 66
+        width: 36
+        height: 26
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_92
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 66
+        width: 35
+        height: 29
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_93
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 26
+        width: 40
+        height: 24
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_94
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 26
+        width: 40
+        height: 23
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_95
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 26
+        width: 41
+        height: 21
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_96
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 26
+        width: 42
+        height: 19
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: mummydog_18
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 396
+        width: 23
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: mummydog_19
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 395
+        width: 23
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+  spritePackingTag: 
+  userData: 

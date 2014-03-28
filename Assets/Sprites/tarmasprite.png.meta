@@ -1,0 +1,1584 @@
+fileFormatVersion: 2
+guid: a56abc24b6333314a9ae07df489f3fe9
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 10
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: tarmasprite_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 434
+        width: 29
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 434
+        width: 29
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 435
+        width: 30
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_3
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 436
+        width: 31
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_4
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 436
+        width: 21
+        height: 16
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_5
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 392
+        width: 32
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_6
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 392
+        width: 30
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_7
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 393
+        width: 28
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_8
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 394
+        width: 27
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_9
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 393
+        width: 29
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_10
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 393
+        width: 30
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_11
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 391
+        width: 32
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_12
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 392
+        width: 32
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_13
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 393
+        width: 32
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_14
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 393
+        width: 31
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_15
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 392
+        width: 31
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_16
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 392
+        width: 31
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_17
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 390
+        width: 29
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_18
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 390
+        width: 30
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_19
+      rect:
+        serializedVersion: 2
+        x: 554
+        y: 391
+        width: 29
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_20
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 391
+        width: 30
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_21
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 391
+        width: 31
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_22
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 391
+        width: 30
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_23
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 364
+        width: 21
+        height: 18
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_24
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 364
+        width: 21
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_25
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 364
+        width: 28
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_26
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 368
+        width: 31
+        height: 16
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_27
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 364
+        width: 19
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_28
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 364
+        width: 15
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_29
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 364
+        width: 16
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_30
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 364
+        width: 21
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_31
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 364
+        width: 26
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_32
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 368
+        width: 31
+        height: 16
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_33
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 364
+        width: 20
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_34
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 364
+        width: 15
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_35
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 364
+        width: 18
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_36
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 364
+        width: 21
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_37
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 364
+        width: 24
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_38
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 364
+        width: 14
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_39
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 364
+        width: 19
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_40
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 364
+        width: 26
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_41
+      rect:
+        serializedVersion: 2
+        x: 669
+        y: 364
+        width: 16
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_42
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 364
+        width: 18
+        height: 18
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_43
+      rect:
+        serializedVersion: 2
+        x: 761
+        y: 364
+        width: 16
+        height: 19
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_44
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 364
+        width: 15
+        height: 18
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_45
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 319
+        width: 50
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_46
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 319
+        width: 51
+        height: 22
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_47
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 320
+        width: 52
+        height: 22
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_48
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 320
+        width: 37
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_49
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 320
+        width: 37
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_50
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 320
+        width: 37
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_51
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 320
+        width: 37
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_52
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 317
+        width: 34
+        height: 26
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_53
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 316
+        width: 33
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_54
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 317
+        width: 32
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_55
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 320
+        width: 48
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_56
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 320
+        width: 50
+        height: 22
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_57
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 321
+        width: 50
+        height: 22
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_58
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 321
+        width: 35
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_59
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 321
+        width: 36
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_60
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 321
+        width: 37
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_61
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 321
+        width: 37
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_62
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 318
+        width: 34
+        height: 26
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_63
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 317
+        width: 33
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_64
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 318
+        width: 32
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_65
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 273
+        width: 31
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_66
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 273
+        width: 33
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_67
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 273
+        width: 31
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_68
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 273
+        width: 31
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_69
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 273
+        width: 31
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_70
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 273
+        width: 28
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_71
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 278
+        width: 29
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_72
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 278
+        width: 37
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_73
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 274
+        width: 36
+        height: 31
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_74
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 273
+        width: 29
+        height: 32
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_75
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 275
+        width: 29
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_76
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 278
+        width: 29
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_77
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 278
+        width: 24
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_78
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 278
+        width: 24
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_79
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 278
+        width: 24
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_80
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 278
+        width: 25
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_81
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 278
+        width: 25
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_82
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 278
+        width: 25
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_83
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 216
+        width: 21
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_84
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 216
+        width: 26
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_85
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 214
+        width: 41
+        height: 33
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_86
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 215
+        width: 42
+        height: 43
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_87
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 217
+        width: 44
+        height: 41
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_88
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 217
+        width: 43
+        height: 45
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_89
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 216
+        width: 24
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_90
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 219
+        width: 23
+        height: 26
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_91
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 218
+        width: 26
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_92
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 222
+        width: 41
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_93
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 221
+        width: 48
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_94
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 220
+        width: 48
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_95
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 172
+        width: 33
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_96
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 171
+        width: 35
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_97
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 174
+        width: 35
+        height: 26
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_98
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 178
+        width: 36
+        height: 22
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_99
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 173
+        width: 36
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_100
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 169
+        width: 36
+        height: 31
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_101
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 168
+        width: 36
+        height: 32
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_102
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 164
+        width: 36
+        height: 36
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_103
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 164
+        width: 37
+        height: 36
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_104
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 170
+        width: 35
+        height: 30
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_105
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 169
+        width: 35
+        height: 31
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_106
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 176
+        width: 35
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_107
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 175
+        width: 35
+        height: 24
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_108
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 175
+        width: 38
+        height: 26
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_109
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 176
+        width: 38
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_110
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 176
+        width: 38
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_111
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 176
+        width: 39
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_112
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 175
+        width: 41
+        height: 26
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_113
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 174
+        width: 39
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_115
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 115
+        width: 37
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_116
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 114
+        width: 38
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_117
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 113
+        width: 38
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_118
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 113
+        width: 38
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_119
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 116
+        width: 60
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_120
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 115
+        width: 60
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_121
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 116
+        width: 60
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_122
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 117
+        width: 60
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_124
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 118
+        width: 37
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_125
+      rect:
+        serializedVersion: 2
+        x: 671
+        y: 115
+        width: 35
+        height: 31
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_126
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 115
+        width: 27
+        height: 31
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_128
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 116
+        width: 31
+        height: 31
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_129
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 118
+        width: 36
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_130
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 72
+        width: 38
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_131
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 72
+        width: 40
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_132
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 71
+        width: 39
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_133
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 70
+        width: 37
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_134
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 71
+        width: 38
+        height: 26
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_135
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 71
+        width: 38
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_136
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 71
+        width: 49
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_137
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 71
+        width: 49
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_138
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 72
+        width: 47
+        height: 33
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_139
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 72
+        width: 47
+        height: 24
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_140
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 72
+        width: 48
+        height: 24
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_141
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 71
+        width: 49
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_142
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 23
+        width: 36
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_143
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 23
+        width: 37
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_144
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 14
+        width: 51
+        height: 33
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_145
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 18
+        width: 53
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_146
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 21
+        width: 53
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_147
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 21
+        width: 52
+        height: 41
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_148
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 9
+        width: 33
+        height: 37
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_149
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 8
+        width: 23
+        height: 38
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_150
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 14
+        width: 32
+        height: 36
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_151
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 14
+        width: 48
+        height: 36
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_152
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 15
+        width: 52
+        height: 35
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_153
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 16
+        width: 55
+        height: 34
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_127
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 115
+        width: 30
+        height: 32
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_152
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 428
+        width: 27
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_153
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 428
+        width: 31
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_154
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 428
+        width: 31
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_155
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 428
+        width: 30
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_156
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 428
+        width: 31
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_157
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 428
+        width: 32
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_158
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 428
+        width: 32
+        height: 38
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_159
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 428
+        width: 29
+        height: 36
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_160
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 428
+        width: 28
+        height: 33
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_161
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 428
+        width: 27
+        height: 34
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_162
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 428
+        width: 25
+        height: 32
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_163
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 428
+        width: 24
+        height: 31
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_164
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 428
+        width: 21
+        height: 29
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_165
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 428
+        width: 22
+        height: 27
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_166
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 428
+        width: 23
+        height: 24
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_167
+      rect:
+        serializedVersion: 2
+        x: 767
+        y: 428
+        width: 27
+        height: 23
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_168
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 428
+        width: 30
+        height: 16
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_169
+      rect:
+        serializedVersion: 2
+        x: 838
+        y: 428
+        width: 34
+        height: 17
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: tarmasprite_170
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 428
+        width: 38
+        height: 16
+      alignment: 7
+      pivot: {x: .5, y: 0}
+  spritePackingTag: Tarma
+  userData: 

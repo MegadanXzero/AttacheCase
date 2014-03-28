@@ -1,0 +1,1566 @@
+fileFormatVersion: 2
+guid: eda9450a7debe0147a6f853bafb54518
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -2
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 10
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Zombie_Rise_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 966
+        width: 33
+        height: 17
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_1
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 966
+        width: 33
+        height: 17
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 966
+        width: 34
+        height: 17
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_3
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 966
+        width: 33
+        height: 17
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_4
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 966
+        width: 30
+        height: 19
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_5
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 966
+        width: 30
+        height: 22
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_6
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 966
+        width: 28
+        height: 28
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_7
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 966
+        width: 27
+        height: 32
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_8
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 966
+        width: 28
+        height: 33
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_9
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 966
+        width: 33
+        height: 36
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Rise_10
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 966
+        width: 35
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Idle_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 894
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Idle_1
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 894
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 894
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Idle_3
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 894
+        width: 31
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Idle_4
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 894
+        width: 32
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Idle_5
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 894
+        width: 33
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Idle_6
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 894
+        width: 35
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 830
+        width: 31
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_1
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 830
+        width: 27
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 830
+        width: 29
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_3
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 830
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_4
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 830
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_5
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 830
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_6
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 830
+        width: 31
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_7
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 830
+        width: 26
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_8
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 830
+        width: 27
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_9
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 830
+        width: 26
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_10
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 830
+        width: 25
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_11
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 830
+        width: 25
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_12
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 830
+        width: 25
+        height: 38
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_13
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 830
+        width: 31
+        height: 37
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Walk_14
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 830
+        width: 34
+        height: 38
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_0
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 762
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_1
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 762
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_2
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 762
+        width: 31
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_3
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 762
+        width: 32
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_4
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 762
+        width: 32
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_5
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 762
+        width: 32
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_6
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 762
+        width: 32
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_7
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 762
+        width: 31
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_8
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 762
+        width: 28
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_9
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 762
+        width: 28
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_10
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 762
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Turn_11
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 762
+        width: 29
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 685
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 685
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_2
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 685
+        width: 31
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_3
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 685
+        width: 37
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_4
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 685
+        width: 41
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_5
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 685
+        width: 42
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_6
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 685
+        width: 44
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_7
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 685
+        width: 42
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_8
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 685
+        width: 36
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_9
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 685
+        width: 33
+        height: 43
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_10
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 685
+        width: 32
+        height: 51
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_11
+      rect:
+        serializedVersion: 2
+        x: 573
+        y: 685
+        width: 36
+        height: 54
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_12
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 685
+        width: 39
+        height: 56
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_13
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 685
+        width: 41
+        height: 57
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_59
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 442
+        width: 22
+        height: 22
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_60
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 369
+        width: 17
+        height: 18
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_61
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 368
+        width: 21
+        height: 26
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: Zombie_Attack_14
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 602
+        width: 42
+        height: 59
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_29
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 545
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_64
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 443
+        width: 23
+        height: 22
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: Zombie_Attack_30
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 545
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_15
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 602
+        width: 44
+        height: 61
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_67
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 443
+        width: 24
+        height: 23
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_68
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 369
+        width: 16
+        height: 22
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_69
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 503
+        width: 25
+        height: 13
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_70
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 369
+        width: 16
+        height: 22
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_31
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 545
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_72
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 441
+        width: 30
+        height: 28
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: Zombie_Attack_16
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 602
+        width: 46
+        height: 62
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_74
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 369
+        width: 16
+        height: 25
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_75
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 440
+        width: 29
+        height: 29
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: Zombie_Attack_32
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 545
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_17
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 602
+        width: 47
+        height: 62
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_78
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 369
+        width: 16
+        height: 33
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_79
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 442
+        width: 30
+        height: 27
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: Zombie_Attack_33
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 545
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_81
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 369
+        width: 20
+        height: 36
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_82
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 441
+        width: 33
+        height: 31
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: Zombie_Attack_34
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 545
+        width: 31
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_84
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 502
+        width: 24
+        height: 20
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_85
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 369
+        width: 22
+        height: 38
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: Zombie_Attack_18
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 602
+        width: 48
+        height: 61
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_88
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 369
+        width: 24
+        height: 43
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_89
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 440
+        width: 34
+        height: 34
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_19
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 602
+        width: 49
+        height: 60
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_91
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 502
+        width: 22
+        height: 24
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_92
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 369
+        width: 25
+        height: 44
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_93
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 439
+        width: 37
+        height: 37
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_94
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 502
+        width: 22
+        height: 25
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_95
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 502
+        width: 19
+        height: 26
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_96
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 369
+        width: 30
+        height: 46
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_20
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 602
+        width: 50
+        height: 59
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_98
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 502
+        width: 20
+        height: 25
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: Zombie_Attack_21
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 602
+        width: 28
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_23
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 602
+        width: 25
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_22
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 602
+        width: 25
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_24
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 602
+        width: 25
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_25
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 602
+        width: 27
+        height: 40
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_26
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 602
+        width: 28
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_28
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 602
+        width: 30
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: Zombie_Attack_27
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 602
+        width: 29
+        height: 39
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_107
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 267
+        width: 49
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_108
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 267
+        width: 54
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_109
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 266
+        width: 51
+        height: 62
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_110
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 266
+        width: 52
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_111
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 266
+        width: 53
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_112
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 266
+        width: 53
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_113
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 266
+        width: 54
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_114
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 266
+        width: 50
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_115
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 266
+        width: 46
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_116
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 266
+        width: 46
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_117
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 266
+        width: 48
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_118
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 179
+        width: 47
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_119
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 179
+        width: 49
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_120
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 179
+        width: 54
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_121
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 179
+        width: 51
+        height: 62
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_122
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 179
+        width: 52
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_123
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 179
+        width: 53
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_124
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 179
+        width: 53
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_125
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 179
+        width: 54
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_126
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 179
+        width: 50
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_127
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 179
+        width: 46
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_128
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 179
+        width: 46
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_129
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 92
+        width: 48
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_130
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 9
+        width: 44
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_131
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 92
+        width: 47
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_133
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 9
+        width: 44
+        height: 63
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_134
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 9
+        width: 40
+        height: 57
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_135
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 92
+        width: 41
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_136
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 92
+        width: 42
+        height: 59
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_137
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 92
+        width: 44
+        height: 58
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_138
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 92
+        width: 45
+        height: 61
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_139
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 92
+        width: 47
+        height: 62
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_140
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 92
+        width: 46
+        height: 60
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_141
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 92
+        width: 48
+        height: 61
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_142
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 92
+        width: 40
+        height: 63
+      alignment: 7
+      pivot: {x: 0, y: 0}
+    - name: ZombieBrain_143
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 92
+        width: 42
+        height: 62
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_144
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 92
+        width: 43
+        height: 63
+      alignment: 7
+      pivot: {x: .5, y: 0}
+    - name: ZombieBrain_145
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 500
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_146
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 501
+        width: 26
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_147
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 503
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_148
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 502
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_149
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 502
+        width: 25
+        height: 17
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_150
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 501
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_151
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 502
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_152
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 439
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_153
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 439
+        width: 44
+        height: 43
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_154
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 439
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_155
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 439
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_156
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 439
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_157
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 440
+        width: 48
+        height: 47
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_158
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 439
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_159
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 369
+        width: 35
+        height: 47
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_160
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 369
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_161
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 369
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_162
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 369
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_163
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 369
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_164
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 369
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_165
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 369
+        width: 35
+        height: 47
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_165
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 369
+        width: 18
+        height: 29
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_165
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 9
+        width: 40
+        height: 55
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_166
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 9
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_167
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 9
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: ZombieBrain_168
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 9
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: Zombie
+  userData: 
