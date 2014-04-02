@@ -98,7 +98,7 @@ public class InventoryScript : MonoBehaviour
 
 	void OnGUI()
 	{
-		if (m_DrawLines)
+		/*if (m_DrawLines)
 		{
 			// Draw outlines for inventory grid spaces
 			int height = -1;
@@ -150,7 +150,7 @@ public class InventoryScript : MonoBehaviour
 				
 				GUI.DrawTexture(new Rect(start.x, Screen.height - start.y, width, m_LineWidth), m_LineTexture);
 			}
-		}
+		}*/
 
 		/*if (CompareTag(Tags.MAININVENTORY))
 		{
@@ -2927,7 +2927,9 @@ public class InventoryScript : MonoBehaviour
 	{
 		if (IsUpgradeable)
 		{
+			transform.FindChild("attachecase_" + m_SizeIndex.ToString()).GetComponent<SpriteRenderer>().enabled = false;
 			m_SizeIndex++;
+			transform.FindChild("attachecase_" + m_SizeIndex.ToString()).GetComponent<SpriteRenderer>().enabled = true;
 
 			m_Width = m_SizeList[m_SizeIndex].m_Width;
 			m_Height = m_SizeList[m_SizeIndex].m_Height;

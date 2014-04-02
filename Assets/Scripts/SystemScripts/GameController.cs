@@ -285,13 +285,16 @@ public class GameController : MonoBehaviour
 
 					foreach (InventoryItem item in m_ItemScoringList[m_ScoreGroupIndex])
 					{
-						for (int i = 0; i < m_OrbsToSpawn / m_ItemScoringList[m_ScoreGroupIndex].Count; i++)
+						if (item != null)
 						{
-							Vector3 pos = item.CentrePosition;
-							pos.z = -5.0f;
-							Transform trans = Instantiate(m_ParticlePrefab, pos, Quaternion.identity) as Transform;
-							ParticleAttract particle = trans.GetComponent<ParticleAttract>();
-							particle.AttractPosition = new Vector3(3.5f, 0.0f, -5.0f);
+							for (int i = 0; i < m_OrbsToSpawn / m_ItemScoringList[m_ScoreGroupIndex].Count; i++)
+							{
+								Vector3 pos = item.CentrePosition;
+								pos.z = -5.0f;
+								Transform trans = Instantiate(m_ParticlePrefab, pos, Quaternion.identity) as Transform;
+								ParticleAttract particle = trans.GetComponent<ParticleAttract>();
+								particle.AttractPosition = new Vector3(3.5f, 0.0f, -5.0f);
+							}
 						}
 					}
 				}
@@ -315,7 +318,7 @@ public class GameController : MonoBehaviour
 								m_ShowingScoring = 0;
 								Time.timeScale = 1.0f;
 								m_ScoreGroupIndex = 0;
-								m_ScoreOrbTimer = 1.6f;
+								m_ScoreOrbTimer = 1.4f;
 							}
 						}
 						else if (m_ShowingScoring == 2)
@@ -323,7 +326,7 @@ public class GameController : MonoBehaviour
 							m_ShowingScoring = 0;
 							Time.timeScale = 1.0f;
 							m_ScoreGroupIndex = 0;
-							m_ScoreOrbTimer = 1.5f;
+							m_ScoreOrbTimer = 1.4f;
 						}
 					}
 				}
@@ -353,7 +356,7 @@ public class GameController : MonoBehaviour
 		{
 			if (m_DisplayedScore <= m_Score - 10)
 			{
-				m_DisplayedScore += (m_Score - m_DisplayedScore) / 6;
+				m_DisplayedScore += (m_Score - m_DisplayedScore) / 9;
 			}
 			else
 			{
@@ -451,15 +454,17 @@ public class GameController : MonoBehaviour
 
 		if (!m_WaitForLevelEnd)
 		{
-			m_OrbsToSpawn = (currentScore / m_ItemScoringList.Count) / 20;
+
 			if (m_ItemScoringList.Count > 0)
 			{
+				m_OrbsToSpawn = (currentScore / m_ItemScoringList.Count) / 20;
 				m_ShowingScoring = 1;
 				m_GroupStartTime = Time.realtimeSinceStartup;
 				Time.timeScale = 0.0f;
 			}
 			else if (m_RotationScoringList.Count > 0)
 			{
+				m_OrbsToSpawn = (currentScore / m_RotationScoringList.Count) / 20;
 				m_ShowingScoring = 2;
 				m_GroupStartTime = Time.realtimeSinceStartup;
 				Time.timeScale = 0.0f;

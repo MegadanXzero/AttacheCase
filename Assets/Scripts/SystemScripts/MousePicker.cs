@@ -82,6 +82,14 @@ public class MousePicker : MonoBehaviour
 	{
 		if (m_Enabled)
 		{
+			if (m_IsCarrying && m_CurrentObject == null)
+			{
+				// Item has been destroyed while carrying it (Probably ammo)
+				// Make sure it doesn't think it still has it
+				m_IsCarrying = false;
+				m_ItemOffset = new Vector3(-1.0f, -1.0f, -1.0f);
+			}
+
 			// Get the mouse position on the z=0 plane for moving items later
 			float distance;
 			Plane plane = new Plane(Vector3.back, 0.0f);
