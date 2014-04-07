@@ -27,6 +27,11 @@ public enum WeaponName
 	Stiletto,
 	Striker,
 	CombatShotgun,
+	Revolver,
+	Handcannon,
+	Carbine,
+	Kalashnikov,
+	BoltActionRifle,
 };
 
 public class InventoryWeapon : MonoBehaviour
