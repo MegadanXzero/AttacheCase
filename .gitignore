@@ -2,3 +2,4 @@
 *.intellisense.cache
 *.userprefs
 *.pidb
+Temp/
