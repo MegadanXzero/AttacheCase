@@ -4,7 +4,7 @@ using System.Linq;
 
 public class CharacterScript : MonoBehaviour
 {	
-	private const float INVINCIBLE_TIME = 3.0f;
+	private const float INVINCIBLE_TIME = 0.0f;
 	private const float FLASH_TIME = 0.25f;
 
 	[SerializeField] private Transform m_GrenadePrefab;

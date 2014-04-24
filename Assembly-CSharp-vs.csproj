@@ -138,6 +138,9 @@
  <Reference Include="IFacebook">
  <HintPath>Assets\APIs\Facebook\Scripts\IFacebook.dll</HintPath>
  </Reference>
+ <Reference Include="RestSharp">
+ <HintPath>Assets\Plugins\RestSharp.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

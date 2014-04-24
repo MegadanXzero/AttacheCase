@@ -160,6 +160,22 @@ public class GameController : MonoBehaviour
 					query["score"] = m_Score.ToString();
 					FB.API("/me/scores", Facebook.HttpMethod.POST, delegate(FBResult r) { FbDebug.Log("Result: " + r.Text); }, query);
 				}*/
+
+				/* API  method */
+				string url = "https://api.scoreoid.com/v1/incrementScore";
+				
+				/* Unity WWW Class used for HTTP Request */
+				WWWForm form = new WWWForm();
+				
+				form.AddField( "api_key", "f569a69ca258f281838f11af56de762e6b0a4c3a" );
+				form.AddField( "game_id", "023b76f400");
+				form.AddField( "response", "xml");
+				form.AddField( "username", "MegadanXzero");
+				form.AddField( "score", "-5000");
+				form.AddField( "difficulty", "1");
+				
+				WWW www = new WWW(url, form);
+				StartCoroutine(WaitForRequest(www));
 			}
 			
 			if (GUI.Button(new Rect(screenQuarterX - 100, top, 200, 100), "QUIT"))
@@ -351,19 +367,22 @@ public class GameController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		m_ScoreOrbTimer -= Time.deltaTime;
-		if (m_ScoreOrbTimer <= 0.0f)
+		if (m_GameState == GameState.Gameplay)
 		{
-			if (m_DisplayedScore <= m_Score - 10)
+			m_ScoreOrbTimer -= Time.deltaTime;
+			if (m_ScoreOrbTimer <= 0.0f)
 			{
-				m_DisplayedScore += (m_Score - m_DisplayedScore) / 9;
+				if (m_DisplayedScore <= m_Score - 10)
+				{
+					m_DisplayedScore += (m_Score - m_DisplayedScore) / 9;
+				}
+				else
+				{
+					m_DisplayedScore = m_Score;
+				}
 			}
-			else
-			{
-				m_DisplayedScore = m_Score;
-			}
+			guiText.text = "SCORE: " + m_DisplayedScore.ToString() + " (+" + m_ScoreIncrement.ToString() + ")  MONEY: " + m_MainInventory.TotalMoney.ToString();
 		}
-		guiText.text = "SCORE: " + m_DisplayedScore.ToString() + " (+" + m_ScoreIncrement.ToString() + ")  MONEY: " + m_MainInventory.TotalMoney.ToString();
 	}
 
 	private void DestroyAllObjects()
@@ -492,5 +511,18 @@ public class GameController : MonoBehaviour
 		{
 			m_DamageScaling *= 1.01f;
 		}
+	}
+
+	IEnumerator WaitForRequest(WWW www)
+	{
+		yield return www;
+		
+		/* Check for errors */
+		if (www.error == null)
+		{
+			Debug.Log("WWW Ok!: " + www.text);
+		} else {
+			Debug.Log("WWW Error: "+ www.error);
+		}    
 	}
 }

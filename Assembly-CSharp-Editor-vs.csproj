@@ -115,6 +115,9 @@
  <Reference Include="IFacebook">
  <HintPath>Assets\APIs\Facebook\Scripts\IFacebook.dll</HintPath>
  </Reference>
+ <Reference Include="RestSharp">
+ <HintPath>Assets\Plugins\RestSharp.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
  </Reference>
