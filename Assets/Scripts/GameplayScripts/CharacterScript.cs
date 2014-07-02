@@ -37,9 +37,9 @@ public class CharacterScript : MonoBehaviour
 
 	private RaycastHit2D[] m_RaycastHitList = new RaycastHit2D[20];
 
-	private Animator m_BodyAnimator;
+	//private Animator m_BodyAnimator;
 	private Animator m_LegsAnimator;
-	private SpriteRenderer m_BodyRenderer;
+	//private SpriteRenderer m_BodyRenderer;
 	private SpriteRenderer m_LegsRenderer;
 	private InventoryWeapon m_EquippedWeapon = null;
 	private InventoryWeapon m_PreviousWeapon = null;
@@ -73,11 +73,13 @@ public class CharacterScript : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 		m_Health = m_MaxHealth;
 
-		m_BodyAnimator = transform.FindChild("Body").GetComponent<Animator>();
-		m_LegsAnimator = transform.FindChild("Legs").GetComponent<Animator>();
+		//m_BodyAnimator = transform.FindChild("Body").GetComponent<Animator>();
+		//m_LegsAnimator = transform.FindChild("Legs").GetComponent<Animator>();
+		m_LegsAnimator = transform.FindChild("Sprite").GetComponent<Animator>();
 
-		m_BodyRenderer = transform.FindChild("Body").GetComponent<SpriteRenderer>();
-		m_LegsRenderer = transform.FindChild("Legs").GetComponent<SpriteRenderer>();
+		//m_BodyRenderer = transform.FindChild("Body").GetComponent<SpriteRenderer>();
+		//m_LegsRenderer = transform.FindChild("Legs").GetComponent<SpriteRenderer>();
+		m_LegsRenderer = transform.FindChild("Sprite").GetComponent<SpriteRenderer>();
 	}
 
 	void OnLevelWasLoaded(int level)
@@ -123,12 +125,12 @@ public class CharacterScript : MonoBehaviour
 			if (m_InvincibleTimer <= 0.0f)
 			{
 				m_Invincible = false;
-				m_BodyRenderer.enabled = true;
+				//m_BodyRenderer.enabled = true;
 				m_LegsRenderer.enabled = true;
 			}
 			else if (m_FlashTimer <= 0.0f)
 			{
-				m_BodyRenderer.enabled = !m_BodyRenderer.enabled;
+				//m_BodyRenderer.enabled = !m_BodyRenderer.enabled;
 				m_LegsRenderer.enabled = !m_LegsRenderer.enabled;
 				m_FlashTimer = FLASH_TIME;
 			}
@@ -271,7 +273,7 @@ public class CharacterScript : MonoBehaviour
 								}
 							}
 
-							m_BodyAnimator.SetTrigger("Throw");
+							//m_BodyAnimator.SetTrigger("Throw");
 
 							// Destroy grenade in inventory
 							m_EquippedWeapon.BaseItem.FirstSpace.inventory.DestroyItem(m_EquippedWeapon.BaseItem);
@@ -312,7 +314,8 @@ public class CharacterScript : MonoBehaviour
 								// Fire the weapon and see which enemies were hit, based on weapon penetration
 								if (m_EquippedWeapon.Fire(ref m_ActionTimer))
 								{
-									m_BodyAnimator.SetTrigger("Fire");
+									//m_BodyAnimator.SetTrigger("Fire");
+									m_LegsAnimator.SetTrigger("Fire");
 
 									//foreach(RaycastHit2D hitInfo in hitArray)
 									//foreach(RaycastHit2D hitInfo in m_RaycastHitList)
@@ -336,7 +339,7 @@ public class CharacterScript : MonoBehaviour
 								{
 									if (m_ActionTimer > 0.0f)
 									{
-										m_BodyAnimator.SetTrigger("Reload");
+										//m_BodyAnimator.SetTrigger("Reload");
 										m_Reloading = true;
 									}
 								}
@@ -346,7 +349,7 @@ public class CharacterScript : MonoBehaviour
 								if (m_EquippedWeapon.NeedsReloading())
 								{
 									m_ActionTimer = m_EquippedWeapon.BeginReloading();
-									m_BodyAnimator.SetTrigger("Reload");
+									//m_BodyAnimator.SetTrigger("Reload");
 									m_Reloading = true;
 								}
 								else
@@ -379,7 +382,7 @@ public class CharacterScript : MonoBehaviour
 			{
 				if (m_Health <= 0.0f)
 				{
-					m_BodyRenderer.enabled = false;
+					//m_BodyRenderer.enabled = false;
 					m_LegsAnimator.SetTrigger("Death");
 					
 					m_Active = false;
@@ -484,7 +487,7 @@ public class CharacterScript : MonoBehaviour
 
 		if (!m_Reloading)
 		{
-			m_BodyAnimator.SetTrigger("Throw");
+			//m_BodyAnimator.SetTrigger("Throw");
 		}
 	}
 }
