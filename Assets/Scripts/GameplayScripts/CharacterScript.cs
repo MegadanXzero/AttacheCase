@@ -14,6 +14,8 @@ public class CharacterScript : MonoBehaviour
 	[SerializeField] private InventoryGrenade m_FlashGrenade;
 	[SerializeField] private InventoryGrenade m_IncendiaryGrenade;
 
+	[SerializeField] private Sprite[] m_SpriteList;
+
 	[SerializeField] private Vector2 m_HealthBarPos = new Vector2(0, 0);
 	[SerializeField] private Vector2 m_HealthBarSize = new Vector2(400, 40);
 	[SerializeField] private Texture2D m_EmptyTex;
@@ -65,6 +67,15 @@ public class CharacterScript : MonoBehaviour
 				}
 			}
 			m_EquippedWeapon = value;
+
+			if (m_EquippedWeapon != null)
+			{
+				m_LegsRenderer.sprite = m_SpriteList[(int)m_EquippedWeapon.WeaponName];
+			}
+			else
+			{
+				m_LegsRenderer.sprite = m_SpriteList[m_SpriteList.Length - 1];
+			}
 		}
 	}
 	
@@ -340,6 +351,7 @@ public class CharacterScript : MonoBehaviour
 									if (m_ActionTimer > 0.0f)
 									{
 										//m_BodyAnimator.SetTrigger("Reload");
+										m_LegsAnimator.SetTrigger("Reload");
 										m_Reloading = true;
 									}
 								}
@@ -350,6 +362,7 @@ public class CharacterScript : MonoBehaviour
 								{
 									m_ActionTimer = m_EquippedWeapon.BeginReloading();
 									//m_BodyAnimator.SetTrigger("Reload");
+									m_LegsAnimator.SetTrigger("Reload");
 									m_Reloading = true;
 								}
 								else
