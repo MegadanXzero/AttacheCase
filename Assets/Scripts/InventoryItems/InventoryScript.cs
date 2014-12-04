@@ -40,6 +40,8 @@ public class InventoryScript : MonoBehaviour
 
 	const int MINIMUM_AMOUNT_FOR_ADJACENT_BONUS = 2;
 	const int MINIMUM_AMOUNT_FOR_ROTATION_BONUS = 2;
+
+	const int MAXIMUM_RANDOM_PLACEMENT_TRIES = 25;
 	
 	// Inventory variables
 	[SerializeField] private int m_Width;
@@ -48,13 +50,14 @@ public class InventoryScript : MonoBehaviour
 	[SerializeField] private int m_LineWidth;
 	[SerializeField] private InventorySize[] m_SizeList;
 	
-	private float m_Spacing = 1.0f;
 	private InventorySpace[,] m_InventoryList;
-	private int m_TotalMoney = 5000;
-	private bool m_DrawLines = true;
-	private int m_SizeIndex = 0;
 	private bool m_AllowPartialAmmoCombining = true;
+	private bool m_DrawLines = true;
+	private float m_Spacing = 1.0f;
+	private int m_TotalMoney = 5000;
+	private int m_SizeIndex = 0;
 	private int m_ItemCount = 0;
+	private int m_NumFreeCells = 0;
 
 	private bool m_UpdateTotalSellPrice = false;
 	private int m_TotalSellPrice = 0;
@@ -168,7 +171,11 @@ public class InventoryScript : MonoBehaviour
 		if (Input.GetMouseButtonDown(2))
 		{
 			m_TotalMoney += 10000;
-		//	UpgradeSize();
+		}
+
+		if (Input.GetMouseButtonDown(3))
+		{
+			UpgradeSize();
 		}
 
 		// Draw outlines for inventory grid spaces
@@ -291,6 +298,49 @@ public class InventoryScript : MonoBehaviour
 			}
 			
 			item.Rotate(-90.0f, item.transform.position);
+			timesChecked++;
+		}
+		
+		item.Reset();
+		return false;
+	}
+
+	public bool FindRandomSpace(InventoryItem item)
+	{
+		int timesChecked = 0;
+		while (timesChecked < MAXIMUM_RANDOM_PLACEMENT_TRIES)
+		{
+			// Pick a random cell to try placing
+			int cellX = UnityEngine.Random.Range(0, m_Width);
+			int cellY = UnityEngine.Random.Range(0, m_Height);
+
+			// Pick a random rotation and rotate the item
+			int rotation = UnityEngine.Random.Range(0, 4);
+			for (int i = 0; i < rotation; i++)
+			{
+				item.Rotate(-90.0f, item.transform.position);
+			}
+
+			int width = item.RotatedWidth;
+			int height = item.RotatedHeight;
+					
+			for (int i = 0; i < 4; i++)
+			{
+				Vector3 pos = transform.position;
+				pos.x += (float)cellX * m_Spacing;
+				pos.y -= (float)cellY * m_Spacing;
+				
+				item.transform.position = pos;
+				if (TryPlaceItem(item) == PlacementResult.Success)
+				{
+					PlaceItem(item);
+					return true;
+				}
+
+				item.Rotate(-90.0f, item.transform.position);
+			}
+
+			// If space is not free then pick another random cell and rotation and try again
 			timesChecked++;
 		}
 		
@@ -549,8 +599,14 @@ public class InventoryScript : MonoBehaviour
 			item.IsCarried = false;
 			return PlacementResult.Failed;
 		}
+
+		// If there is space free, remove the item from its current inventory position if it has one
+		if (item.FirstSpace != null)
+		{
+			item.FirstSpace.inventory.RemoveItem(item);
+		}
 		
-		// If there is space free, set the currentObject for each space to the item
+		// Then set the currentObject for each space in this inventory to the item
 		item.FirstSpace = m_InventoryList[xPos,yPos];
 		for (int y = yPos; y < yPos + height; y++)
 		{
@@ -592,6 +648,8 @@ public class InventoryScript : MonoBehaviour
 				GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponent<CharacterScript>().ModifyArmour(armour.ArmourModifier);
 			}
 		}
+
+		CalculateFreeCells();
 
 		m_ItemCount++;
 		return PlacementResult.Success;
@@ -2971,14 +3029,23 @@ public class InventoryScript : MonoBehaviour
 		}
 	}
 
-	public void ClearItems()
+	public void ClearItems(bool delete = true)
 	{
 		HashSet<InventoryItem> itemList = FindAllItemsWithComponent<InventoryItem>(includeGhostObjects: true);
 		
 		foreach (InventoryItem item in itemList)
 		{
-			DestroyItem(item);
+			if (delete)
+			{
+				DestroyItem(item);
+			}
+			else
+			{
+				RemoveItem(item);
+			}
 		}
+
+		m_NumFreeCells = m_Width * m_Height;
 	}
 
 	private int GetTotalSellValue()
@@ -3049,5 +3116,26 @@ public class InventoryScript : MonoBehaviour
 		}
 
 		return totalValue;
+	}
+
+	private void CalculateFreeCells()
+	{
+		m_NumFreeCells = 0;
+		
+		for (int x = 0; x < m_Width; x++)
+		{
+			for (int y = 0; y < m_Height; y++)
+			{
+				if (m_InventoryList[x,y].currentObject == null)
+				{
+					m_NumFreeCells++;
+				}
+			}
+		}
+	}
+
+	public int NumFreeCells()
+	{
+		return m_NumFreeCells;
 	}
 }

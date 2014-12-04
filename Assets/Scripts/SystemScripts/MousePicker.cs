@@ -22,7 +22,7 @@ public class MousePicker : MonoBehaviour
 	private float m_DoubleClickStart;
 	private InventoryItem m_LastClickedItem;
 
-	private RaycastHit2D[] m_TopRaycastList = new RaycastHit2D[10];
+	//private RaycastHit2D[] m_TopRaycastList = new RaycastHit2D[10];
 	private RaycastHit2D[] m_BottomRaycastList = new RaycastHit2D[10];
 	private int m_MouseOverArea = 0;
 
@@ -124,7 +124,7 @@ public class MousePicker : MonoBehaviour
 			}
 
 			// Check if the item being hovered over is a weapon, and show the weapon range highlights if it is
-			if (m_HoverItem != null)
+			/*if (m_HoverItem != null)
 			{
 				InventoryWeapon weapon = m_HoverItem.GetComponent<InventoryWeapon>();
 				if (weapon != null && weapon.GetType() == typeof(InventoryWeapon))
@@ -170,10 +170,10 @@ public class MousePicker : MonoBehaviour
 					m_EffectiveRangeHighlight.GetComponentInChildren<MeshRenderer>().enabled = false;
 					m_OutOfRangeHighlight.GetComponentInChildren<MeshRenderer>().enabled = false;
 				}
-			}
+			}*/
 
 			// Cast a ray to find any 2D collider in the top part of the screen (Such as item drops)
-			ItemDrop itemDrop = null;
+			/*ItemDrop itemDrop = null;
 			Vector2 topMousePos = new Vector2();
 			#if UNITY_ANDROID
 			if (Input.touchCount > 0)
@@ -192,7 +192,7 @@ public class MousePicker : MonoBehaviour
 					itemDrop = m_TopRaycastList[i].collider.gameObject.GetComponent<ItemDrop>();
 					break;
 				}
-			}
+			}*/
 			
 			// Cast a ray to find the inventory on the bottom part of the screen
 			Vector2 bottomMousePos = new Vector2();
@@ -301,7 +301,7 @@ public class MousePicker : MonoBehaviour
 					m_IsCarrying = true;
 					m_CurrentObject.IsCarried = true;
 				}
-				else if (itemDrop != null)
+				/*else if (itemDrop != null)
 				{
 					// Handle creation of inventory item based on drop
 					if (itemDrop.PickupDrop())
@@ -309,7 +309,7 @@ public class MousePicker : MonoBehaviour
 						// Destroy the drop if there's space in holding area
 						Destroy(itemDrop.gameObject);
 					}
-				}
+				}*/
 			}
 			// If the player releases the LMB place the item into the inventory
 			else if (Input.GetMouseButtonUp(0))
@@ -324,7 +324,7 @@ public class MousePicker : MonoBehaviour
 						{
 							if (m_CurrentObject.FirstSpace != null)
 							{
-								m_CurrentObject.FirstSpace.inventory.RemoveItem(m_CurrentObject);
+								//m_CurrentObject.FirstSpace.inventory.RemoveItem(m_CurrentObject);
 							}
 						}
 
@@ -422,7 +422,7 @@ public class MousePicker : MonoBehaviour
 			// If the player double clicks a weapon, equip it on the character
 			if (m_HoverItem != null)
 			{
-				if (IsDoubleClick())
+				/*if (IsDoubleClick())
 				{
 					//m_HoverItem.FirstSpace.inventory.RemoveItem(m_HoverItem);
 					//m_HoldingArea.FindAvailableSpace(m_HoverItem);
@@ -459,7 +459,7 @@ public class MousePicker : MonoBehaviour
 						GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponent<CharacterScript>().AlterHealth(health.HealAmount);
 						m_HoverItem.FirstSpace.inventory.DestroyItem(m_HoverItem);
 					}
-				}
+				}*/
 			}
 		}
 	}

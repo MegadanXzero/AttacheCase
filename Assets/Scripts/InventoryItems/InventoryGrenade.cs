@@ -41,7 +41,7 @@ public class InventoryGrenade : InventoryWeapon
 
 	void Start()
 	{
-		if (m_BaseItem == null)
+		/*if (m_BaseItem == null)
 		{
 			if (m_GrenadeType == GrenadeType.Frag)
 			{
@@ -55,7 +55,7 @@ public class InventoryGrenade : InventoryWeapon
 			{
 				m_BaseItem = PrefabIDList.GetPrefabWithID(INCENDIARY_PREFAB_ID).GetComponent<InventoryItem>();
 			}
-		}
+		}*/
 	}
 	
 	public override float GetDamage(float distance)

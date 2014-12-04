@@ -27,6 +27,8 @@ public class GameController : MonoBehaviour
 	[SerializeField] private bool m_EnableDifficultyScaling;
 	[SerializeField] private bool m_ShowRotationBonus;
 
+	[SerializeField] private ItemDropManager m_ItemDropManager;
+
 	private const int DEFAULT_CHAOS_SCORE = 2000;
 	
 	private int m_Score = 0;
@@ -44,6 +46,7 @@ public class GameController : MonoBehaviour
 	private int m_ShowingScoring = 0;
 	private int m_ScoreGroupIndex = 0;
 	private int m_OrbsToSpawn = 0;
+	private float m_RoundTimer = 120.0f;
 	private float m_ScoreOrbTimer = 0.0f;
 	private float m_GroupStartTime = 0.0f;
 	private float m_ScoreGroupTimer = 0.0f;
@@ -63,7 +66,7 @@ public class GameController : MonoBehaviour
 		DontDestroyOnLoad(GameObject.FindGameObjectWithTag(Tags.DISCARDAREA).gameObject);
 		DontDestroyOnLoad(GameObject.FindObjectOfType<Light>().gameObject);
 
-		Application.LoadLevelAdditive(Tags.ACTIONSCENE);
+		//Application.LoadLevelAdditive(Tags.ACTIONSCENE);
 		guiText.text = "SCORE: 0";
 	}
 
@@ -72,11 +75,11 @@ public class GameController : MonoBehaviour
 		//if (m_Paused)
 		if (m_GameState == GameState.Paused)
 		{
-			int top = Screen.height / 4;
+			int top = Screen.height / 3;
 			int side = Screen.width / 5;
-			GUI.DrawTexture(new Rect(0, top , Screen.width, Screen.height), m_BackgroundTexture);
+			GUI.DrawTexture(new Rect(0, 0 , Screen.width, Screen.height), m_BackgroundTexture);
 
-			if (GUI.Button(new Rect(side * 2, top * 2, side, top / 2), "RESUME"))
+			if (GUI.Button(new Rect(side * 2, top, side, top / 2), "RESUME"))
 			{
 				if (m_ShowingScoring == 0)
 				{
@@ -91,7 +94,7 @@ public class GameController : MonoBehaviour
 				m_HoldingArea.DrawLines = true;
 			}
 
-			if (GUI.Button(new Rect(side * 2, top * 3, side, top / 2), "QUIT"))
+			if (GUI.Button(new Rect(side * 2, top * 2, side, top / 2), "QUIT"))
 			{
 				Quit();
 			}
@@ -160,22 +163,6 @@ public class GameController : MonoBehaviour
 					query["score"] = m_Score.ToString();
 					FB.API("/me/scores", Facebook.HttpMethod.POST, delegate(FBResult r) { FbDebug.Log("Result: " + r.Text); }, query);
 				}*/
-
-				/* API  method */
-				string url = "https://api.scoreoid.com/v1/incrementScore";
-				
-				/* Unity WWW Class used for HTTP Request */
-				WWWForm form = new WWWForm();
-				
-				form.AddField( "api_key", "f569a69ca258f281838f11af56de762e6b0a4c3a" );
-				form.AddField( "game_id", "023b76f400");
-				form.AddField( "response", "xml");
-				form.AddField( "username", "MegadanXzero");
-				form.AddField( "score", "-5000");
-				form.AddField( "difficulty", "1");
-				
-				WWW www = new WWW(url, form);
-				StartCoroutine(WaitForRequest(www));
 			}
 			
 			if (GUI.Button(new Rect(screenQuarterX - 100, top, 200, 100), "QUIT"))
@@ -185,6 +172,12 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
+			int screenCentreX = Screen.width / 2;
+			if (GUI.Button(new Rect(screenCentreX - 100, 50, 200, 100), "ADVANCE"))
+			{
+				AddScore();
+			}
+
 			if (m_LevelEndTimer > 0.0f)
 			{
 				GUI.TextArea(new Rect((float)Screen.width * 0.73f, (float)Screen.height * 0.25f, (float)Screen.width * 0.192f, Screen.height / 30), m_LevelEndTimer.ToString());
@@ -207,7 +200,7 @@ public class GameController : MonoBehaviour
 						Vector3 bottomRight = new Vector3(item.transform.position.x + (float)width, item.transform.position.y + (float)height);
 						bottomRight = Camera.main.WorldToScreenPoint(bottomRight);
 						
-						// Calculate alpha of texture based on firing/reload timer
+						// Calculate alpha of texture based on flash timer
 						float time = m_ScoreGroupTimer / m_ScoreFlashTime;
 						float alpha = 0.0f;
 						if (m_FadingIn)
@@ -299,17 +292,19 @@ public class GameController : MonoBehaviour
 					m_GroupStartTime = Time.realtimeSinceStartup;
 					m_FadingIn = false;
 
-					foreach (InventoryItem item in m_ItemScoringList[m_ScoreGroupIndex])
+					//foreach (InventoryItem item in m_ItemScoringList[m_ScoreGroupIndex])
+					foreach (InventoryItem item in m_ShowingScoring == 1 ? m_ItemScoringList[m_ScoreGroupIndex] : m_RotationScoringList[m_ScoreGroupIndex])
 					{
 						if (item != null)
 						{
-							for (int i = 0; i < m_OrbsToSpawn / m_ItemScoringList[m_ScoreGroupIndex].Count; i++)
+							//for (int i = 0; i < m_OrbsToSpawn / m_ItemScoringList[m_ScoreGroupIndex].Count; i++)
+							for (int i = 0; i < m_OrbsToSpawn / (m_ShowingScoring == 1 ? m_ItemScoringList[m_ScoreGroupIndex].Count : m_RotationScoringList[m_ScoreGroupIndex].Count); i++)
 							{
 								Vector3 pos = item.CentrePosition;
 								pos.z = -5.0f;
 								Transform trans = Instantiate(m_ParticlePrefab, pos, Quaternion.identity) as Transform;
 								ParticleAttract particle = trans.GetComponent<ParticleAttract>();
-								particle.AttractPosition = new Vector3(3.5f, 0.0f, -5.0f);
+								particle.AttractPosition = new Vector3(3.5f, 0.5f, -5.0f);
 							}
 						}
 					}
@@ -335,6 +330,10 @@ public class GameController : MonoBehaviour
 								Time.timeScale = 1.0f;
 								m_ScoreGroupIndex = 0;
 								m_ScoreOrbTimer = 1.4f;
+
+								// Clear objects in inventory and spawn new items
+								// (Score is now added when moving to next inventory)
+								SpawnItems();
 							}
 						}
 						else if (m_ShowingScoring == 2)
@@ -343,16 +342,20 @@ public class GameController : MonoBehaviour
 							Time.timeScale = 1.0f;
 							m_ScoreGroupIndex = 0;
 							m_ScoreOrbTimer = 1.4f;
+
+							// Clear objects in inventory and spawn new items
+							// (Score is now added when moving to next inventory)
+							SpawnItems();
 						}
 					}
 				}
 			}
 		}
 
-		if (Input.GetMouseButtonDown(3))
-		{
-			LevelEnd();
-		}
+		//if (Input.GetMouseButtonDown(3))
+		//{
+		//	LevelEnd();
+		//}
 
 		/*m_Timer -= Time.deltaTime;
 		
@@ -363,6 +366,12 @@ public class GameController : MonoBehaviour
 			m_Score += currentScore;
 			guiText.text = "SCORE: " + m_Score.ToString() + " (+" + currentScore.ToString() + ")  MONEY: " + m_MainInventory.TotalMoney.ToString();
 		}*/
+
+		m_RoundTimer -= Time.deltaTime;
+		if (m_RoundTimer <= 0.0f)
+		{
+			GameOver();
+		}
 	}
 
 	private void FixedUpdate()
@@ -381,7 +390,9 @@ public class GameController : MonoBehaviour
 					m_DisplayedScore = m_Score;
 				}
 			}
-			guiText.text = "SCORE: " + m_DisplayedScore.ToString() + " (+" + m_ScoreIncrement.ToString() + ")  MONEY: " + m_MainInventory.TotalMoney.ToString();
+
+			string time = string.Format("{0}:{1:00}", ((int)m_RoundTimer + 1) / 60, ((int)m_RoundTimer + 1) % 60);
+			guiText.text = "SCORE: " + m_DisplayedScore.ToString() + " (+" + m_ScoreIncrement.ToString() + ") " + time;//  MONEY: " + m_MainInventory.TotalMoney.ToString();
 		}
 	}
 
@@ -406,7 +417,7 @@ public class GameController : MonoBehaviour
 
 	public void GameOver()
 	{
-		m_Distance += (int)GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponent<CharacterScript>().transform.position.x;
+		//m_Distance += (int)GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponent<CharacterScript>().transform.position.x;
 
 		// Manually get and destroy all objects in the scene
 		// (Because everything on the bottom is set to not destroy on load)
@@ -424,7 +435,7 @@ public class GameController : MonoBehaviour
 		m_ShowEffects = false;
 		Camera.main.rect = new Rect(0, 0, 1, 1);
 
-		Instantiate(m_DeathMessage, new Vector3(11.0f, -0.5f, 0.0f), Quaternion.identity);
+		Instantiate(m_DeathMessage, new Vector3(10.5f, -0.5f, 0.0f), Quaternion.identity);
 
 		//guiText.enabled = false;
 		transform.position = new Vector3(0.5f, 0.5f, 0.0f);
@@ -439,13 +450,13 @@ public class GameController : MonoBehaviour
 			guiText.text += "\n(NEW HIGH SCORE!)";
 		}
 
-		guiText.text += "\n\nTOTAL DISTANCE:\n" + m_Distance.ToString();
+		/*guiText.text += "\n\nTOTAL DISTANCE:\n" + m_Distance.ToString();
 		int highDistance = PlayerPrefs.GetInt(Tags.PREF_DISTANCE);
 		if (m_Distance > highDistance)
 		{
 			PlayerPrefs.SetInt(Tags.PREF_DISTANCE, m_Distance);
 			guiText.text += "\n(NEW HIGH SCORE!)";
-		}
+		}*/
 
 		PlayerPrefs.Save();
 	}
@@ -488,6 +499,12 @@ public class GameController : MonoBehaviour
 				m_GroupStartTime = Time.realtimeSinceStartup;
 				Time.timeScale = 0.0f;
 			}
+			else
+			{
+				// Clear objects in inventory and spawn new items
+				// (Score is now added when moving to next inventory)
+				SpawnItems();
+			}
 		}
 	}
 
@@ -524,5 +541,12 @@ public class GameController : MonoBehaviour
 		} else {
 			Debug.Log("WWW Error: "+ www.error);
 		}    
+	}
+
+	private void SpawnItems()
+	{
+		m_MainInventory.ClearItems();
+		m_HoldingArea.ClearItems();
+		m_ItemDropManager.SpawnItems();
 	}
 }

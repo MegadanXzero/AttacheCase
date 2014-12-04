@@ -23,7 +23,10 @@ public class AmmoDropManager : MonoBehaviour
 	{
 		DontDestroyOnLoad(gameObject);
 
-		m_Inventory = GameObject.FindGameObjectWithTag(Tags.MAININVENTORY).GetComponent<InventoryScript>();
+		if (m_Inventory == null)
+		{
+			m_Inventory = GameObject.FindGameObjectWithTag(Tags.MAININVENTORY).GetComponent<InventoryScript>();
+		}
 
 		foreach(AmmoDropInfo info in m_DropList)
 		{

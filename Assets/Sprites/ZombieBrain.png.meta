@@ -1,6 +1,176 @@
 fileFormatVersion: 2
 guid: eda9450a7debe0147a6f853bafb54518
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: Zombie_Rise_0
+    21300002: Zombie_Rise_1
+    21300004: Zombie_Rise_2
+    21300006: Zombie_Rise_3
+    21300008: Zombie_Rise_4
+    21300010: Zombie_Rise_5
+    21300012: Zombie_Rise_6
+    21300014: Zombie_Rise_7
+    21300016: Zombie_Rise_8
+    21300018: Zombie_Rise_9
+    21300020: Zombie_Rise_10
+    21300022: Zombie_Idle_0
+    21300024: Zombie_Idle_1
+    21300026: Zombie_Idle_2
+    21300028: Zombie_Idle_3
+    21300030: Zombie_Idle_4
+    21300032: Zombie_Idle_5
+    21300034: Zombie_Idle_6
+    21300036: Zombie_Walk_0
+    21300038: Zombie_Walk_1
+    21300040: Zombie_Walk_2
+    21300042: Zombie_Walk_3
+    21300044: Zombie_Walk_4
+    21300046: Zombie_Walk_5
+    21300048: Zombie_Walk_6
+    21300050: Zombie_Walk_7
+    21300052: Zombie_Walk_8
+    21300054: Zombie_Walk_9
+    21300056: Zombie_Walk_10
+    21300058: Zombie_Walk_11
+    21300060: Zombie_Walk_12
+    21300062: Zombie_Walk_13
+    21300064: Zombie_Walk_14
+    21300066: Zombie_Turn_0
+    21300068: Zombie_Turn_1
+    21300070: Zombie_Turn_2
+    21300072: Zombie_Turn_3
+    21300074: Zombie_Turn_4
+    21300076: Zombie_Turn_5
+    21300078: Zombie_Turn_6
+    21300080: Zombie_Turn_7
+    21300082: Zombie_Turn_8
+    21300084: Zombie_Turn_9
+    21300086: Zombie_Turn_10
+    21300088: Zombie_Turn_11
+    21300090: Zombie_Attack_0
+    21300092: Zombie_Attack_1
+    21300094: Zombie_Attack_2
+    21300096: Zombie_Attack_3
+    21300098: Zombie_Attack_4
+    21300100: Zombie_Attack_5
+    21300102: Zombie_Attack_6
+    21300104: Zombie_Attack_7
+    21300106: Zombie_Attack_8
+    21300108: Zombie_Attack_9
+    21300110: Zombie_Attack_10
+    21300112: Zombie_Attack_11
+    21300114: Zombie_Attack_12
+    21300116: Zombie_Attack_13
+    21300118: ZombieBrain_59
+    21300120: ZombieBrain_60
+    21300122: ZombieBrain_61
+    21300124: Zombie_Attack_14
+    21300126: Zombie_Attack_29
+    21300128: ZombieBrain_64
+    21300130: Zombie_Attack_30
+    21300132: Zombie_Attack_15
+    21300134: ZombieBrain_67
+    21300136: ZombieBrain_68
+    21300138: ZombieBrain_69
+    21300140: ZombieBrain_70
+    21300142: Zombie_Attack_31
+    21300144: ZombieBrain_72
+    21300146: Zombie_Attack_16
+    21300148: ZombieBrain_74
+    21300150: ZombieBrain_75
+    21300152: Zombie_Attack_32
+    21300154: Zombie_Attack_17
+    21300156: ZombieBrain_78
+    21300158: ZombieBrain_79
+    21300160: Zombie_Attack_33
+    21300162: ZombieBrain_81
+    21300164: ZombieBrain_82
+    21300166: Zombie_Attack_34
+    21300168: ZombieBrain_84
+    21300170: ZombieBrain_85
+    21300172: Zombie_Attack_18
+    21300174: ZombieBrain_88
+    21300176: ZombieBrain_89
+    21300178: Zombie_Attack_19
+    21300180: ZombieBrain_91
+    21300182: ZombieBrain_92
+    21300184: ZombieBrain_93
+    21300186: ZombieBrain_94
+    21300188: ZombieBrain_95
+    21300190: ZombieBrain_96
+    21300192: Zombie_Attack_20
+    21300194: ZombieBrain_98
+    21300196: Zombie_Attack_21
+    21300198: Zombie_Attack_23
+    21300200: Zombie_Attack_22
+    21300202: Zombie_Attack_24
+    21300204: Zombie_Attack_25
+    21300206: Zombie_Attack_26
+    21300208: Zombie_Attack_28
+    21300210: Zombie_Attack_27
+    21300212: ZombieBrain_107
+    21300214: ZombieBrain_108
+    21300216: ZombieBrain_109
+    21300218: ZombieBrain_110
+    21300220: ZombieBrain_111
+    21300222: ZombieBrain_112
+    21300224: ZombieBrain_113
+    21300226: ZombieBrain_114
+    21300228: ZombieBrain_115
+    21300230: ZombieBrain_116
+    21300232: ZombieBrain_117
+    21300234: ZombieBrain_118
+    21300236: ZombieBrain_119
+    21300238: ZombieBrain_120
+    21300240: ZombieBrain_121
+    21300242: ZombieBrain_122
+    21300244: ZombieBrain_123
+    21300246: ZombieBrain_124
+    21300248: ZombieBrain_125
+    21300250: ZombieBrain_126
+    21300252: ZombieBrain_127
+    21300254: ZombieBrain_128
+    21300256: ZombieBrain_129
+    21300258: ZombieBrain_130
+    21300260: ZombieBrain_131
+    21300262: ZombieBrain_133
+    21300264: ZombieBrain_134
+    21300266: ZombieBrain_135
+    21300268: ZombieBrain_136
+    21300270: ZombieBrain_137
+    21300272: ZombieBrain_138
+    21300274: ZombieBrain_139
+    21300276: ZombieBrain_140
+    21300278: ZombieBrain_141
+    21300280: ZombieBrain_142
+    21300282: ZombieBrain_143
+    21300284: ZombieBrain_144
+    21300286: ZombieBrain_145
+    21300288: ZombieBrain_146
+    21300290: ZombieBrain_147
+    21300292: ZombieBrain_148
+    21300294: ZombieBrain_149
+    21300296: ZombieBrain_150
+    21300298: ZombieBrain_151
+    21300300: ZombieBrain_152
+    21300302: ZombieBrain_153
+    21300304: ZombieBrain_154
+    21300306: ZombieBrain_155
+    21300308: ZombieBrain_156
+    21300310: ZombieBrain_157
+    21300312: ZombieBrain_158
+    21300314: ZombieBrain_159
+    21300316: ZombieBrain_160
+    21300318: ZombieBrain_161
+    21300320: ZombieBrain_162
+    21300322: ZombieBrain_163
+    21300324: ZombieBrain_164
+    21300326: ZombieBrain_165
+    21300328: ZombieBrain_165
+    21300330: ZombieBrain_165
+    21300332: ZombieBrain_166
+    21300334: ZombieBrain_167
+    21300336: ZombieBrain_168
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,6 +205,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 10
   alphaIsTransparency: 1
   textureType: 8
@@ -50,6 +221,7 @@ TextureImporter:
         height: 17
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_1
       rect:
         serializedVersion: 2
@@ -59,6 +231,7 @@ TextureImporter:
         height: 17
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_2
       rect:
         serializedVersion: 2
@@ -68,6 +241,7 @@ TextureImporter:
         height: 17
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_3
       rect:
         serializedVersion: 2
@@ -77,6 +251,7 @@ TextureImporter:
         height: 17
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_4
       rect:
         serializedVersion: 2
@@ -86,6 +261,7 @@ TextureImporter:
         height: 19
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_5
       rect:
         serializedVersion: 2
@@ -95,6 +271,7 @@ TextureImporter:
         height: 22
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_6
       rect:
         serializedVersion: 2
@@ -104,6 +281,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_7
       rect:
         serializedVersion: 2
@@ -113,6 +291,7 @@ TextureImporter:
         height: 32
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_8
       rect:
         serializedVersion: 2
@@ -122,6 +301,7 @@ TextureImporter:
         height: 33
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_9
       rect:
         serializedVersion: 2
@@ -131,6 +311,7 @@ TextureImporter:
         height: 36
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Rise_10
       rect:
         serializedVersion: 2
@@ -140,6 +321,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Idle_0
       rect:
         serializedVersion: 2
@@ -149,6 +331,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Idle_1
       rect:
         serializedVersion: 2
@@ -158,6 +341,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Idle_2
       rect:
         serializedVersion: 2
@@ -167,6 +351,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Idle_3
       rect:
         serializedVersion: 2
@@ -176,6 +361,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Idle_4
       rect:
         serializedVersion: 2
@@ -185,6 +371,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Idle_5
       rect:
         serializedVersion: 2
@@ -194,6 +381,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Idle_6
       rect:
         serializedVersion: 2
@@ -203,6 +391,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_0
       rect:
         serializedVersion: 2
@@ -212,6 +401,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_1
       rect:
         serializedVersion: 2
@@ -221,6 +411,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_2
       rect:
         serializedVersion: 2
@@ -230,6 +421,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_3
       rect:
         serializedVersion: 2
@@ -239,6 +431,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_4
       rect:
         serializedVersion: 2
@@ -248,6 +441,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_5
       rect:
         serializedVersion: 2
@@ -257,6 +451,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_6
       rect:
         serializedVersion: 2
@@ -266,6 +461,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_7
       rect:
         serializedVersion: 2
@@ -275,6 +471,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_8
       rect:
         serializedVersion: 2
@@ -284,6 +481,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_9
       rect:
         serializedVersion: 2
@@ -293,6 +491,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_10
       rect:
         serializedVersion: 2
@@ -302,6 +501,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_11
       rect:
         serializedVersion: 2
@@ -311,6 +511,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_12
       rect:
         serializedVersion: 2
@@ -320,6 +521,7 @@ TextureImporter:
         height: 38
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_13
       rect:
         serializedVersion: 2
@@ -329,6 +531,7 @@ TextureImporter:
         height: 37
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Walk_14
       rect:
         serializedVersion: 2
@@ -338,6 +541,7 @@ TextureImporter:
         height: 38
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_0
       rect:
         serializedVersion: 2
@@ -347,6 +551,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_1
       rect:
         serializedVersion: 2
@@ -356,6 +561,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_2
       rect:
         serializedVersion: 2
@@ -365,6 +571,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_3
       rect:
         serializedVersion: 2
@@ -374,6 +581,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_4
       rect:
         serializedVersion: 2
@@ -383,6 +591,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_5
       rect:
         serializedVersion: 2
@@ -392,6 +601,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_6
       rect:
         serializedVersion: 2
@@ -401,6 +611,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_7
       rect:
         serializedVersion: 2
@@ -410,6 +621,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_8
       rect:
         serializedVersion: 2
@@ -419,6 +631,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_9
       rect:
         serializedVersion: 2
@@ -428,6 +641,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_10
       rect:
         serializedVersion: 2
@@ -437,6 +651,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Turn_11
       rect:
         serializedVersion: 2
@@ -446,6 +661,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_0
       rect:
         serializedVersion: 2
@@ -455,6 +671,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_1
       rect:
         serializedVersion: 2
@@ -464,6 +681,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_2
       rect:
         serializedVersion: 2
@@ -473,6 +691,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_3
       rect:
         serializedVersion: 2
@@ -482,6 +701,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_4
       rect:
         serializedVersion: 2
@@ -491,6 +711,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_5
       rect:
         serializedVersion: 2
@@ -500,6 +721,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_6
       rect:
         serializedVersion: 2
@@ -509,6 +731,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_7
       rect:
         serializedVersion: 2
@@ -518,6 +741,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_8
       rect:
         serializedVersion: 2
@@ -527,6 +751,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_9
       rect:
         serializedVersion: 2
@@ -536,6 +761,7 @@ TextureImporter:
         height: 43
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_10
       rect:
         serializedVersion: 2
@@ -545,6 +771,7 @@ TextureImporter:
         height: 51
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_11
       rect:
         serializedVersion: 2
@@ -554,6 +781,7 @@ TextureImporter:
         height: 54
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_12
       rect:
         serializedVersion: 2
@@ -563,6 +791,7 @@ TextureImporter:
         height: 56
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_13
       rect:
         serializedVersion: 2
@@ -572,6 +801,7 @@ TextureImporter:
         height: 57
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_59
       rect:
         serializedVersion: 2
@@ -581,6 +811,7 @@ TextureImporter:
         height: 22
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_60
       rect:
         serializedVersion: 2
@@ -590,6 +821,7 @@ TextureImporter:
         height: 18
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_61
       rect:
         serializedVersion: 2
@@ -599,6 +831,7 @@ TextureImporter:
         height: 26
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_14
       rect:
         serializedVersion: 2
@@ -608,6 +841,7 @@ TextureImporter:
         height: 59
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_29
       rect:
         serializedVersion: 2
@@ -617,6 +851,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_64
       rect:
         serializedVersion: 2
@@ -626,6 +861,7 @@ TextureImporter:
         height: 22
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_30
       rect:
         serializedVersion: 2
@@ -635,6 +871,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_15
       rect:
         serializedVersion: 2
@@ -644,6 +881,7 @@ TextureImporter:
         height: 61
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_67
       rect:
         serializedVersion: 2
@@ -653,6 +891,7 @@ TextureImporter:
         height: 23
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_68
       rect:
         serializedVersion: 2
@@ -662,6 +901,7 @@ TextureImporter:
         height: 22
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_69
       rect:
         serializedVersion: 2
@@ -671,6 +911,7 @@ TextureImporter:
         height: 13
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_70
       rect:
         serializedVersion: 2
@@ -680,6 +921,7 @@ TextureImporter:
         height: 22
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_31
       rect:
         serializedVersion: 2
@@ -689,6 +931,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_72
       rect:
         serializedVersion: 2
@@ -698,6 +941,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_16
       rect:
         serializedVersion: 2
@@ -707,6 +951,7 @@ TextureImporter:
         height: 62
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_74
       rect:
         serializedVersion: 2
@@ -716,6 +961,7 @@ TextureImporter:
         height: 25
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_75
       rect:
         serializedVersion: 2
@@ -725,6 +971,7 @@ TextureImporter:
         height: 29
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_32
       rect:
         serializedVersion: 2
@@ -734,6 +981,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_17
       rect:
         serializedVersion: 2
@@ -743,6 +991,7 @@ TextureImporter:
         height: 62
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_78
       rect:
         serializedVersion: 2
@@ -752,6 +1001,7 @@ TextureImporter:
         height: 33
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_79
       rect:
         serializedVersion: 2
@@ -761,6 +1011,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_33
       rect:
         serializedVersion: 2
@@ -770,6 +1021,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_81
       rect:
         serializedVersion: 2
@@ -779,6 +1031,7 @@ TextureImporter:
         height: 36
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_82
       rect:
         serializedVersion: 2
@@ -788,6 +1041,7 @@ TextureImporter:
         height: 31
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_34
       rect:
         serializedVersion: 2
@@ -797,6 +1051,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_84
       rect:
         serializedVersion: 2
@@ -806,6 +1061,7 @@ TextureImporter:
         height: 20
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_85
       rect:
         serializedVersion: 2
@@ -815,6 +1071,7 @@ TextureImporter:
         height: 38
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_18
       rect:
         serializedVersion: 2
@@ -824,6 +1081,7 @@ TextureImporter:
         height: 61
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_88
       rect:
         serializedVersion: 2
@@ -833,6 +1091,7 @@ TextureImporter:
         height: 43
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_89
       rect:
         serializedVersion: 2
@@ -842,6 +1101,7 @@ TextureImporter:
         height: 34
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_19
       rect:
         serializedVersion: 2
@@ -851,6 +1111,7 @@ TextureImporter:
         height: 60
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_91
       rect:
         serializedVersion: 2
@@ -860,6 +1121,7 @@ TextureImporter:
         height: 24
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_92
       rect:
         serializedVersion: 2
@@ -869,6 +1131,7 @@ TextureImporter:
         height: 44
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_93
       rect:
         serializedVersion: 2
@@ -878,6 +1141,7 @@ TextureImporter:
         height: 37
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_94
       rect:
         serializedVersion: 2
@@ -887,6 +1151,7 @@ TextureImporter:
         height: 25
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_95
       rect:
         serializedVersion: 2
@@ -896,6 +1161,7 @@ TextureImporter:
         height: 26
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_96
       rect:
         serializedVersion: 2
@@ -905,6 +1171,7 @@ TextureImporter:
         height: 46
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_20
       rect:
         serializedVersion: 2
@@ -914,6 +1181,7 @@ TextureImporter:
         height: 59
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_98
       rect:
         serializedVersion: 2
@@ -923,6 +1191,7 @@ TextureImporter:
         height: 25
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_21
       rect:
         serializedVersion: 2
@@ -932,6 +1201,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_23
       rect:
         serializedVersion: 2
@@ -941,6 +1211,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_22
       rect:
         serializedVersion: 2
@@ -950,6 +1221,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_24
       rect:
         serializedVersion: 2
@@ -959,6 +1231,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_25
       rect:
         serializedVersion: 2
@@ -968,6 +1241,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_26
       rect:
         serializedVersion: 2
@@ -977,6 +1251,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_28
       rect:
         serializedVersion: 2
@@ -986,6 +1261,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: Zombie_Attack_27
       rect:
         serializedVersion: 2
@@ -995,6 +1271,7 @@ TextureImporter:
         height: 39
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_107
       rect:
         serializedVersion: 2
@@ -1004,6 +1281,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_108
       rect:
         serializedVersion: 2
@@ -1013,6 +1291,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_109
       rect:
         serializedVersion: 2
@@ -1022,6 +1301,7 @@ TextureImporter:
         height: 62
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_110
       rect:
         serializedVersion: 2
@@ -1031,6 +1311,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_111
       rect:
         serializedVersion: 2
@@ -1040,6 +1321,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_112
       rect:
         serializedVersion: 2
@@ -1049,6 +1331,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_113
       rect:
         serializedVersion: 2
@@ -1058,6 +1341,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_114
       rect:
         serializedVersion: 2
@@ -1067,6 +1351,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_115
       rect:
         serializedVersion: 2
@@ -1076,6 +1361,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_116
       rect:
         serializedVersion: 2
@@ -1085,6 +1371,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_117
       rect:
         serializedVersion: 2
@@ -1094,6 +1381,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_118
       rect:
         serializedVersion: 2
@@ -1103,6 +1391,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_119
       rect:
         serializedVersion: 2
@@ -1112,6 +1401,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_120
       rect:
         serializedVersion: 2
@@ -1121,6 +1411,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_121
       rect:
         serializedVersion: 2
@@ -1130,6 +1421,7 @@ TextureImporter:
         height: 62
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_122
       rect:
         serializedVersion: 2
@@ -1139,6 +1431,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_123
       rect:
         serializedVersion: 2
@@ -1148,6 +1441,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_124
       rect:
         serializedVersion: 2
@@ -1157,6 +1451,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_125
       rect:
         serializedVersion: 2
@@ -1166,6 +1461,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_126
       rect:
         serializedVersion: 2
@@ -1175,6 +1471,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_127
       rect:
         serializedVersion: 2
@@ -1184,6 +1481,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_128
       rect:
         serializedVersion: 2
@@ -1193,6 +1491,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_129
       rect:
         serializedVersion: 2
@@ -1202,6 +1501,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_130
       rect:
         serializedVersion: 2
@@ -1211,6 +1511,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_131
       rect:
         serializedVersion: 2
@@ -1220,6 +1521,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_133
       rect:
         serializedVersion: 2
@@ -1229,6 +1531,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_134
       rect:
         serializedVersion: 2
@@ -1238,6 +1541,7 @@ TextureImporter:
         height: 57
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_135
       rect:
         serializedVersion: 2
@@ -1247,6 +1551,7 @@ TextureImporter:
         height: 64
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_136
       rect:
         serializedVersion: 2
@@ -1256,6 +1561,7 @@ TextureImporter:
         height: 59
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_137
       rect:
         serializedVersion: 2
@@ -1265,6 +1571,7 @@ TextureImporter:
         height: 58
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_138
       rect:
         serializedVersion: 2
@@ -1274,6 +1581,7 @@ TextureImporter:
         height: 61
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_139
       rect:
         serializedVersion: 2
@@ -1283,6 +1591,7 @@ TextureImporter:
         height: 62
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_140
       rect:
         serializedVersion: 2
@@ -1292,6 +1601,7 @@ TextureImporter:
         height: 60
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_141
       rect:
         serializedVersion: 2
@@ -1301,6 +1611,7 @@ TextureImporter:
         height: 61
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_142
       rect:
         serializedVersion: 2
@@ -1310,6 +1621,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_143
       rect:
         serializedVersion: 2
@@ -1319,6 +1631,7 @@ TextureImporter:
         height: 62
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_144
       rect:
         serializedVersion: 2
@@ -1328,6 +1641,7 @@ TextureImporter:
         height: 63
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_145
       rect:
         serializedVersion: 2
@@ -1337,6 +1651,7 @@ TextureImporter:
         height: 14
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_146
       rect:
         serializedVersion: 2
@@ -1346,6 +1661,7 @@ TextureImporter:
         height: 14
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_147
       rect:
         serializedVersion: 2
@@ -1355,6 +1671,7 @@ TextureImporter:
         height: 14
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_148
       rect:
         serializedVersion: 2
@@ -1364,6 +1681,7 @@ TextureImporter:
         height: 15
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_149
       rect:
         serializedVersion: 2
@@ -1373,6 +1691,7 @@ TextureImporter:
         height: 17
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_150
       rect:
         serializedVersion: 2
@@ -1382,6 +1701,7 @@ TextureImporter:
         height: 20
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_151
       rect:
         serializedVersion: 2
@@ -1391,6 +1711,7 @@ TextureImporter:
         height: 22
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_152
       rect:
         serializedVersion: 2
@@ -1400,6 +1721,7 @@ TextureImporter:
         height: 40
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_153
       rect:
         serializedVersion: 2
@@ -1409,6 +1731,7 @@ TextureImporter:
         height: 43
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_154
       rect:
         serializedVersion: 2
@@ -1418,6 +1741,7 @@ TextureImporter:
         height: 46
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_155
       rect:
         serializedVersion: 2
@@ -1427,6 +1751,7 @@ TextureImporter:
         height: 49
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_156
       rect:
         serializedVersion: 2
@@ -1436,6 +1761,7 @@ TextureImporter:
         height: 48
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_157
       rect:
         serializedVersion: 2
@@ -1445,6 +1771,7 @@ TextureImporter:
         height: 47
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_158
       rect:
         serializedVersion: 2
@@ -1454,6 +1781,7 @@ TextureImporter:
         height: 48
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_159
       rect:
         serializedVersion: 2
@@ -1463,6 +1791,7 @@ TextureImporter:
         height: 47
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_160
       rect:
         serializedVersion: 2
@@ -1472,6 +1801,7 @@ TextureImporter:
         height: 48
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_161
       rect:
         serializedVersion: 2
@@ -1481,6 +1811,7 @@ TextureImporter:
         height: 48
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_162
       rect:
         serializedVersion: 2
@@ -1490,6 +1821,7 @@ TextureImporter:
         height: 48
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_163
       rect:
         serializedVersion: 2
@@ -1499,6 +1831,7 @@ TextureImporter:
         height: 47
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_164
       rect:
         serializedVersion: 2
@@ -1508,6 +1841,7 @@ TextureImporter:
         height: 48
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_165
       rect:
         serializedVersion: 2
@@ -1517,6 +1851,7 @@ TextureImporter:
         height: 47
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_165
       rect:
         serializedVersion: 2
@@ -1526,6 +1861,7 @@ TextureImporter:
         height: 29
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_165
       rect:
         serializedVersion: 2
@@ -1535,6 +1871,7 @@ TextureImporter:
         height: 55
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_166
       rect:
         serializedVersion: 2
@@ -1544,6 +1881,7 @@ TextureImporter:
         height: 56
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_167
       rect:
         serializedVersion: 2
@@ -1553,6 +1891,7 @@ TextureImporter:
         height: 27
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: ZombieBrain_168
       rect:
         serializedVersion: 2
@@ -1562,5 +1901,6 @@ TextureImporter:
         height: 22
       alignment: 0
       pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: Zombie
   userData: 

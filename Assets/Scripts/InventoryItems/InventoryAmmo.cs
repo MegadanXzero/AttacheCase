@@ -18,7 +18,7 @@ public class InventoryAmmo : MonoBehaviour
 	
 	void Awake()
 	{
-		if (m_Amount == 0)
+		/*if (m_Amount == 0)
 		{
 			if (m_Amounts.Count > 0)
 			{
@@ -37,8 +37,9 @@ public class InventoryAmmo : MonoBehaviour
 					m_Amount = m_Amounts[0];
 				}
 			}
-		}
+		}*/
 
+		m_Amount = m_MaxCapacity;
 		m_BaseItem = GetComponent<InventoryItem>();
 		transform.FindChild("ItemText").guiText.text = m_Amount.ToString();
 	}

@@ -1,6 +1,71 @@
 fileFormatVersion: 2
 guid: 54e645b85cbb00f439e995be167cc516
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: mummydog_0
+    21300002: mummydog_8
+    21300004: mummydog_1
+    21300006: mummydog_9
+    21300008: mummydog_2
+    21300010: mummydog_10
+    21300012: mummydog_11
+    21300014: mummydog_3
+    21300016: mummydog_12
+    21300018: mummydog_4
+    21300020: mummydog_13
+    21300022: mummydog_5
+    21300024: mummydog_14
+    21300026: mummydog_15
+    21300028: mummydog_6
+    21300030: mummydog_16
+    21300032: mummydog_17
+    21300034: mummydog_7
+    21300036: mummydog_53
+    21300038: mummydog_54
+    21300040: mummydog_55
+    21300042: mummydog_56
+    21300044: mummydog_57
+    21300046: mummydog_58
+    21300048: mummydog_59
+    21300050: mummydog_60
+    21300052: mummydog_61
+    21300054: mummydog_62
+    21300056: mummydog_63
+    21300058: mummydog_64
+    21300060: mummydog_65
+    21300062: mummydog_66
+    21300064: mummydog_67
+    21300066: mummydog_68
+    21300068: mummydog_69
+    21300070: mummydog_70
+    21300072: mummydog_71
+    21300074: mummydog_72
+    21300076: mummydog_73
+    21300078: mummydog_74
+    21300080: mummydog_75
+    21300082: mummydog_76
+    21300084: mummydog_77
+    21300086: mummydog_78
+    21300088: mummydog_79
+    21300090: mummydog_80
+    21300092: mummydog_81
+    21300094: mummydog_82
+    21300096: mummydog_83
+    21300098: mummydog_84
+    21300100: mummydog_85
+    21300102: mummydog_86
+    21300104: mummydog_87
+    21300106: mummydog_88
+    21300108: mummydog_89
+    21300110: mummydog_90
+    21300112: mummydog_91
+    21300114: mummydog_92
+    21300116: mummydog_93
+    21300118: mummydog_94
+    21300120: mummydog_95
+    21300122: mummydog_96
+    21300124: mummydog_18
+    21300126: mummydog_19
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,6 +100,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 10
   alphaIsTransparency: 1
   textureType: 8
@@ -50,6 +116,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_8
       rect:
         serializedVersion: 2
@@ -59,6 +126,7 @@ TextureImporter:
         height: 36
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_1
       rect:
         serializedVersion: 2
@@ -68,6 +136,7 @@ TextureImporter:
         height: 29
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_9
       rect:
         serializedVersion: 2
@@ -77,6 +146,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_2
       rect:
         serializedVersion: 2
@@ -86,6 +156,7 @@ TextureImporter:
         height: 30
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_10
       rect:
         serializedVersion: 2
@@ -95,6 +166,7 @@ TextureImporter:
         height: 31
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_11
       rect:
         serializedVersion: 2
@@ -104,6 +176,7 @@ TextureImporter:
         height: 30
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_3
       rect:
         serializedVersion: 2
@@ -113,6 +186,7 @@ TextureImporter:
         height: 32
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_12
       rect:
         serializedVersion: 2
@@ -122,6 +196,7 @@ TextureImporter:
         height: 30
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_4
       rect:
         serializedVersion: 2
@@ -131,6 +206,7 @@ TextureImporter:
         height: 30
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_13
       rect:
         serializedVersion: 2
@@ -140,6 +216,7 @@ TextureImporter:
         height: 24
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_5
       rect:
         serializedVersion: 2
@@ -149,6 +226,7 @@ TextureImporter:
         height: 32
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_14
       rect:
         serializedVersion: 2
@@ -158,6 +236,7 @@ TextureImporter:
         height: 23
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_15
       rect:
         serializedVersion: 2
@@ -167,6 +246,7 @@ TextureImporter:
         height: 25
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_6
       rect:
         serializedVersion: 2
@@ -176,6 +256,7 @@ TextureImporter:
         height: 34
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_16
       rect:
         serializedVersion: 2
@@ -185,6 +266,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_17
       rect:
         serializedVersion: 2
@@ -194,6 +276,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_7
       rect:
         serializedVersion: 2
@@ -203,6 +286,7 @@ TextureImporter:
         height: 35
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_53
       rect:
         serializedVersion: 2
@@ -212,6 +296,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_54
       rect:
         serializedVersion: 2
@@ -221,6 +306,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_55
       rect:
         serializedVersion: 2
@@ -230,6 +316,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_56
       rect:
         serializedVersion: 2
@@ -239,6 +326,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_57
       rect:
         serializedVersion: 2
@@ -248,6 +336,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_58
       rect:
         serializedVersion: 2
@@ -257,6 +346,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_59
       rect:
         serializedVersion: 2
@@ -266,6 +356,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_60
       rect:
         serializedVersion: 2
@@ -275,6 +366,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_61
       rect:
         serializedVersion: 2
@@ -284,6 +376,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_62
       rect:
         serializedVersion: 2
@@ -293,6 +386,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_63
       rect:
         serializedVersion: 2
@@ -302,6 +396,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_64
       rect:
         serializedVersion: 2
@@ -311,6 +406,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_65
       rect:
         serializedVersion: 2
@@ -320,6 +416,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_66
       rect:
         serializedVersion: 2
@@ -329,6 +426,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_67
       rect:
         serializedVersion: 2
@@ -338,6 +436,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_68
       rect:
         serializedVersion: 2
@@ -347,6 +446,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_69
       rect:
         serializedVersion: 2
@@ -356,6 +456,7 @@ TextureImporter:
         height: 32
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_70
       rect:
         serializedVersion: 2
@@ -365,6 +466,7 @@ TextureImporter:
         height: 35
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_71
       rect:
         serializedVersion: 2
@@ -374,6 +476,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_72
       rect:
         serializedVersion: 2
@@ -383,6 +486,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_73
       rect:
         serializedVersion: 2
@@ -392,6 +496,7 @@ TextureImporter:
         height: 41
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_74
       rect:
         serializedVersion: 2
@@ -401,6 +506,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_75
       rect:
         serializedVersion: 2
@@ -410,6 +516,7 @@ TextureImporter:
         height: 41
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_76
       rect:
         serializedVersion: 2
@@ -419,6 +526,7 @@ TextureImporter:
         height: 40
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_77
       rect:
         serializedVersion: 2
@@ -428,6 +536,7 @@ TextureImporter:
         height: 36
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_78
       rect:
         serializedVersion: 2
@@ -437,6 +546,7 @@ TextureImporter:
         height: 34
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_79
       rect:
         serializedVersion: 2
@@ -446,6 +556,7 @@ TextureImporter:
         height: 29
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_80
       rect:
         serializedVersion: 2
@@ -455,6 +566,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_81
       rect:
         serializedVersion: 2
@@ -464,6 +576,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_82
       rect:
         serializedVersion: 2
@@ -473,6 +586,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_83
       rect:
         serializedVersion: 2
@@ -482,6 +596,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_84
       rect:
         serializedVersion: 2
@@ -491,6 +606,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_85
       rect:
         serializedVersion: 2
@@ -500,6 +616,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_86
       rect:
         serializedVersion: 2
@@ -509,6 +626,7 @@ TextureImporter:
         height: 30
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_87
       rect:
         serializedVersion: 2
@@ -518,6 +636,7 @@ TextureImporter:
         height: 30
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_88
       rect:
         serializedVersion: 2
@@ -527,6 +646,7 @@ TextureImporter:
         height: 28
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_89
       rect:
         serializedVersion: 2
@@ -536,6 +656,7 @@ TextureImporter:
         height: 27
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_90
       rect:
         serializedVersion: 2
@@ -545,6 +666,7 @@ TextureImporter:
         height: 26
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_91
       rect:
         serializedVersion: 2
@@ -554,6 +676,7 @@ TextureImporter:
         height: 26
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_92
       rect:
         serializedVersion: 2
@@ -563,6 +686,7 @@ TextureImporter:
         height: 29
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_93
       rect:
         serializedVersion: 2
@@ -572,6 +696,7 @@ TextureImporter:
         height: 24
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_94
       rect:
         serializedVersion: 2
@@ -581,6 +706,7 @@ TextureImporter:
         height: 23
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_95
       rect:
         serializedVersion: 2
@@ -590,6 +716,7 @@ TextureImporter:
         height: 21
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_96
       rect:
         serializedVersion: 2
@@ -599,6 +726,7 @@ TextureImporter:
         height: 19
       alignment: 7
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_18
       rect:
         serializedVersion: 2
@@ -608,6 +736,7 @@ TextureImporter:
         height: 25
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
     - name: mummydog_19
       rect:
         serializedVersion: 2
@@ -617,5 +746,6 @@ TextureImporter:
         height: 25
       alignment: 7
       pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
