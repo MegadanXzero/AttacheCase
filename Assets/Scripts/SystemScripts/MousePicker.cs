@@ -6,25 +6,34 @@ public class MousePicker : MonoBehaviour
 {
 	[SerializeField] private InventoryScript m_MainInventory;
 	[SerializeField] private InventoryScript m_HoldingArea;
+	[SerializeField] private GameController m_GameController;
 	[SerializeField] private Transform m_IdealRangeHighlight;
 	[SerializeField] private Transform m_EffectiveRangeHighlight;
 	[SerializeField] private Transform m_OutOfRangeHighlight;
-	[SerializeField] private Texture2D m_DiscardIcon;
 	[SerializeField] private Transform m_DiscardPrefab;
+	[SerializeField] private Texture2D m_DiscardIcon;
 
-	private bool m_Enabled = true;
-	private bool m_IsCarrying = false;
-	private InventoryItem m_CurrentObject = null;
+	[SerializeField] private Material m_MaterialSuccess;
+	[SerializeField] private Material m_MaterialSwap;
+	[SerializeField] private Material m_MaterialFailure;
+
 	private Vector3 m_ItemOffset = new Vector3(-1.0f, -1.0f, -1.0f);
+	private Vector3 m_PickupPosition = new Vector3();
+	private bool m_Enabled = true;
+	private bool m_EnabledThisFrame = false;
+	private bool m_IsCarrying = false;
 	private InventoryWeapon m_HoverWeapon = null;
+	private InventoryItem m_CurrentObject = null;
 	private InventoryItem m_HoverItem = null;
+	private InventoryItem m_LastClickedItem;
 	
 	private float m_DoubleClickStart;
-	private InventoryItem m_LastClickedItem;
+	private float m_LastClickTime = 0.0f;
 
 	//private RaycastHit2D[] m_TopRaycastList = new RaycastHit2D[10];
 	private RaycastHit2D[] m_BottomRaycastList = new RaycastHit2D[10];
 	private int m_MouseOverArea = 0;
+	private int m_ItemRotations = 0;
 
 	public bool IsCarrying { get {return m_IsCarrying;}}
 
@@ -41,7 +50,11 @@ public class MousePicker : MonoBehaviour
 			{
 				m_HoverItem = null;
 				m_HoverWeapon = null;
-				m_ItemOffset = new Vector3(-1.0f, -1.0f, -1.0f);
+				//m_ItemOffset = new Vector3(-1.0f, -1.0f, -1.0f);
+			}
+			else
+			{
+				m_EnabledThisFrame = true;
 			}
 		}
 	}
@@ -236,28 +249,35 @@ public class MousePicker : MonoBehaviour
 					{
 						m_CurrentObject.Rotate(-90.0f, pos);
 						m_ItemOffset = pos - m_CurrentObject.transform.position;
+						m_ItemRotations++;
 					}
 					
 					//bool enableHighlight = false;
 					if (m_MouseOverArea == 1)
 					{
-						tryResult = m_MainInventory.TryPlaceItem(m_CurrentObject);
+						tryResult = m_MainInventory.TryPlaceItem(m_CurrentObject, true);
 					}
 					else if (m_MouseOverArea == 2)
 					{
-						tryResult = m_HoldingArea.TryPlaceItem(m_CurrentObject);
+						tryResult = m_HoldingArea.TryPlaceItem(m_CurrentObject, true);
 					}
 
-					if (tryResult != PlacementResult.Failed)
+					if (tryResult == PlacementResult.Failed)
 					{
-						m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = true;
+						//m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = false;
+						m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().material = m_MaterialFailure;
+					}
+					else if (tryResult == PlacementResult.ItemSwapped)
+					{
+						m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().material = m_MaterialSwap;
 					}
 					else
 					{
-						m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = false;
+						//m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = true;
+						m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().material = m_MaterialSuccess;
 					}
 
-					if (tryResult == PlacementResult.Success || tryResult == PlacementResult.AmmoDestroyed)
+					if (tryResult == PlacementResult.Success || tryResult == PlacementResult.AmmoDestroyed || tryResult == PlacementResult.Success)
 					{
 						currentSpaceFree = true;
 					}
@@ -275,13 +295,21 @@ public class MousePicker : MonoBehaviour
 			}
 			
 			// If the player presses the LMB pick up the relevant item
-			if (Input.GetMouseButtonDown(0) && m_CurrentObject == null)
+			if (Input.GetMouseButtonDown(0) && m_CurrentObject == null && !m_EnabledThisFrame)
 			{
 				if (m_HoverItem != null)
 				{
+					// Disable mouse-over highlight and enable the moving highlight
 					m_CurrentObject = m_HoverItem;
 					m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = true;
 					m_CurrentObject.transform.FindChild("MouseOverHighlight").GetComponent<MeshRenderer>().enabled = false;
+
+					// Get the imprint sprite of the object and disable it (if it exists)
+					//Transform imprint = m_CurrentObject.transform.FindChild("Imprint");
+					//if (imprint != null)
+					//{
+					//	imprint.GetComponent<SpriteRenderer>().enabled = false;
+					//}
 					
 					InventoryWeapon weapon = m_CurrentObject.GetComponent<InventoryWeapon>();
 					if (weapon != null)
@@ -293,13 +321,15 @@ public class MousePicker : MonoBehaviour
 					{
 						m_ItemOffset = pos - m_CurrentObject.transform.position;
 						// NO LONGER REMOVES ITEM ON PICKUP, ONLY REMOVED WHEN A NEW POSITION IS FOUND!
-						//if (m_CurrentObject.FirstSpace != null)
-						//{
-						//	m_CurrentObject.FirstSpace.inventory.RemoveItem(m_CurrentObject);
-						//}
+						if (m_CurrentObject.FirstSpace != null)
+						{
+							m_CurrentObject.FirstSpace.inventory.RemoveItem(m_CurrentObject);
+						}
 					}
 					m_IsCarrying = true;
 					m_CurrentObject.IsCarried = true;
+					m_PickupPosition = pos;
+					m_ItemRotations = 0;
 				}
 				/*else if (itemDrop != null)
 				{
@@ -310,9 +340,13 @@ public class MousePicker : MonoBehaviour
 						Destroy(itemDrop.gameObject);
 					}
 				}*/
+
+				m_LastClickTime = Time.realtimeSinceStartup;
 			}
 			// If the player releases the LMB place the item into the inventory
-			else if (Input.GetMouseButtonUp(0))
+			// (Only drop item if a significant time since pickup, or item has been moved)
+			else if (Input.GetMouseButtonUp(0) && !m_EnabledThisFrame && 
+			         ((Time.realtimeSinceStartup - m_LastClickTime) > 0.2f || (pos - m_PickupPosition).magnitude > 0.5f))
 			{
 				if (m_CurrentObject != null)
 				{
@@ -329,13 +363,14 @@ public class MousePicker : MonoBehaviour
 						}
 
 						// Place the item based on which inventory the mouse is over
+						InventoryItem swapItem = null;
 						if (m_MouseOverArea == 1)
 						{
-							result = m_MainInventory.PlaceItem(m_CurrentObject);
+							result = m_MainInventory.PlaceItem(m_CurrentObject, out swapItem, true);
 						}
 						else if (m_MouseOverArea == 2)
 						{
-							result = m_HoldingArea.PlaceItem(m_CurrentObject);
+							result = m_HoldingArea.PlaceItem(m_CurrentObject, out swapItem, true);
 							placedInHolding = true;
 						}
 						else if (m_MouseOverArea == 3)
@@ -367,18 +402,64 @@ public class MousePicker : MonoBehaviour
 							if (result == PlacementResult.Failed)
 							#endif
 							{
-								// If it didn't fit into either reset it to the previous position
-								// and check against both again
-								m_CurrentObject.Reset();
-								m_IsCarrying = false;
-								m_CurrentObject.IsCarried = false;
-								m_ItemOffset = new Vector3(-1.0f, -1.0f, -1.0f);
+								if (m_CurrentObject.IsResettable)
+								{
+									// If it didn't fit into either reset it to the previous position
+									// and check against both again
+									m_CurrentObject.Reset();
+									m_IsCarrying = false;
+									m_CurrentObject.IsCarried = false;
+									m_ItemOffset = new Vector3(-1.0f, -1.0f, -1.0f);
+
+									// TEMPORARY RESET SOLUTION
+									result = m_MainInventory.PlaceItem(m_CurrentObject, out swapItem);
+									if (result == PlacementResult.Failed)
+									{
+										m_HoldingArea.PlaceItem(m_CurrentObject, out swapItem);
+									}
+
+									m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = false;
+									m_CurrentObject = null;
+								}
+							}
+							else if (result == PlacementResult.ItemSwapped)
+							{
+								m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = false;
+
+								m_CurrentObject = swapItem;
+								float x = m_CurrentObject.Rotation == 0 || m_CurrentObject.Rotation == 3 ? 
+									(float)m_CurrentObject.RotatedWidth * 0.5f : (float)-m_CurrentObject.RotatedWidth * 0.5f;
+								float y = m_CurrentObject.Rotation == 0 || m_CurrentObject.Rotation == 1 ? 
+									(float)-m_CurrentObject.RotatedHeight * 0.5f : (float)m_CurrentObject.RotatedHeight * 0.5f;
+								m_ItemOffset = new Vector3(x, y);
+
+								m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = true;
+								m_CurrentObject.IsResettable = false;
+
+								// Add one 'move'
+								Vector3 movement = pos - m_PickupPosition;
+								if (Mathf.Abs(movement.x) > 0.5f || Mathf.Abs(movement.y) > 0.5f || m_ItemRotations % 4 != 0)
+								{
+									m_GameController.MoveUsed();
+								}
+
+								m_PickupPosition = new Vector3(-10.0f, 10.0f);
 							}
 							else if (result != PlacementResult.AmmoTaken)
 							{
 								m_IsCarrying = false;
 								m_CurrentObject.IsCarried = false;
 								m_ItemOffset = new Vector3(-1.0f, -1.0f, -1.0f);
+
+								m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = false;
+								m_CurrentObject = null;
+
+								// Add one 'move'
+								Vector3 movement = pos - m_PickupPosition;
+								if (Mathf.Abs(movement.x) > 0.5f || Mathf.Abs(movement.y) > 0.5f || m_ItemRotations % 4 != 0)
+								{
+									m_GameController.MoveUsed();
+								}
 							}
 
 							if (result == PlacementResult.AmmoDestroyed)
@@ -387,7 +468,7 @@ public class MousePicker : MonoBehaviour
 							}
 						}
 
-						#if UNITY_ANDROID
+						/*#if UNITY_ANDROID
 						if (m_CurrentObject != null)
 						#else
 						if (m_CurrentObject != null && result != PlacementResult.AmmoTaken)
@@ -412,9 +493,9 @@ public class MousePicker : MonoBehaviour
 								}
 							}
 							
-							m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = false;
+							//m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = false;
 							m_CurrentObject = null;
-						}
+						}*/
 					}
 				}
 			}
@@ -461,6 +542,11 @@ public class MousePicker : MonoBehaviour
 					}
 				}*/
 			}
+		}
+
+		if (m_EnabledThisFrame)
+		{
+			m_EnabledThisFrame = false;
 		}
 	}
 	

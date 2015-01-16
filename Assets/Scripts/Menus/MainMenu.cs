@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
 	{
 		Main = 0,
 		ModeSelect,
+		ChallengeSelect,
 		HowToPlay1,
 		HowToPlay2,
 		HowToPlay3,
@@ -20,8 +21,40 @@ public class MainMenu : MonoBehaviour
 	[SerializeField] private SpriteRenderer m_HowToPlay2;
 	[SerializeField] private SpriteRenderer m_HowToPlay3;
 	[SerializeField] private SpriteRenderer m_HowToPlay4;
+	[SerializeField] private Transform m_GameInfoPrefab;
+
+	[SerializeField] private Texture m_ButtonOrderActive;
+	[SerializeField] private Texture m_ButtonOrderInactive;
+	[SerializeField] private Texture m_ButtonChaosActive;
+	[SerializeField] private Texture m_ButtonChaosInactive;
+
+	[SerializeField] private Texture m_ButtonTimedActive;
+	[SerializeField] private Texture m_ButtonTimedInactive;
+	[SerializeField] private Texture m_ButtonMovesActive;
+	[SerializeField] private Texture m_ButtonMovesInactive;
+
+	[SerializeField] private Texture m_ButtonTimedOption1Active;
+	[SerializeField] private Texture m_ButtonTimedOption3Active;
+	[SerializeField] private Texture m_ButtonTimedOption5Active;
+	[SerializeField] private Texture m_ButtonTimedOption1Inactive;
+	[SerializeField] private Texture m_ButtonTimedOption3Inactive;
+	[SerializeField] private Texture m_ButtonTimedOption5Inactive;
+
+	[SerializeField] private Texture m_ButtonMovesOption50Active;
+	[SerializeField] private Texture m_ButtonMovesOption100Active;
+	[SerializeField] private Texture m_ButtonMovesOption150Active;
+	[SerializeField] private Texture m_ButtonMovesOption50Inactive;
+	[SerializeField] private Texture m_ButtonMovesOption100Inactive;
+	[SerializeField] private Texture m_ButtonMovesOption150Inactive;
+
+	[SerializeField] private Texture m_ButtonBegin;
+	[SerializeField] private Texture m_ButtonBack;
 
 	private MenuState m_MenuState = MenuState.Main;
+	private bool m_OrderSelection = false;
+	private bool m_TimeSelection = true;
+	private int m_TimeOptionSelection = 1;
+	private int m_MovesOptionSelection = 1;
 
 	// FACEBOOK TESTING STUFF
 	/*private static List<object>                 friends         = null;
@@ -37,9 +70,17 @@ public class MainMenu : MonoBehaviour
 	
 	void Awake()
 	{
-		// Initialize Facebook SDK
-		//enabled = false;
-		//FB.Init(SetInit, OnHideUnity);
+		// Get GameModeInfo script to determine the menu state, then destroy
+		GameObject infoObject = GameObject.FindGameObjectWithTag(Tags.GAMEMODEINFO);
+		if (infoObject != null)
+		{
+			GameModeInfo gameInfo = infoObject.GetComponent<GameModeInfo>();
+			if (gameInfo.m_ChallengeSelect)
+			{
+				m_MenuState = MenuState.ChallengeSelect;
+			}
+			Destroy(gameInfo.gameObject);
+		}
 	}
 	
 	// Update is called once per frame
@@ -55,18 +96,23 @@ public class MainMenu : MonoBehaviour
 			int centreX = Screen.width / 2;
 			int centreY = Screen.height / 2;
 
-			if (GUI.Button(new Rect(centreX - 100, centreY - 160, 200, 100), "Start Game"))
+			if (GUI.Button(new Rect(centreX - 100, centreY - 160, 200, 100), "ARCADE"))
 			{
 				m_MenuState = MenuState.ModeSelect;
 			}
 
-			if (GUI.Button(new Rect(centreX - 100, centreY - 50, 200, 100), "How to Play"))
+			if (GUI.Button(new Rect(centreX - 100, centreY - 50, 200, 100), "CHALLENGE"))
+			{
+				m_MenuState = MenuState.ChallengeSelect;
+			}
+
+			if (GUI.Button(new Rect(centreX - 100, centreY + 60, 200, 100), "HOW TO PLAY"))
 			{
 				m_HowToPlay1.enabled = true;
 				m_MenuState = MenuState.HowToPlay1;
 			}
 
-			if (GUI.Button(new Rect(centreX - 100, centreY + 60, 200, 100), "Quit"))
+			if (GUI.Button(new Rect(centreX - 100, centreY + 170, 200, 100), "QUIT"))
 			{
 				Application.Quit();
 			}
@@ -129,24 +175,131 @@ public class MainMenu : MonoBehaviour
 			int centreX = Screen.width / 2;
 			int centreY = Screen.height / 2;
 			
-			if (GUI.Button(new Rect(centreX - 100, centreY - 160, 200, 100), "Order Mode"))
+			//if (GUI.Button(new Rect(centreX - 250, centreY - 160, 200, 100), "Order Mode\nTimed")
+			if (GUI.Button(new Rect(centreX - 250, centreY - 200, 200, 125), m_OrderSelection ? m_ButtonOrderInactive : m_ButtonOrderActive, GUIStyle.none))
 			{
-				Application.LoadLevel(Tags.ORDERINVENTORY);
-			}
-			
-			if (GUI.Button(new Rect(centreX - 100, centreY - 50, 200, 100), "Chaos Mode"))
-			{
-				Application.LoadLevel(Tags.CHAOSINVENTORY);
+				m_OrderSelection = false;
 			}
 
-			if (GUI.Button(new Rect(centreX - 100, centreY + 60, 200, 100), "Back"))
+			//if (GUI.Button(new Rect(centreX + 50, centreY - 160, 200, 100), "Chaos Mode\nTimed"))
+			if (GUI.Button(new Rect(centreX + 50, centreY - 200, 200, 125), m_OrderSelection ? m_ButtonChaosActive : m_ButtonChaosInactive, GUIStyle.none))
+			{
+				m_OrderSelection = true;
+			}
+			
+			//if (GUI.Button(new Rect(centreX - 250, centreY, 200, 100), "Timed"))
+			if (GUI.Button(new Rect(centreX - 250, centreY - 40, 200, 125), m_TimeSelection ? m_ButtonTimedActive : m_ButtonTimedInactive, GUIStyle.none))
+			{
+				m_TimeSelection = true;
+			}
+			
+			//if (GUI.Button(new Rect(centreX + 50, centreY, 200, 100), "Moves"))
+			if (GUI.Button(new Rect(centreX + 50, centreY - 40, 200, 125), m_TimeSelection ? m_ButtonMovesInactive : m_ButtonMovesActive, GUIStyle.none))
+			{
+				m_TimeSelection = false;
+			}
+
+			if (m_TimeSelection)
+			{
+				if (GUI.Button(new Rect(centreX - 250, centreY + 85, 67, 60), 
+				               m_TimeOptionSelection == 0 ? m_ButtonTimedOption1Active : m_ButtonTimedOption1Inactive, GUIStyle.none))
+				{
+					m_TimeOptionSelection = 0;
+				}
+
+				if (GUI.Button(new Rect(centreX - 183, centreY + 85, 66, 60), 
+				               m_TimeOptionSelection == 1 ? m_ButtonTimedOption3Active : m_ButtonTimedOption3Inactive, GUIStyle.none))
+				{
+					m_TimeOptionSelection = 1;
+				}
+
+				if (GUI.Button(new Rect(centreX - 117, centreY + 85, 67, 60), 
+				               m_TimeOptionSelection == 2 ? m_ButtonTimedOption5Active : m_ButtonTimedOption5Inactive, GUIStyle.none))
+				{
+					m_TimeOptionSelection = 2;
+				}
+			}
+			else
+			{
+				if (GUI.Button(new Rect(centreX + 50, centreY + 85, 67, 60), 
+				               m_MovesOptionSelection == 0 ? m_ButtonMovesOption50Active : m_ButtonMovesOption50Inactive, GUIStyle.none))
+				{
+					m_MovesOptionSelection = 0;
+				}
+				
+				if (GUI.Button(new Rect(centreX + 117, centreY + 85, 66, 60), 
+				               m_MovesOptionSelection == 1 ? m_ButtonMovesOption100Active : m_ButtonMovesOption100Inactive, GUIStyle.none))
+				{
+					m_MovesOptionSelection = 1;
+				}
+				
+				if (GUI.Button(new Rect(centreX + 183, centreY + 85, 67, 60), 
+				               m_MovesOptionSelection == 2 ? m_ButtonMovesOption150Active : m_ButtonMovesOption150Inactive, GUIStyle.none))
+				{
+					m_MovesOptionSelection = 2;
+				}
+			}
+			
+			//if (GUI.Button(new Rect(centreX - 100, centreY + 200, 200, 100), "Begin"))
+			if (GUI.Button(new Rect(centreX - 100, centreY + 200, 200, 125), m_ButtonBegin, GUIStyle.none))
+			{
+				Transform info = Instantiate(m_GameInfoPrefab) as Transform;
+				GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
+				modeInfo.m_TimeMode = m_TimeSelection;
+				modeInfo.m_ChaosMode = m_OrderSelection;
+				modeInfo.m_ModeOptionSelect = m_TimeSelection ? m_TimeOptionSelection : m_MovesOptionSelection;
+				
+				Application.LoadLevel(Tags.ORDERINVENTORY);
+			}
+
+			//if (GUI.Button(new Rect(10, Screen.height - 110, 100, 100), "Back"))
+			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
+			{
+				m_MenuState = MenuState.Main;
+			}
+		}
+		else if (m_MenuState == MenuState.ChallengeSelect)
+		{
+			// Create a button for each Challenge level which loads the level
+			// TO DO: Add display of best time/moves per level
+			int numChallenges = Application.levelCount - Tags.CHALLENGE_LEVEL_OFFSET;
+			int offset = Screen.width / 5;
+			for (int i = 0; i < numChallenges; i++)
+			{
+				int x = (i % 4) + 1;
+				int y = i / 4;
+
+				// Construct string for getting time/moves
+				string scores = "";
+				string timePref = Tags.PREF_CHALLENGE_TIME + (Tags.CHALLENGE_LEVEL_OFFSET + i).ToString();
+				float fastestTime = PlayerPrefs.GetFloat(timePref, -1.0f);
+				if (fastestTime != -1.0f)
+				{
+					scores = "\nT: " + fastestTime.ToString("F");
+				}
+
+				string movesPref = Tags.PREF_CHALLENGE_MOVES + (Tags.CHALLENGE_LEVEL_OFFSET + i).ToString();
+				int leastMoves = PlayerPrefs.GetInt(movesPref, -1);
+				if (leastMoves != -1)
+				{
+					scores += "\nM: " + leastMoves.ToString();
+				}
+
+				if (GUI.Button(new Rect((x * offset) - 75, 250 + (y * (offset / 2)), 150, 100), (i + 1).ToString() + scores))
+				{
+					Application.LoadLevel(Tags.CHALLENGE_LEVEL_OFFSET + i);
+				}
+			}
+
+			// Go back to the main menu
+			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
 				m_MenuState = MenuState.Main;
 			}
 		}
 		else if (m_MenuState == MenuState.HowToPlay1)
 		{
-			if (GUI.Button(new Rect(10, Screen.height - 110, 100, 100), "Back"))
+			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
 				m_MenuState = MenuState.Main;
 				m_HowToPlay1.enabled = false;
@@ -162,7 +315,7 @@ public class MainMenu : MonoBehaviour
 		}
 		else if (m_MenuState == MenuState.HowToPlay2)
 		{
-			if (GUI.Button(new Rect(10, Screen.height - 110, 100, 100), "Back"))
+			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
 				m_MenuState = MenuState.Main;
 				m_HowToPlay1.enabled = false;
@@ -185,7 +338,7 @@ public class MainMenu : MonoBehaviour
 		}
 		else if (m_MenuState == MenuState.HowToPlay3)
 		{
-			if (GUI.Button(new Rect(10, Screen.height - 110, 100, 100), "Back"))
+			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
 				m_MenuState = MenuState.Main;
 				m_HowToPlay3.enabled = false;
@@ -207,7 +360,7 @@ public class MainMenu : MonoBehaviour
 		}
 		else if (m_MenuState == MenuState.HowToPlay4)
 		{
-			if (GUI.Button(new Rect(10, Screen.height - 110, 100, 100), "Back"))
+			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
 				m_MenuState = MenuState.Main;
 				m_HowToPlay4.enabled = false;

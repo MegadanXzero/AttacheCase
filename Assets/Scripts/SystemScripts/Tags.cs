@@ -23,6 +23,7 @@ public class Tags : MonoBehaviour
 	public const string DISCARDAREA = "DiscardArea";
 	public const string PLAYERSPAWN = "PlayerSpawn";
 	public const string ENEMYSPAWNER = "EnemySpawner";
+	public const string GAMEMODEINFO = "GameModeInfo";
 
 	// Level IDs
 	public const int MAINMENU = 0;
@@ -32,10 +33,18 @@ public class Tags : MonoBehaviour
 	public const int BREAKAREA = 4;
 
 	// PlayerPref keys
-	public const string PREF_ORDERSCORE = "OrderScore";
-	public const string PREF_CHAOSSCORE = "ChaosScore";
+	public const string PREF_ORDER_TIME_SCORE = "OrderTimeScore";
+	public const string PREF_ORDER_MOVE_SCORE = "OrderMoveScore";
+	public const string PREF_CHAOS_TIME_SCORE = "ChaosTimeScore";
+	public const string PREF_CHAOS_MOVE_SCORE = "ChaosMoveScore";
+	public const string PREF_CHALLENGE_TIME = "ChallengeTime_";
+	public const string PREF_CHALLENGE_MOVES = "ChallengeMoves_";
 	public const string PREF_DISTANCE = "Distance";
 
 	// Constant values
 	public const float UNIT_SCALING = 32.0f;
+
+	// Challenge Mode Constants
+	public const int CHALLENGE_LEVEL_OFFSET = 4;
+	//public const int TOTAL_NUM_LEVELS = 11;
 }

@@ -34,6 +34,8 @@ public class ItemDropManager : MonoBehaviour
 	private List<InventoryItem> m_SpawnedItems;
 
 	private AmmoDropManager m_AmmoDropManager;
+
+	private int m_TotalItemSize = 0;
 	
 	void Awake()
 	{
@@ -66,11 +68,13 @@ public class ItemDropManager : MonoBehaviour
 
 	public void SpawnItems()
 	{
+		m_TotalItemSize = 0;
+
 		SpawnWeapons();
-		SpawnAmmo();
-		SpawnGrenades();
-		SpawnHealth();
 		SpawnTreasure();
+		SpawnHealth();
+		SpawnGrenades();
+		SpawnAmmo();
 
 		DistributeItems();
 
@@ -129,11 +133,18 @@ public class ItemDropManager : MonoBehaviour
 		}
 
 		m_SpawnedTypeList.Clear();
+		m_TotalItemSize += totalCurrentSize;
 	}
 
 	private void SpawnAmmo()
 	{
 		int ammoToSpawn = Random.Range(m_MinAmmo, m_MaxAmmo + 1);
+		int maxItems = (m_Inventory.Size - m_TotalItemSize) / 2;
+
+		if (ammoToSpawn > maxItems)
+		{
+			ammoToSpawn = maxItems;
+		}
 
 		for (int i = 0; i < ammoToSpawn; ++i)
 		{
@@ -189,6 +200,8 @@ public class ItemDropManager : MonoBehaviour
 				m_SpawnedItems.Add(itemComponent);
 			}
 		}
+
+		m_TotalItemSize += grenadesToSpawn * 2;
 	}
 
 	private void SpawnHealth()
@@ -219,6 +232,8 @@ public class ItemDropManager : MonoBehaviour
 				m_SpawnedItems.Add(itemComponent);
 			}
 		}
+
+		m_TotalItemSize += healthToSpawn * 2;
 	}
 
 	private void SpawnTreasure()
@@ -268,6 +283,8 @@ public class ItemDropManager : MonoBehaviour
 			}
 			++iterations;
 		}
+
+		m_TotalItemSize += totalCurrentSize;
 	}
 
 	private void DistributeItems()

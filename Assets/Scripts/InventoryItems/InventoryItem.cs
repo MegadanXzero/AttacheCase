@@ -16,6 +16,7 @@ public class InventoryItem : MonoBehaviour
 	private int m_PreviousRotation = 0;
 	private Vector3 m_PlaneOffset;
 	private bool m_IsCarried = false;
+	private bool m_IsResettable = true;
 	
 	public InventorySpace FirstSpace { get {return m_FirstSpace;} set {m_FirstSpace = value;}}
 	public Quaternion PreviousQuaternion { get {return m_PreviousQuaternion;}}
@@ -30,7 +31,27 @@ public class InventoryItem : MonoBehaviour
 	public int PrefabID { get {return m_PrefabID;}}
 	public string ItemName { get {return m_ItemName;}}
 	public string ItemDescription { get {return m_ItemDescription;}}
-	public bool IsCarried { get {return m_IsCarried;} set {m_IsCarried = value;}}
+	public bool IsResettable { get {return m_IsResettable;} set {m_IsResettable = value;}}
+
+	public bool IsCarried
+	{
+		get 
+		{
+			return m_IsCarried;
+		}
+		set 
+		{
+			m_IsCarried = value;
+			if (m_IsCarried)
+			{
+				Transform imprint = transform.FindChild("Imprint");
+				if (imprint != null)
+				{
+					imprint.GetComponent<SpriteRenderer>().enabled = false;
+				}
+			}
+		}
+	}
 
 	public Vector3 CentrePosition
 	{
@@ -54,19 +75,41 @@ public class InventoryItem : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 		m_PlaneOffset = new Vector3(((float)m_Width) * 0.5f, ((float)m_Height) * 0.5f, 0.0f);
 		m_ItemDescription = m_ItemDescription.Replace("\\n", "\n");
+
+		Vector3 rotation = transform.eulerAngles;
+		if (rotation.z < 271.0f && rotation.z > 269.0f)
+		{
+			m_Rotation = 1;
+		}
+		else if (rotation.z < 181.0f && rotation.z > 179.0f)
+		{
+			m_Rotation = 2;
+		}
+		else if (rotation.z < 91.0f && rotation.z > 89.0f)
+		{
+			m_Rotation = 3;
+		}
+		else
+		{
+			m_Rotation = 0;
+		}
 	}
 
 	void Start()
 	{
 		if (m_FirstSpace == null)
 		{
-			if (transform.position.x < 16.0f)
+			InventoryItem swapItem = null;
+			if (transform.position.x < 15.0f)
 			{
-				GameObject.FindGameObjectWithTag(Tags.MAININVENTORY).GetComponent<InventoryScript>().PlaceItem(this);
+				GameObject.FindGameObjectWithTag(Tags.MAININVENTORY).GetComponent<InventoryScript>().PlaceItem(this, out swapItem);
 			}
 			else
 			{
-				GameObject.FindGameObjectWithTag(Tags.HOLDINGAREA).GetComponent<InventoryScript>().FindAvailableSpace(this);
+				if (GameObject.FindGameObjectWithTag(Tags.HOLDINGAREA).GetComponent<InventoryScript>().PlaceItem(this, out swapItem) == PlacementResult.Failed)
+				{
+					GameObject.FindGameObjectWithTag(Tags.HOLDINGAREA).GetComponent<InventoryScript>().FindAvailableSpace(this);
+				}
 			}
 		}
 	}
@@ -159,6 +202,13 @@ public class InventoryItem : MonoBehaviour
 		m_PreviousPosition = pos;
 		m_PreviousQuaternion = transform.rotation;
 		m_PreviousRotation = m_Rotation;
+		m_IsResettable = true;
+
+		Transform imprint = transform.FindChild("Imprint");
+		if (imprint != null)
+		{
+			imprint.GetComponent<SpriteRenderer>().enabled = true;
+		}
 		
 		RepositionObjects();
 	}

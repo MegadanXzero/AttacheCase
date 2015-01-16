@@ -9,6 +9,7 @@ public enum PlacementResult
 	Success,
 	AmmoTaken,
 	AmmoDestroyed,
+	ItemSwapped,
 }
 
 public class InventorySpace
@@ -30,7 +31,7 @@ public class InventoryScript : MonoBehaviour
 	}
 
 	// SCORING BONUSES
-	const int SCORE_TYPE_ADJACENCY_BONUS = 10;
+	const int SCORE_TYPE_ADJACENCY_BONUS = 15;
 	const int SCORE_FULL_TYPE_ADJACENCY_BONUS = 50;
 	const int SCORE_FULL_ADJACENCY_BONUS = 100;
 	
@@ -70,6 +71,7 @@ public class InventoryScript : MonoBehaviour
 
 	public bool UpdateTotalSellPrice { get {return m_UpdateTotalSellPrice;} set {m_UpdateTotalSellPrice = value;}}
 	public int TotalSellPrice { get {return m_TotalSellPrice;}}
+	public int Size { get {return m_Width * m_Height;}}
 
 	public bool IsUpgradeable { get {return m_SizeIndex < (m_SizeList.GetLength(0) - 1);}}
 	public int UpgradeCost { get {return IsUpgradeable ? m_SizeList[m_SizeIndex + 1].m_Cost : 0;}}
@@ -168,7 +170,7 @@ public class InventoryScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetMouseButtonDown(2))
+		/*if (Input.GetMouseButtonDown(2))
 		{
 			m_TotalMoney += 10000;
 		}
@@ -176,7 +178,7 @@ public class InventoryScript : MonoBehaviour
 		if (Input.GetMouseButtonDown(3))
 		{
 			UpgradeSize();
-		}
+		}*/
 
 		// Draw outlines for inventory grid spaces
 		/*Vector3 pos = transform.position;
@@ -291,7 +293,8 @@ public class InventoryScript : MonoBehaviour
 						}
 						
 						item.transform.position = pos;
-						PlaceItem(item);
+						InventoryItem swapItem = null;
+						PlaceItem(item, out swapItem);
 						return true;
 					}
 				}
@@ -321,8 +324,8 @@ public class InventoryScript : MonoBehaviour
 				item.Rotate(-90.0f, item.transform.position);
 			}
 
-			int width = item.RotatedWidth;
-			int height = item.RotatedHeight;
+			//int width = item.RotatedWidth;
+			//int height = item.RotatedHeight;
 					
 			for (int i = 0; i < 4; i++)
 			{
@@ -333,7 +336,8 @@ public class InventoryScript : MonoBehaviour
 				item.transform.position = pos;
 				if (TryPlaceItem(item) == PlacementResult.Success)
 				{
-					PlaceItem(item);
+					InventoryItem swapItem = null;
+					PlaceItem(item, out swapItem);
 					return true;
 				}
 
@@ -348,7 +352,7 @@ public class InventoryScript : MonoBehaviour
 		return false;
 	}
 
-	public PlacementResult TryPlaceItem(InventoryItem item)
+	public PlacementResult TryPlaceItem(InventoryItem item, bool allowSwapping = false)
 	{
 		// Get the item position relative to this inventory
 		// and divide it by spacing to get the cell position
@@ -408,6 +412,7 @@ public class InventoryScript : MonoBehaviour
 		
 		// Check to see if the space needed for the item is free
 		//bool spaceFree = true;
+		HashSet<InventoryItem> overlappingItems = new HashSet<InventoryItem>();
 		PlacementResult placementResult = PlacementResult.Success;
 		InventoryAmmo ammoComponent = item.GetComponent<InventoryAmmo>();
 		for (int y = yPos; y < yPos + height; y++)
@@ -425,7 +430,8 @@ public class InventoryScript : MonoBehaviour
 							if (ammoComponent.WeaponType == tempAmmoComponent.WeaponType)
 							{
 								// If the ammo pack has room for more ammo, move ammo into it
-								int ammoNeeded = tempAmmoComponent.MaxCapacity - tempAmmoComponent.Amount;
+								// AMMO NO LONGER NEEDS TO BE COMBINED, IS ALWAYS FULL
+								/*int ammoNeeded = tempAmmoComponent.MaxCapacity - tempAmmoComponent.Amount;
 								if (ammoNeeded == 0)
 								{
 									//spaceFree = false;
@@ -445,35 +451,32 @@ public class InventoryScript : MonoBehaviour
 								{
 									placementResult = PlacementResult.AmmoTaken;
 									return placementResult;
-								}
-							}
-							else
-							{
-								//spaceFree = false;
-								placementResult = PlacementResult.Failed;
+								}*/
 							}
 						}
-						else
-						{
-							//spaceFree = false;
-							placementResult = PlacementResult.Failed;
-						}
 					}
-					else
-					{
-						//spaceFree = false;
-						placementResult = PlacementResult.Failed;
-					}
+
+					overlappingItems.Add(m_InventoryList[x,y].currentObject);
 				}
 			}
 		}
 
+		if (overlappingItems.Count > (allowSwapping ? 1 : 0))
+		{
+			placementResult = PlacementResult.Failed;
+		}
+		else if (allowSwapping && overlappingItems.Count == 1)
+		{
+			placementResult = PlacementResult.ItemSwapped;
+		}
+
 		return placementResult;
-		//return spaceFree;
 	}
 	
-	public PlacementResult PlaceItem(InventoryItem item)
+	public PlacementResult PlaceItem(InventoryItem item, out InventoryItem swapItem, bool allowSwapping = false)
 	{
+		swapItem = null;
+
 		// Get the item position relative to this inventory
 		// and divide it by spacing to get the cell position
 		Vector3 pos = item.transform.position;
@@ -533,6 +536,7 @@ public class InventoryScript : MonoBehaviour
 		// Check to see if the space needed for the item is free
 		bool spaceFree = true;
 		bool ammoTaken = false;
+		HashSet<InventoryItem> overlappingItems = new HashSet<InventoryItem>();
 		InventoryAmmo ammoComponent = item.GetComponent<InventoryAmmo>();
 		for (int y = yPos; y < yPos + height; y++)
 		{
@@ -579,6 +583,7 @@ public class InventoryScript : MonoBehaviour
 						}
 					}
 					spaceFree = false;
+					overlappingItems.Add(m_InventoryList[x,y].currentObject);
 				}
 			}
 		}
@@ -594,10 +599,21 @@ public class InventoryScript : MonoBehaviour
 		}
 		
 		// If the space isn't free, the item can't be placed here, return false
+		//InventoryItem swapItem = null;
 		if (spaceFree == false)
 		{
-			item.IsCarried = false;
-			return PlacementResult.Failed;
+			if (overlappingItems.Count > 1 || !allowSwapping)
+			{
+				item.IsCarried = false;
+				return PlacementResult.Failed;
+			}
+			else
+			{
+				HashSet<InventoryItem>.Enumerator enumerator = overlappingItems.GetEnumerator();
+				enumerator.MoveNext();
+				swapItem = enumerator.Current;
+				swapItem.FirstSpace.inventory.RemoveItem(swapItem);
+			}
 		}
 
 		// If there is space free, remove the item from its current inventory position if it has one
@@ -652,7 +668,17 @@ public class InventoryScript : MonoBehaviour
 		CalculateFreeCells();
 
 		m_ItemCount++;
-		return PlacementResult.Success;
+
+		if (swapItem == null)
+		{
+			return PlacementResult.Success;
+		}
+		else
+		{
+			item = swapItem;
+			swapItem.IsCarried = true;
+			return PlacementResult.ItemSwapped;
+		}
 	}
 	
 	public void RemoveItem(InventoryItem item)
@@ -1079,14 +1105,14 @@ public class InventoryScript : MonoBehaviour
 			{
 				// Treasure gives a set bonus to score for each item
 				// If in chaos mode score is reduced to increase overall score
-				if (chaosMode)
+				/*if (chaosMode)
 				{
 					currentScore -= treasure.ScoreValue;
 				}
 				else
 				{
 					currentScore += treasure.ScoreValue;
-				}
+				}*/
 				
 				// Get amount of adjacent treasure cells of same material type
 				adjacentTreasureCells += GetNumAdjacentSameTypeCells(treasure.BaseItem, adjacentItemList);
@@ -3024,8 +3050,9 @@ public class InventoryScript : MonoBehaviour
 			pos += distance;
 			item.transform.position = pos;
 
+			InventoryItem swapItem = null;
 			RemoveItem(item);
-			PlaceItem(item);
+			PlaceItem(item, out swapItem);
 		}
 	}
 
