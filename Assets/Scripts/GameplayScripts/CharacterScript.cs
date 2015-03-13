@@ -81,7 +81,7 @@ public class CharacterScript : MonoBehaviour
 	
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 		m_Health = m_MaxHealth;
 
 		//m_BodyAnimator = transform.FindChild("Body").GetComponent<Animator>();

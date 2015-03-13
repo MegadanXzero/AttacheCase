@@ -19,6 +19,7 @@ public class MousePicker : MonoBehaviour
 
 	private Vector3 m_ItemOffset = new Vector3(-1.0f, -1.0f, -1.0f);
 	private Vector3 m_PickupPosition = new Vector3();
+	private Vector3 m_LastMousePosition = new Vector3();
 	private bool m_Enabled = true;
 	private bool m_EnabledThisFrame = false;
 	private bool m_IsCarrying = false;
@@ -61,10 +62,10 @@ public class MousePicker : MonoBehaviour
 
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
-		DontDestroyOnLoad(m_IdealRangeHighlight.gameObject);
-		DontDestroyOnLoad(m_EffectiveRangeHighlight.gameObject);
-		DontDestroyOnLoad(m_OutOfRangeHighlight.gameObject);
+		//DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(m_IdealRangeHighlight.gameObject);
+		//DontDestroyOnLoad(m_EffectiveRangeHighlight.gameObject);
+		//DontDestroyOnLoad(m_OutOfRangeHighlight.gameObject);
 	}
 
 	void OnGUI()
@@ -106,23 +107,31 @@ public class MousePicker : MonoBehaviour
 			// Get the mouse position on the z=0 plane for moving items later
 			float distance;
 			Plane plane = new Plane(Vector3.back, 0.0f);
+			Vector3 pos = transform.position;
+
 			#if UNITY_ANDROID
 			Ray ray = new Ray();
 			if (Input.touchCount > 0)
 			{
 				Touch firstTouch = Input.GetTouch(0);
 				ray = Camera.main.ScreenPointToRay(firstTouch.position);
+				if (plane.Raycast(ray, out distance))
+				{
+					pos = ray.GetPoint(distance);
+					m_LastMousePosition = pos;
+				}
+			}
+			else
+			{
+				pos = m_LastMousePosition;
 			}
 			#else
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			#endif
-
-			Vector3 pos = transform.position;
 			if (plane.Raycast(ray, out distance))
 			{
 				pos = ray.GetPoint(distance);
-				//transform.position = pos;
 			}
+			#endif
 
 			// Find the inventory item the mouse is over (If there is one)
 			RaycastHit hit;

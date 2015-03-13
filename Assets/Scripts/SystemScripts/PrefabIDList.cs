@@ -10,7 +10,7 @@ public class PrefabIDList : MonoBehaviour
 	
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 
 		foreach (Transform trans in m_TempPrefabList)
 		{

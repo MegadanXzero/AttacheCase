@@ -24,7 +24,7 @@ public class TreasureDropManager : MonoBehaviour
 
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 	}
 
 	public int GetTreasureDrop()

@@ -24,6 +24,7 @@ public class Tags : MonoBehaviour
 	public const string PLAYERSPAWN = "PlayerSpawn";
 	public const string ENEMYSPAWNER = "EnemySpawner";
 	public const string GAMEMODEINFO = "GameModeInfo";
+	public const string GUIOBJECT = "GUI";
 
 	// Level IDs
 	public const int MAINMENU = 0;

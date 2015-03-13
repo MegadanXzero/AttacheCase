@@ -72,7 +72,7 @@ public class InventoryItem : MonoBehaviour
 	
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 		m_PlaneOffset = new Vector3(((float)m_Width) * 0.5f, ((float)m_Height) * 0.5f, 0.0f);
 		m_ItemDescription = m_ItemDescription.Replace("\\n", "\n");
 

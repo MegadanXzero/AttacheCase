@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using Facebook.MiniJSON;
 
 public class MainMenu : MonoBehaviour
@@ -50,6 +51,15 @@ public class MainMenu : MonoBehaviour
 	[SerializeField] private Texture m_ButtonBegin;
 	[SerializeField] private Texture m_ButtonBack;
 
+	[SerializeField] private Canvas m_CanvasMain;
+	[SerializeField] private Canvas m_CanvasArcade;
+	[SerializeField] private Canvas m_CanvasChallenge;
+
+	[SerializeField] private Image[] m_ChallengeButtonList;
+	[SerializeField] private Sprite m_ChallengeBronze;
+	[SerializeField] private Sprite m_ChallengeSilver;
+	[SerializeField] private Sprite m_ChallengeGold;
+
 	private MenuState m_MenuState = MenuState.Main;
 	private bool m_OrderSelection = false;
 	private bool m_TimeSelection = true;
@@ -70,6 +80,27 @@ public class MainMenu : MonoBehaviour
 	
 	void Awake()
 	{
+		// Load save data on startup
+		SaveManager.Instance.Load();
+
+		for (int i = 0; i < m_ChallengeButtonList.Length; i++)
+		{
+			// Get best score for each level and set medal sprite to relevant colour
+			int bestMoves = SaveManager.Instance.GetInt(Tags.PREF_CHALLENGE_MOVES + (i + Tags.CHALLENGE_LEVEL_OFFSET).ToString(), 9999);
+			if (bestMoves <= ChallengeMedals.MedalRequirements[i].Gold)
+			{
+				m_ChallengeButtonList[i].sprite = m_ChallengeGold;
+			}
+			else if (bestMoves <= ChallengeMedals.MedalRequirements[i].Silver)
+			{
+				m_ChallengeButtonList[i].sprite = m_ChallengeSilver;
+			}
+			else if (bestMoves <= ChallengeMedals.MedalRequirements[i].Bronze)
+			{
+				m_ChallengeButtonList[i].sprite = m_ChallengeBronze;
+			}
+		}
+
 		// Get GameModeInfo script to determine the menu state, then destroy
 		GameObject infoObject = GameObject.FindGameObjectWithTag(Tags.GAMEMODEINFO);
 		if (infoObject != null)
@@ -78,6 +109,8 @@ public class MainMenu : MonoBehaviour
 			if (gameInfo.m_ChallengeSelect)
 			{
 				m_MenuState = MenuState.ChallengeSelect;
+				m_CanvasChallenge.gameObject.SetActive(true);
+				m_CanvasMain.gameObject.SetActive(false);
 			}
 			Destroy(gameInfo.gameObject);
 		}
@@ -93,7 +126,7 @@ public class MainMenu : MonoBehaviour
 	{
 		if (m_MenuState == MenuState.Main)
 		{
-			int centreX = Screen.width / 2;
+			/*int centreX = Screen.width / 2;
 			int centreY = Screen.height / 2;
 
 			if (GUI.Button(new Rect(centreX - 100, centreY - 160, 200, 100), "ARCADE"))
@@ -115,7 +148,10 @@ public class MainMenu : MonoBehaviour
 			if (GUI.Button(new Rect(centreX - 100, centreY + 170, 200, 100), "QUIT"))
 			{
 				Application.Quit();
-			}
+			}*/
+
+			// Testing Save/Load stuff
+			//SaveManager.Instance.Draw();
 
 			/*if (!FB.IsLoggedIn)
 			{
@@ -172,7 +208,7 @@ public class MainMenu : MonoBehaviour
 		}
 		else if (m_MenuState == MenuState.ModeSelect)
 		{
-			int centreX = Screen.width / 2;
+			/*int centreX = Screen.width / 2;
 			int centreY = Screen.height / 2;
 			
 			//if (GUI.Button(new Rect(centreX - 250, centreY - 160, 200, 100), "Order Mode\nTimed")
@@ -256,12 +292,11 @@ public class MainMenu : MonoBehaviour
 			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
 				m_MenuState = MenuState.Main;
-			}
+			}*/
 		}
 		else if (m_MenuState == MenuState.ChallengeSelect)
 		{
-			// Create a button for each Challenge level which loads the level
-			// TO DO: Add display of best time/moves per level
+			/*// Create a button for each Challenge level which loads the level
 			int numChallenges = Application.levelCount - Tags.CHALLENGE_LEVEL_OFFSET;
 			int offset = Screen.width / 5;
 			for (int i = 0; i < numChallenges; i++)
@@ -269,20 +304,14 @@ public class MainMenu : MonoBehaviour
 				int x = (i % 4) + 1;
 				int y = i / 4;
 
-				// Construct string for getting time/moves
+				// Construct string for getting moves
 				string scores = "";
-				string timePref = Tags.PREF_CHALLENGE_TIME + (Tags.CHALLENGE_LEVEL_OFFSET + i).ToString();
-				float fastestTime = PlayerPrefs.GetFloat(timePref, -1.0f);
-				if (fastestTime != -1.0f)
-				{
-					scores = "\nT: " + fastestTime.ToString("F");
-				}
-
 				string movesPref = Tags.PREF_CHALLENGE_MOVES + (Tags.CHALLENGE_LEVEL_OFFSET + i).ToString();
-				int leastMoves = PlayerPrefs.GetInt(movesPref, -1);
+				//int leastMoves = PlayerPrefs.GetInt(movesPref, -1);
+				int leastMoves = SaveManager.Instance.GetInt(movesPref, -1);
 				if (leastMoves != -1)
 				{
-					scores += "\nM: " + leastMoves.ToString();
+					scores = "\nMOVES: " + leastMoves.ToString();
 				}
 
 				if (GUI.Button(new Rect((x * offset) - 75, 250 + (y * (offset / 2)), 150, 100), (i + 1).ToString() + scores))
@@ -295,12 +324,13 @@ public class MainMenu : MonoBehaviour
 			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
 				m_MenuState = MenuState.Main;
-			}
+			}*/
 		}
 		else if (m_MenuState == MenuState.HowToPlay1)
 		{
 			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
+				m_CanvasMain.gameObject.SetActive(true);
 				m_MenuState = MenuState.Main;
 				m_HowToPlay1.enabled = false;
 				m_HowToPlay2.enabled = false;
@@ -317,6 +347,7 @@ public class MainMenu : MonoBehaviour
 		{
 			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
+				m_CanvasMain.gameObject.SetActive(true);
 				m_MenuState = MenuState.Main;
 				m_HowToPlay1.enabled = false;
 				m_HowToPlay2.enabled = false;
@@ -340,6 +371,7 @@ public class MainMenu : MonoBehaviour
 		{
 			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
+				m_CanvasMain.gameObject.SetActive(true);
 				m_MenuState = MenuState.Main;
 				m_HowToPlay3.enabled = false;
 			}
@@ -362,6 +394,7 @@ public class MainMenu : MonoBehaviour
 		{
 			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
+				m_CanvasMain.gameObject.SetActive(true);
 				m_MenuState = MenuState.Main;
 				m_HowToPlay4.enabled = false;
 			}
@@ -375,181 +408,79 @@ public class MainMenu : MonoBehaviour
 		}
 	}
 
-	/*private void SetInit()
+	public void Button_Arcade()
 	{
-		FbDebug.Log("SetInit");
-		enabled = true;
-		if (FB.IsLoggedIn)
-		{
-			FbDebug.Log("Already logged in");
-			OnLoggedIn();
-		}
+		m_MenuState = MenuState.ModeSelect;
+		m_CanvasMain.gameObject.SetActive(false);
+		m_CanvasArcade.gameObject.SetActive(true);
 	}
 
-	private void OnHideUnity(bool isGameShown)
+	public void Button_Challenge()
 	{
-		FbDebug.Log("OnHideUnity");
-		if (!isGameShown)
-		{
-			// pause the game - we wil need to hide
-			Time.timeScale = 0.0f;
-		}
-		else
-		{
-			// start the game back up - getting focus again
-			Time.timeScale = 1.0f;
-		}
+		m_MenuState = MenuState.ChallengeSelect;
+		m_CanvasMain.gameObject.SetActive(false);
+		m_CanvasChallenge.gameObject.SetActive(true);
 	}
 
-	void LoginCallback(FBResult result)
+	public void Button_HowToPlay()
 	{
-		FbDebug.Log("LoginCallback");
-		if (FB.IsLoggedIn)
-		{
-			OnLoggedIn();
-		}
+		m_MenuState = MenuState.HowToPlay1;
+		m_HowToPlay1.enabled = true;
+		m_CanvasMain.gameObject.SetActive(false);
 	}
 
-	void OnLoggedIn()
+	public void Button_Back_Arcade()
 	{
-		FbDebug.Log("Logged in. ID: " + FB.UserId);
-
-		// Request player info and profile picture
-		FB.API("/me?fields=id,first_name,friends.limit(100).fields(first_name,id)", Facebook.HttpMethod.GET, APICallback);
-		FB.API(FacebookUtil.GetPictureURL("me", 128, 128), Facebook.HttpMethod.GET, MyPictureCallback);
-		FB.API("/app/scores?fields=score,user.limit(20)", Facebook.HttpMethod.GET, ScoresCallback);
-		//FB.API("/me/scores", Facebook.HttpMethod.GET, ScoreCallback);
+		m_MenuState = MenuState.Main;
+		m_CanvasMain.gameObject.SetActive(true);
+		m_CanvasArcade.gameObject.SetActive(false);
 	}
 
-	void APICallback(FBResult result)
+	public void Button_Back_Challenge()
 	{
-		FbDebug.Log("APICallback");
-		if (result.Error != null)
-		{
-			FbDebug.Error(result.Error);
-			// Let's just try again
-			FB.API("/me?fields=id,first_name,friends.limit(100).fields(first_name,id)", Facebook.HttpMethod.GET, APICallback);
-			return;
-		}
-
-		profile = FacebookUtil.DeserializeJSONProfile(result.Text);
-		friends = FacebookUtil.DeserializeJSONFriends(result.Text);
-		username = profile["first_name"];
+		m_MenuState = MenuState.Main;
+		m_CanvasMain.gameObject.SetActive(true);
+		m_CanvasChallenge.gameObject.SetActive(false);
 	}
 
-	void MyPictureCallback(FBResult result)
+	public void Button_Begin_Arcade()
 	{
-		FbDebug.Log("MyPictureCallback");
-		if (result.Error != null)
-		{
-			FbDebug.Error(result.Error);
-			// Let's just try again
-			FB.API(FacebookUtil.GetPictureURL("me", 128, 128), Facebook.HttpMethod.GET, MyPictureCallback);
-			return;
-		}
+		Transform info = Instantiate(m_GameInfoPrefab) as Transform;
+		GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
+		modeInfo.m_TimeMode = m_TimeSelection;
+		modeInfo.m_ChaosMode = m_OrderSelection;
+		modeInfo.m_ModeOptionSelect = m_TimeSelection ? m_TimeOptionSelection : m_MovesOptionSelection;
 
-		userPicture = result.Texture;
+		Application.LoadLevel(Tags.ORDERINVENTORY);
 	}
 
-	private void OnChallengeClicked()
+	public void Button_Quit()
 	{
-		FB.AppRequest(message: "Friend Smash is smashing! Check it out.", title: "Play Friend Smash with me!", callback:AppRequestCallback);
+		Application.Quit();
 	}
 
-	private void AppRequestCallback(FBResult result)
+	public void SetChaosMode(bool chaosMode)
 	{
-		FbDebug.Log("AppRequestCallback");
-		if (result != null)
-		{
-			var responseObject = Json.Deserialize(result.Text) as Dictionary<string, object>;
-			object obj = 0;
-			if (responseObject.TryGetValue("cancelled", out obj))
-			{
-				FbDebug.Log("Request cancelled");
-			}
-			else if (responseObject.TryGetValue("request", out obj))
-			{
-				// Record that we sent a request so we can display a message
-				m_LastChallengeSentTime = Time.realtimeSinceStartup;
-				FbDebug.Log("Request sent");
-			}
-		}
+		m_OrderSelection = chaosMode;
 	}
 
-	private void OnBragClicked()
+	public void SetTimeMode(bool timeMode)
 	{
-		FbDebug.Log("OnBragClicked");
-		FB.Feed(linkCaption: "I just smashed 9 billion friends! Can you beat it?",
-		        picture: "http://www.friendsmash.com/images/logo_large.jpg",
-		        linkName: "Checkout my Friend Smash greatness!",
-		        link: "https://apps.facebook.com/" + FB.AppId + "/?challenge_brag=" + (FB.IsLoggedIn ? FB.UserId : "guest"));
+		m_TimeSelection = timeMode;
 	}
 
-	private int GetScoreFromEntry(object obj)
+	public void SetTimeOption(int timeOption)
 	{
-		Dictionary<string,object> entry = (Dictionary<string,object>) obj;
-		return Convert.ToInt32(entry["score"]);
+		m_TimeOptionSelection = timeOption;
 	}
-	
-	void ScoresCallback(FBResult result) 
+
+	public void SetMoveOption(int moveOption)
 	{
-		FbDebug.Log("ScoresCallback");
-		if (result.Error != null)
-		{
-			FbDebug.Error(result.Error);
-			return;
-		}
-		
-		scores = new List<object>();
-		List<object> scoresList = FacebookUtil.DeserializeScores(result.Text);
-		
-		foreach(object score in scoresList) 
-		{
-			var entry = (Dictionary<string,object>) score;
-			var user = (Dictionary<string,object>) entry["user"];
-			
-			string userId = (string)user["id"];
-			
-			if (string.Equals(userId,FB.UserId))
-			{
-				// This entry is the current player
-				int playerHighScore = GetScoreFromEntry(entry);
-				FbDebug.Log("Local players score on server is " + playerHighScore);
-				if (playerHighScore < m_Score)
-				{
-					FbDebug.Log("Locally overriding with just acquired score: " + m_Score);
-					playerHighScore = m_Score;
-				}
-				
-				entry["score"] = playerHighScore.ToString();
-				m_Score = playerHighScore;
-			}
-			
-			scores.Add(entry);
-			FbDebug.Log("Adding player to friend list: " + (string)user["name"]);
-			if (!friendImages.ContainsKey(userId))
-			{
-				// We don't have this players image yet, request it now
-				FB.API(FacebookUtil.GetPictureURL(userId, 128, 128), Facebook.HttpMethod.GET, pictureResult =>
-				       {
-					if (pictureResult.Error != null)
-					{
-						FbDebug.Error(pictureResult.Error);
-					}
-					else
-					{
-						friendImages.Add(userId, pictureResult.Texture);
-					}
-				});
-			}
-		}
-		
-		// Now sort the entries based on score
-		scores.Sort(delegate(object firstObj,
-		                     object secondObj)
-			{
-				return -GetScoreFromEntry(firstObj).CompareTo(GetScoreFromEntry(secondObj));
-			}
-		);
-	}*/
+		m_MovesOptionSelection = moveOption;
+	}
+
+	public void LoadChallengeLevel(int level)
+	{
+		Application.LoadLevel(Tags.CHALLENGE_LEVEL_OFFSET + level);
+	}
 }

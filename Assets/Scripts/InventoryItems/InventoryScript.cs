@@ -80,7 +80,7 @@ public class InventoryScript : MonoBehaviour
 	
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 
 		// Create the Inventory array and set the inventory of each cell to this
 		m_InventoryList = new InventorySpace[m_Width, m_Height];

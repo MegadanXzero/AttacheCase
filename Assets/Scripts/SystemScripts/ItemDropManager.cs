@@ -39,7 +39,7 @@ public class ItemDropManager : MonoBehaviour
 	
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 
 		if (m_Inventory == null)
 		{

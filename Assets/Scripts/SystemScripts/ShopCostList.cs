@@ -32,7 +32,7 @@ public class ShopCostList : MonoBehaviour
 
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 	}
 	
 	public int GetCostFromPrefabID(int prefabID)

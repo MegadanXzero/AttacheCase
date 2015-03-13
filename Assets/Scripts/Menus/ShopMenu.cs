@@ -61,7 +61,7 @@ public class ShopMenu : MonoBehaviour
 	
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 		m_BuyingItemList = new List<Transform>();
 		//m_CostListScript = GameObject.FindGameObjectWithTag(Tags.SHOPCOSTLIST).GetComponent<ShopCostList>();
 	}

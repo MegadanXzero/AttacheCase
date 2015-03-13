@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,6 +15,7 @@ public class GameController : MonoBehaviour
 
 	public float m_TimeScale = 1.0f;
 
+	// Gameplay objects
 	[SerializeField] private InventoryScript m_MainInventory;
 	[SerializeField] private InventoryScript m_HoldingArea;
 	[SerializeField] private Texture2D m_BackgroundTexture;
@@ -24,17 +26,36 @@ public class GameController : MonoBehaviour
 	[SerializeField] private Transform m_ParticlePrefab;
 	[SerializeField] private Transform m_GameInfoPrefab;
 
+	// Mode information
 	[SerializeField] private bool m_ChaosMode;
 	[SerializeField] private bool m_TimeMode = true;
 	[SerializeField] private bool m_ChallengeMode = false;
 	[SerializeField] private bool m_EnableDifficultyScaling;
 	[SerializeField] private bool m_ShowRotationBonus;
 	[SerializeField] private int m_MoveLimit;
-
+	
 	[SerializeField] private ItemDropManager m_ItemDropManager;
 
+	// GUI objects
+	[SerializeField] private Canvas m_MainCanvas;
+	[SerializeField] private Canvas m_PauseCanvas;
+	[SerializeField] private Canvas m_OverCanvas;
+	[SerializeField] private Text m_ScoreText;
+	[SerializeField] private Text m_LimitText;
+	[SerializeField] private Text m_GameOverText;
+	[SerializeField] private Image m_MedalSmall;
+	[SerializeField] private Image m_MedalScore;
+
+	// GUI Medal Images
+	[SerializeField] private Sprite m_MedalImage_Gold;
+	[SerializeField] private Sprite m_MedalImage_Silver;
+	[SerializeField] private Sprite m_MedalImage_Bronze;
+	[SerializeField] private Sprite m_MedalImage_Gold_S;
+	[SerializeField] private Sprite m_MedalImage_Silver_S;
+	[SerializeField] private Sprite m_MedalImage_Bronze_S;
+
 	private const int DEFAULT_CHAOS_SCORE = 2000;
-	private const int PER_ITEM_CHAOS_SCORE = 100;
+	private const int PER_ITEM_CHAOS_SCORE = 30;
 	private const int LEFTOVER_PENALTY = 50;
 	
 	private int m_Score = 0;
@@ -66,14 +87,16 @@ public class GameController : MonoBehaviour
 	public float HealthScaling { get {return m_HealthScaling;}}
 	public float DamageScaling { get {return m_DamageScaling;}}
 	public bool ShowEffects { get {return m_ShowEffects;} set {m_ShowEffects = value;}}
-	public void MoveUsed() {m_MovesUsed++;}
 
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
-		DontDestroyOnLoad(Camera.main.gameObject);
-		DontDestroyOnLoad(GameObject.FindGameObjectWithTag(Tags.DISCARDAREA).gameObject);
-		DontDestroyOnLoad(GameObject.FindObjectOfType<Light>().gameObject);
+		//DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(Camera.main.gameObject);
+		//DontDestroyOnLoad(GameObject.FindGameObjectWithTag(Tags.DISCARDAREA).gameObject);
+		//DontDestroyOnLoad(GameObject.FindObjectOfType<Light>().gameObject);
+
+		float aspectRatio = (float)Screen.width / (float)Screen.height;
+		Camera.main.orthographicSize = 9.0f / aspectRatio;
 
 		// Get GameModeInfo script to determine the game mode for this session, then destroy
 		GameObject infoObject = GameObject.FindGameObjectWithTag(Tags.GAMEMODEINFO);
@@ -125,12 +148,20 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	void Start()
+	{
+		if (m_ChallengeMode)
+		{
+			m_LimitText.text = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET].Gold.ToString();
+		}
+	}
+
 	void OnGUI()
 	{
 		//if (m_Paused)
 		if (m_GameState == GameState.Paused)
 		{
-			int top = Screen.height / 4;
+			/*int top = Screen.height / 4;
 			int side = Screen.width / 5;
 			GUI.DrawTexture(new Rect(0, 0 , Screen.width, Screen.height), m_BackgroundTexture);
 
@@ -152,7 +183,15 @@ public class GameController : MonoBehaviour
 			if (GUI.Button(new Rect(side * 2, top * 2, side, top / 2), "RESTART"))
 			{
 				Time.timeScale = 1.0f;
-				DestroyAllObjects();
+				//DestroyAllObjects();
+
+				// Create new GameModeInfo based on this game mode and reload level
+				Transform info = Instantiate(m_GameInfoPrefab) as Transform;
+				GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
+				modeInfo.m_TimeMode = m_TimeMode;
+				modeInfo.m_ChaosMode = m_ChaosMode;
+				modeInfo.m_ModeOptionSelect = m_ModeOptionSelect;
+
 				Application.LoadLevel(Application.loadedLevel);
 			}
 
@@ -174,7 +213,7 @@ public class GameController : MonoBehaviour
 				{
 					Quit();
 				}
-			}
+			}*/
 		}
 		else if (m_GameState == GameState.InBreak)
 		{
@@ -223,48 +262,49 @@ public class GameController : MonoBehaviour
 				if (GUI.Button(new Rect(Screen.width - 150, Screen.height / 2, 150, 100), "-DEBUG-\nCLEAR SCORES\n(CAN'T UNDO!)"))
 				{
 					// Construct string for deleting time/moves scores
-					string pref = Tags.PREF_CHALLENGE_TIME + Application.loadedLevel;
-					PlayerPrefs.DeleteKey(pref);
-					pref = Tags.PREF_CHALLENGE_MOVES + Application.loadedLevel;
-					PlayerPrefs.DeleteKey(pref);
+					//string pref = Tags.PREF_CHALLENGE_TIME + Application.loadedLevel;
+					//PlayerPrefs.DeleteKey(pref);
+					string pref = Tags.PREF_CHALLENGE_MOVES + Application.loadedLevel;
+					SaveManager.Instance.DeleteKey(pref);
 				}
 
-				if (Application.loadedLevel != Application.levelCount - 1)
+				/*if (Application.loadedLevel != Application.levelCount - 1)
 				{
 					if (GUI.Button(new Rect((screenQuarterX * 3) - 100, top, 200, 100), "NEXT LEVEL"))
 					{
-						DestroyAllObjects();
+						//DestroyAllObjects();
 						Application.LoadLevel(Application.loadedLevel + 1);
 					}
 				}
 
 				if (GUI.Button(new Rect(screenCentreX - 100, top, 200, 100), "TRY AGAIN"))
 				{
-					DestroyAllObjects();
+					//DestroyAllObjects();
 					Application.LoadLevel(Application.loadedLevel);
 				}
 
 				if (GUI.Button(new Rect(screenQuarterX - 100, top, 200, 100), "LEVEL SELECT"))
 				{
-					Quit();
-
 					// Create new GameModeInfo to show correct menu state
 					Transform info = Instantiate(m_GameInfoPrefab) as Transform;
 					GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
 					modeInfo.m_ChallengeSelect = true;
-				}
+
+					Quit();
+				}*/
 			}
 			else
 			{
-				if (GUI.Button(new Rect((screenQuarterX * 3) - 100, top, 200, 100), "TRY AGAIN"))
+				/*if (GUI.Button(new Rect((screenQuarterX * 3) - 100, top, 200, 100), "TRY AGAIN"))
 				{
-					DestroyAllObjects();
+					//DestroyAllObjects();
 
 					// Create new GameModeInfo based on this game mode and reload level
 					Transform info = Instantiate(m_GameInfoPrefab) as Transform;
 					GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
 					modeInfo.m_TimeMode = m_TimeMode;
 					modeInfo.m_ChaosMode = m_ChaosMode;
+					modeInfo.m_ModeOptionSelect = m_ModeOptionSelect;
 					
 					Application.LoadLevel(Tags.ORDERINVENTORY);
 				}
@@ -277,26 +317,29 @@ public class GameController : MonoBehaviour
 				if (GUI.Button(new Rect(screenQuarterX - 100, top, 200, 100), "QUIT"))
 				{
 					Quit();
-				}
+				}*/
 			}
 		}
 		else
 		{
-			int screenCentreX = Screen.width / 2;
+			/*int screenCentreX = Screen.width / 2;
 			if (!m_ChallengeMode)
 			{
 				if (GUI.Button(new Rect(screenCentreX - 100, 50, 200, 100), "CASH IN"))
 				{
-					AddScore();
-
-					if (m_ItemScoringList.Count == 0 && m_RotationScoringList.Count == 0)
+					if (!m_MousePicker.IsCarrying)
 					{
-						// Clear objects in inventory and spawn new items
-						// (Score is now added when moving to next inventory)
-						SpawnItems();
+						AddScore();
+
+						if (m_ItemScoringList.Count == 0 && m_RotationScoringList.Count == 0)
+						{
+							// Clear objects in inventory and spawn new items
+							// (Score is now added when moving to next inventory)
+							SpawnItems();
+						}
 					}
 				}
-			}
+			}*/
 
 			if (m_LevelEndTimer > 0.0f)
 			{
@@ -356,8 +399,11 @@ public class GameController : MonoBehaviour
 				m_GameState = GameState.Paused;
 				m_ShowEffects = false;
 
-				m_MainInventory.DrawLines = false;
-				m_HoldingArea.DrawLines = false;
+				m_MainCanvas.gameObject.SetActive(false);
+				m_PauseCanvas.gameObject.SetActive(true);
+
+				//m_MainInventory.DrawLines = false;
+				//m_HoldingArea.DrawLines = false;
 			}
 			else if (m_GameState == GameState.Paused)
 			{
@@ -370,8 +416,11 @@ public class GameController : MonoBehaviour
 				m_MousePicker.Enabled = true;
 				m_ShowEffects = true;
 
-				m_MainInventory.DrawLines = true;
-				m_HoldingArea.DrawLines = true;
+				m_MainCanvas.gameObject.SetActive(true);
+				m_PauseCanvas.gameObject.SetActive(false);
+
+				//m_MainInventory.DrawLines = true;
+				//m_HoldingArea.DrawLines = true;
 			}
 		}
 
@@ -424,7 +473,8 @@ public class GameController : MonoBehaviour
 								pos.z = -5.0f;
 								Transform trans = Instantiate(m_ParticlePrefab, pos, Quaternion.identity) as Transform;
 								ParticleAttract particle = trans.GetComponent<ParticleAttract>();
-								particle.AttractPosition = new Vector3(3.5f, 0.5f, -5.0f);
+								//particle.AttractPosition = new Vector3(3.5f, 0.5f, -5.0f);
+								particle.AttractPosition = gameObject.transform.position;
 							}
 						}
 					}
@@ -528,7 +578,8 @@ public class GameController : MonoBehaviour
 		{
 			if (m_ChallengeMode)
 			{
-				guiText.text = "TIME: " + m_RoundTimer.ToString("F") + "          MOVES: " + m_MovesUsed.ToString();
+				//guiText.text = "TIME: " + m_RoundTimer.ToString("F") + "          MOVES: " + m_MovesUsed.ToString();
+				//guiText.text = "MOVES: " + m_MovesUsed.ToString();
 			}
 			else
 			{
@@ -545,10 +596,19 @@ public class GameController : MonoBehaviour
 					}
 				}
 
+				// Create strings for showing Score/Time and set GUI text elements
 				string time = string.Format("{0}:{1:00}", ((int)m_RoundTimer + 1) / 60, ((int)m_RoundTimer + 1) % 60);
-				string mode = m_TimeMode ? "TIME: " + time : "MOVES: " + (m_MoveLimit - m_MovesUsed).ToString();
-				guiText.text = "SCORE: " + m_DisplayedScore.ToString() + (m_ScoreIncrement < 0 ? " (" : " (+") + 
-					m_ScoreIncrement.ToString() + ") " + mode;// time + " MOVES: " + m_MovesUsed.ToString();//  MONEY: " + m_MainInventory.TotalMoney.ToString();
+				string mode = m_TimeMode ? "Time: " + time : "Moves: " + (m_MoveLimit - m_MovesUsed).ToString();
+				if (m_ScoreText != null)
+				{
+					m_ScoreText.text = "Score: " + m_DisplayedScore.ToString() + (m_ScoreIncrement < 0 ? " (" : " (+") + m_ScoreIncrement.ToString() + ") ";
+				}
+				if (m_LimitText != null)
+				{
+					m_LimitText.text = mode;
+				}
+				//guiText.text = "SCORE: " + m_DisplayedScore.ToString() + (m_ScoreIncrement < 0 ? " (" : " (+") + 
+				//	m_ScoreIncrement.ToString() + ") " + mode;// time + " MOVES: " + m_MovesUsed.ToString();//  MONEY: " + m_MainInventory.TotalMoney.ToString();
 			}
 		}
 	}
@@ -566,7 +626,7 @@ public class GameController : MonoBehaviour
 
 	private void Quit()
 	{
-		DestroyAllObjects();
+		//DestroyAllObjects();
 		
 		Time.timeScale = 1.0f;
 		Application.LoadLevel(Tags.MAINMENU);
@@ -583,38 +643,52 @@ public class GameController : MonoBehaviour
 			Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
 			foreach (Transform trans in objectList)
 			{
-				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject)
+				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject && trans.gameObject.tag != Tags.GUIOBJECT)
 				{
 					Destroy(trans.gameObject);
 				}
 			}
 
 			Time.timeScale = 1.0f;
-			m_GameState = GameState.GameOver;
 			m_ShowEffects = false;
+			m_GameState = GameState.GameOver;
+			m_MainCanvas.gameObject.SetActive(false);
+			m_OverCanvas.gameObject.SetActive(true);
 			Camera.main.rect = new Rect(0, 0, 1, 1);
 
-			transform.position = new Vector3(0.5f, 0.6f, 0.0f);
+			transform.position = new Vector3(0.5f, 0.5f, 0.0f);
 			guiText.anchor = TextAnchor.MiddleCenter;
 			guiText.alignment = TextAlignment.Center;
-			guiText.text = "TIME:\n" + m_RoundTimer.ToString() + "\n";
 
-			// Construct string for saving time/moves
-			string timePref = Tags.PREF_CHALLENGE_TIME + Application.loadedLevel;
-			float fastestTime = PlayerPrefs.GetFloat(timePref, 999999.9f);
-			if (m_RoundTimer < fastestTime)
-			{
-				PlayerPrefs.SetFloat(timePref, m_RoundTimer);
-				guiText.text += "(NEW BEST!)";
-			}
+			// Construct string for saving best time/moves
+			//guiText.text = "MOVES:\n" + m_MovesUsed.ToString();
+			m_GameOverText.text += m_MovesUsed.ToString() + "\n";
 
-			guiText.text += "\n\nMOVES:\n" + m_MovesUsed.ToString();
 			string movesPref = Tags.PREF_CHALLENGE_MOVES + Application.loadedLevel;
-			int leastMoves = PlayerPrefs.GetInt(movesPref, 9999);
+			//int leastMoves = PlayerPrefs.GetInt(movesPref, 9999);
+			int leastMoves = SaveManager.Instance.GetInt(movesPref, 9999);
+
 			if (m_MovesUsed < leastMoves)
 			{
-				PlayerPrefs.SetInt(movesPref, m_MovesUsed);
-				guiText.text += "\n(NEW BEST!)";
+				//PlayerPrefs.SetInt(movesPref, m_MovesUsed);
+				SaveManager.Instance.SetInt(movesPref, m_MovesUsed);
+				SaveManager.Instance.Save();
+				//guiText.text += "NEW BEST!";
+				m_GameOverText.text += "NEW BEST!";
+			}
+
+			MedalInfo info = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET];
+			if (m_MovesUsed <= info.Gold)
+			{
+				m_MedalScore.sprite = m_MedalImage_Gold;
+			}
+			else if (m_MovesUsed <= info.Silver)
+			{
+				m_MedalScore.sprite = m_MedalImage_Silver;
+			}
+			else
+			{
+				m_MedalScore.sprite = m_MedalImage_Bronze;
 			}
 		}
 		else
@@ -626,24 +700,29 @@ public class GameController : MonoBehaviour
 			Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
 			foreach (Transform trans in objectList)
 			{
-				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject)
+				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject && trans.gameObject.tag != Tags.GUIOBJECT)
 				{
 					Destroy(trans.gameObject);
 				}
 			}
 			
 			Time.timeScale = 1.0f;
-			m_GameState = GameState.GameOver;
 			m_ShowEffects = false;
+			m_GameState = GameState.GameOver;
+			m_MainCanvas.gameObject.SetActive(false);
+			m_OverCanvas.gameObject.SetActive(true);
 			Camera.main.rect = new Rect(0, 0, 1, 1);
 
 			//Instantiate(m_DeathMessage, new Vector3(10.5f, -0.5f, 0.0f), Quaternion.identity);
 
 			//guiText.enabled = false;
-			transform.position = new Vector3(0.5f, 0.5f, 0.0f);
-			guiText.anchor = TextAnchor.MiddleCenter;
-			guiText.alignment = TextAlignment.Center;
-			guiText.text = "FINAL SCORE:\n" + m_Score.ToString();
+			//transform.position = new Vector3(0.5f, 0.5f, 0.0f);
+			//guiText.anchor = TextAnchor.MiddleCenter;
+			//guiText.alignment = TextAlignment.Center;
+			//guiText.text = "FINAL SCORE:\n" + m_Score.ToString();
+
+			// Use new GUI system
+			m_GameOverText.text += m_Score.ToString() + "\n";
 
 			// Get string for saving high score
 			string scorePref;
@@ -670,22 +749,18 @@ public class GameController : MonoBehaviour
 				}
 			}
 
-			int highScore = PlayerPrefs.GetInt(scorePref);
+			//int highScore = PlayerPrefs.GetInt(scorePref);
+			int highScore = SaveManager.Instance.GetInt(scorePref);
 			if (m_Score > highScore)
 			{
-				PlayerPrefs.SetInt(scorePref, m_Score);
-				guiText.text += "\n(NEW HIGH SCORE!)";
+				//PlayerPrefs.SetInt(scorePref, m_Score);
+				SaveManager.Instance.SetInt(scorePref, m_Score);
+				//guiText.text += "\n(NEW HIGH SCORE!)";
+				m_GameOverText.text += "NEW BEST!";
+				SaveManager.Instance.Save();
 			}
 
-			/*guiText.text += "\n\nTOTAL DISTANCE:\n" + m_Distance.ToString();
-			int highDistance = PlayerPrefs.GetInt(Tags.PREF_DISTANCE);
-			if (m_Distance > highDistance)
-			{
-				PlayerPrefs.SetInt(Tags.PREF_DISTANCE, m_Distance);
-				guiText.text += "\n(NEW HIGH SCORE!)";
-			}*/
-
-			PlayerPrefs.Save();
+			//PlayerPrefs.Save();
 		}
 	}
 
@@ -700,7 +775,8 @@ public class GameController : MonoBehaviour
 		if (m_ChaosMode)
 		{
 			currentScore = m_MainInventory.GetCurrentScore(m_ItemScoringList, m_RotationScoringList, true);
-			m_ScoreIncrement = (PER_ITEM_CHAOS_SCORE * m_MainInventory.GetNumberOfItems()) - currentScore;
+			m_ScoreIncrement = (PER_ITEM_CHAOS_SCORE * (m_MainInventory.Size - m_MainInventory.NumFreeCells())) - currentScore;
+			//m_ScoreIncrement = (PER_ITEM_CHAOS_SCORE * m_MainInventory.GetNumberOfItems()) - currentScore;
 			//m_ScoreIncrement = DEFAULT_CHAOS_SCORE - currentScore;
 		}
 		else
@@ -712,7 +788,7 @@ public class GameController : MonoBehaviour
 		// Decrease score for each item left in the holding area (Unless it's the end of the game), then add to the total score
 		if (m_TimeMode ? m_RoundTimer > 0.0f : m_MovesUsed < m_MoveLimit)
 		{
-			m_ScoreIncrement -= m_HoldingArea.GetNumberOfItems() * (LEFTOVER_PENALTY + (m_ChaosMode ? PER_ITEM_CHAOS_SCORE : 0));
+			m_ScoreIncrement -= m_HoldingArea.GetNumberOfItems() * (m_ChaosMode ? LEFTOVER_PENALTY * 3 : LEFTOVER_PENALTY);
 		}
 		m_Score += m_ScoreIncrement;
 		m_Score = m_Score < 0 ? 0 : m_Score;
@@ -783,5 +859,98 @@ public class GameController : MonoBehaviour
 		m_MainInventory.ClearItems();
 		m_HoldingArea.ClearItems();
 		m_ItemDropManager.SpawnItems();
+	}
+
+	public void CashIn()
+	{
+		if (!m_MousePicker.IsCarrying)
+		{
+			AddScore();
+			
+			if (m_ItemScoringList.Count == 0 && m_RotationScoringList.Count == 0)
+			{
+				// Clear objects in inventory and spawn new items
+				// (Score is now added when moving to next inventory)
+				SpawnItems();
+			}
+		}
+	}
+
+	public void MoveUsed()
+	{
+		m_MovesUsed++;
+		if (m_ChallengeMode)
+		{
+			if (m_MovesUsed > 99)
+			{
+				m_MovesUsed = 99;
+			}
+			m_ScoreText.text = "Moves: " + m_MovesUsed.ToString();
+
+			MedalInfo info = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET];
+			if (m_MovesUsed + 1 <= info.Gold)
+			{
+				m_MedalSmall.sprite = m_MedalImage_Gold_S;
+				m_LimitText.text = info.Gold.ToString();
+			}
+			else if (m_MovesUsed + 1 <= info.Silver)
+			{
+				m_MedalSmall.sprite = m_MedalImage_Silver_S;
+				m_LimitText.text = info.Silver.ToString();
+			}
+			else
+			{
+				m_MedalSmall.sprite = m_MedalImage_Bronze_S;
+				m_LimitText.text = info.Bronze.ToString();
+			}
+		}
+	}
+
+	public void Button_Resume()
+	{
+		if (m_ShowingScoring == 0)
+		{
+			Time.timeScale = 1.0f;
+		}
+
+		m_GameState = GameState.Gameplay;
+		m_ShowEffects = true;
+		m_MousePicker.Enabled = true;
+		m_MainCanvas.gameObject.SetActive(true);
+		m_PauseCanvas.gameObject.SetActive(false);
+	}
+	
+	public void Button_Restart()
+	{
+		Time.timeScale = 1.0f;
+		
+		// Create new GameModeInfo based on this game mode and reload level
+		Transform info = Instantiate(m_GameInfoPrefab) as Transform;
+		GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
+		modeInfo.m_TimeMode = m_TimeMode;
+		modeInfo.m_ChaosMode = m_ChaosMode;
+		modeInfo.m_ModeOptionSelect = m_ModeOptionSelect;
+		
+		Application.LoadLevel(Application.loadedLevel);
+	}
+	
+	public void Button_Quit()
+	{
+		Quit();
+	}
+
+	public void Button_LevelSelect()
+	{
+		// Create new GameModeInfo to show correct menu state
+		Transform info = Instantiate(m_GameInfoPrefab) as Transform;
+		GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
+		modeInfo.m_ChallengeSelect = true;
+		
+		Quit();
+	}
+
+	public void Button_NextLevel()
+	{
+		Application.LoadLevel(Application.loadedLevel + 1);
 	}
 }

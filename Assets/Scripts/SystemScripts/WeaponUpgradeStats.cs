@@ -88,7 +88,7 @@ public class WeaponUpgradeStats : MonoBehaviour
 
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 	}
 	
 	public int GetCapacity(WeaponName weapon, int upgradeLevel)
