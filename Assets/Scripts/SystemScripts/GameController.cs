@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -139,7 +139,7 @@ public class GameController : MonoBehaviour
 
 		if (!m_ChallengeMode)
 		{
-			guiText.text = "SCORE: 0";
+			GetComponent<GUIText>().text = "SCORE: 0";
 			SpawnItems();
 		}
 		else
@@ -251,11 +251,11 @@ public class GameController : MonoBehaviour
 		else if (m_GameState == GameState.GameOver)
 		{
 			//GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), m_BackgroundTexture);
-			int top = (Screen.height / 4) * 3;
+			//int top = (Screen.height / 4) * 3;
 			
-			int screenCentreX = Screen.width / 2;
+			//int screenCentreX = Screen.width / 2;
 			//int screenCentreY = top + ((top * 3) / 2);
-			int screenQuarterX = Screen.width / 4;
+			//int screenQuarterX = Screen.width / 4;
 
 			if (m_ChallengeMode)
 			{
@@ -341,10 +341,10 @@ public class GameController : MonoBehaviour
 				}
 			}*/
 
-			if (m_LevelEndTimer > 0.0f)
+			/*if (m_LevelEndTimer > 0.0f)
 			{
 				GUI.TextArea(new Rect((float)Screen.width * 0.73f, (float)Screen.height * 0.25f, (float)Screen.width * 0.192f, Screen.height / 30), m_LevelEndTimer.ToString());
-			}
+			}*/
 
 			if (m_ShowingScoring != 0)
 			{
@@ -389,6 +389,8 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		AudioManager.Instance.Update();
+
 		if (Input.GetButtonDown("Pause"))
 		{
 			//m_Paused = !m_Paused;
@@ -410,10 +412,10 @@ public class GameController : MonoBehaviour
 				if (m_ShowingScoring == 0)
 				{
 					Time.timeScale = 1.0f;
+					m_MousePicker.Enabled = true;
 				}
 
 				m_GameState = GameState.Gameplay;
-				m_MousePicker.Enabled = true;
 				m_ShowEffects = true;
 
 				m_MainCanvas.gameObject.SetActive(true);
@@ -426,26 +428,21 @@ public class GameController : MonoBehaviour
 
 		if (m_WaitForLevelEnd)
 		{
-			m_LevelEndTimer -= Time.deltaTime;
+			/*m_LevelEndTimer -= Time.deltaTime;
 
-			if ((m_HoldingArea.GetNumberOfItems() == 0 && !m_MousePicker.IsCarrying) || m_LevelEndTimer <= 0.0f)
+			//if ((m_HoldingArea.GetNumberOfItems() == 0 && !m_MousePicker.IsCarrying) || m_LevelEndTimer <= 0.0f)
+			if (m_LevelEndTimer <= 0.0f)
 			{
-				// Clear all items from the holding area and add to the score
-				m_HoldingArea.ClearItems();
-				AddScore();
-
-				// Prepare for the next level, and then load the break area
-				Application.LoadLevel(Tags.BREAKAREA);
-				m_GameState = GameState.InBreak;
-				m_ShowEffects = false;
-				m_MousePicker.Enabled = false;
-				
-				m_MainInventory.DrawLines = false;
-				m_HoldingArea.DrawLines = false;
-
 				m_WaitForLevelEnd = false;
 				m_LevelEndTimer = 0.0f;
-				m_Distance += 100;
+
+				GameOver();
+			}*/
+
+			if (Time.timeScale != 0.0f)
+			{
+				m_WaitForLevelEnd = false;
+				GameOver();
 			}
 		}
 
@@ -500,10 +497,14 @@ public class GameController : MonoBehaviour
 								Time.timeScale = 1.0f;
 								m_ScoreGroupIndex = 0;
 								m_ScoreOrbTimer = 1.4f;
+								m_MousePicker.Enabled = true;
 
 								// Clear objects in inventory and spawn new items
 								// (Score is now added when moving to next inventory)
-								SpawnItems();
+								if (!m_WaitForLevelEnd)
+								{
+									SpawnItems();
+								}
 							}
 						}
 						else if (m_ShowingScoring == 2)
@@ -512,10 +513,14 @@ public class GameController : MonoBehaviour
 							Time.timeScale = 1.0f;
 							m_ScoreGroupIndex = 0;
 							m_ScoreOrbTimer = 1.4f;
+							m_MousePicker.Enabled = true;
 
 							// Clear objects in inventory and spawn new items
 							// (Score is now added when moving to next inventory)
-							SpawnItems();
+							if (!m_WaitForLevelEnd)
+							{
+								SpawnItems();
+							}
 						}
 					}
 				}
@@ -551,21 +556,44 @@ public class GameController : MonoBehaviour
 			}
 			else
 			{
-				if (m_TimeMode)
+				if (!m_WaitForLevelEnd)
 				{
-					// In time mode, game over when time runs out
-					m_RoundTimer -= Time.deltaTime;
-					if (m_RoundTimer <= 0.0f)
+					if (m_TimeMode)
 					{
-						GameOver();
+						// In time mode, game over when time runs out
+						m_RoundTimer -= Time.deltaTime;
+						if (m_RoundTimer <= 0.0f)
+						{
+							AddScore();
+							LevelEnd();
+
+							// Set GUI Timer to 0:00 to prevent looking weird
+							if (m_LimitText != null)
+							{
+								m_LimitText.text = "Time: 0:00";
+							}
+
+							//GameOver();
+						}
 					}
-				}
-				else
-				{
-					// In moves mode, game over when all moves used
-					if (m_MovesUsed >= m_MoveLimit)
+					else
 					{
-						GameOver();
+						// In moves mode, game over when all moves used
+						if (m_MovesUsed >= m_MoveLimit)
+						{
+							AddScore();
+							LevelEnd();
+
+							// Create strings for showing Score/Time and set GUI text elements
+							/*string time = string.Format("{0}:{1:00}", ((int)m_RoundTimer + 1) / 60, ((int)m_RoundTimer + 1) % 60);
+							string mode = m_TimeMode ? "Time: " + time : "Moves: " + (m_MoveLimit - m_MovesUsed).ToString();
+							if (m_LimitText != null)
+							{
+								m_LimitText.text = mode;
+							}*/
+
+							//GameOver();
+						}
 					}
 				}
 			}
@@ -576,13 +604,9 @@ public class GameController : MonoBehaviour
 	{
 		if (m_GameState == GameState.Gameplay)
 		{
-			if (m_ChallengeMode)
+			if (!m_ChallengeMode)
 			{
-				//guiText.text = "TIME: " + m_RoundTimer.ToString("F") + "          MOVES: " + m_MovesUsed.ToString();
-				//guiText.text = "MOVES: " + m_MovesUsed.ToString();
-			}
-			else
-			{
+				// Handle timer for scoring orbs & increment displayed score
 				m_ScoreOrbTimer -= Time.deltaTime;
 				if (m_ScoreOrbTimer <= 0.0f)
 				{
@@ -620,7 +644,10 @@ public class GameController : MonoBehaviour
 		Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
 		foreach (Transform trans in objectList)
 		{
-			Destroy(trans.gameObject);
+			if (trans.tag != Tags.AUDIOSOURCE)
+			{
+				Destroy(trans.gameObject);
+			}
 		}
 	}
 
@@ -643,7 +670,8 @@ public class GameController : MonoBehaviour
 			Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
 			foreach (Transform trans in objectList)
 			{
-				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject && trans.gameObject.tag != Tags.GUIOBJECT)
+				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject 
+				    && trans.gameObject.tag != Tags.GUIOBJECT && trans.tag != Tags.AUDIOSOURCE)
 				{
 					Destroy(trans.gameObject);
 				}
@@ -657,8 +685,8 @@ public class GameController : MonoBehaviour
 			Camera.main.rect = new Rect(0, 0, 1, 1);
 
 			transform.position = new Vector3(0.5f, 0.5f, 0.0f);
-			guiText.anchor = TextAnchor.MiddleCenter;
-			guiText.alignment = TextAlignment.Center;
+			GetComponent<GUIText>().anchor = TextAnchor.MiddleCenter;
+			GetComponent<GUIText>().alignment = TextAlignment.Center;
 
 			// Construct string for saving best time/moves
 			//guiText.text = "MOVES:\n" + m_MovesUsed.ToString();
@@ -693,14 +721,15 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			AddScore();
+			//AddScore();
 
 			// Manually get and destroy all objects in the scene
 			// (Because everything on the bottom is set to not destroy on load)
 			Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
 			foreach (Transform trans in objectList)
 			{
-				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject && trans.gameObject.tag != Tags.GUIOBJECT)
+				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject 
+				    && trans.gameObject.tag != Tags.GUIOBJECT && trans.tag != Tags.AUDIOSOURCE)
 				{
 					Destroy(trans.gameObject);
 				}
@@ -802,6 +831,7 @@ public class GameController : MonoBehaviour
 				m_ShowingScoring = 1;
 				m_GroupStartTime = Time.realtimeSinceStartup;
 				Time.timeScale = 0.0f;
+				m_MousePicker.Enabled = false;
 			}
 			else if (m_RotationScoringList.Count > 0)
 			{
@@ -809,6 +839,7 @@ public class GameController : MonoBehaviour
 				m_ShowingScoring = 2;
 				m_GroupStartTime = Time.realtimeSinceStartup;
 				Time.timeScale = 0.0f;
+				m_MousePicker.Enabled = false;
 			}
 			else
 			{
@@ -822,7 +853,19 @@ public class GameController : MonoBehaviour
 	public void LevelEnd()
 	{
 		m_WaitForLevelEnd = true;
-		m_LevelEndTimer = 5.0f;
+
+		/*if (m_ShowingScoring == 1)
+		{
+			m_LevelEndTimer = m_ScoreFlashTime * (float)m_ItemScoringList.Count;
+		}
+		else if (m_ShowingScoring == 2)
+		{
+			m_LevelEndTimer = m_ScoreFlashTime * (float)m_RotationScoringList.Count;
+		}
+		else
+		{
+			m_LevelEndTimer = 0.0f;
+		}*/
 	}
 
 	public void ScaleHealth()
@@ -911,11 +954,11 @@ public class GameController : MonoBehaviour
 		if (m_ShowingScoring == 0)
 		{
 			Time.timeScale = 1.0f;
+			m_MousePicker.Enabled = true;
 		}
 
 		m_GameState = GameState.Gameplay;
 		m_ShowEffects = true;
-		m_MousePicker.Enabled = true;
 		m_MainCanvas.gameObject.SetActive(true);
 		m_PauseCanvas.gameObject.SetActive(false);
 	}
@@ -923,6 +966,7 @@ public class GameController : MonoBehaviour
 	public void Button_Restart()
 	{
 		Time.timeScale = 1.0f;
+		m_MousePicker.Enabled = true;
 		
 		// Create new GameModeInfo based on this game mode and reload level
 		Transform info = Instantiate(m_GameInfoPrefab) as Transform;

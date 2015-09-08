@@ -11,7 +11,7 @@ public class InventoryAmmo : MonoBehaviour
 	
 	private InventoryItem m_BaseItem;
 	
-	public int Amount { get {return m_Amount;} set {m_Amount = value; transform.FindChild("ItemText").guiText.text = m_Amount.ToString();}}
+	public int Amount { get {return m_Amount;} set {m_Amount = value; transform.FindChild("ItemText").GetComponent<GUIText>().text = m_Amount.ToString();}}
 	public int MaxCapacity { get {return m_MaxCapacity;}}
 	public WeaponType WeaponType { get {return m_WeaponType;}}
 	public InventoryItem BaseItem { get {return m_BaseItem;}}
@@ -41,7 +41,7 @@ public class InventoryAmmo : MonoBehaviour
 
 		m_Amount = m_MaxCapacity;
 		m_BaseItem = GetComponent<InventoryItem>();
-		transform.FindChild("ItemText").guiText.text = m_Amount.ToString();
+		transform.FindChild("ItemText").GetComponent<GUIText>().text = m_Amount.ToString();
 	}
 	
 	// Update is called once per frame
@@ -65,13 +65,13 @@ public class InventoryAmmo : MonoBehaviour
 			m_Amount = 0;
 		}
 		
-		transform.FindChild("ItemText").guiText.text = m_Amount.ToString();
+		transform.FindChild("ItemText").GetComponent<GUIText>().text = m_Amount.ToString();
 		return ammoTaken;
 	}
 	
 	public void AddAmmo(int amount)
 	{
 		m_Amount += amount;
-		transform.FindChild("ItemText").guiText.text = m_Amount.ToString();
+		transform.FindChild("ItemText").GetComponent<GUIText>().text = m_Amount.ToString();
 	}
 }

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using Facebook.MiniJSON;
+using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
@@ -18,35 +18,16 @@ public class MainMenu : MonoBehaviour
 		HowToPlay4,
 	};
 
+	// Audio intialisation objects
+	[SerializeField] private AudioMixer m_AudioMixer;
+	[SerializeField] private GameObject m_AudioSourcePrefab;
+	[SerializeField] private AudioClip[] m_MusicArray;
+
 	[SerializeField] private SpriteRenderer m_HowToPlay1;
 	[SerializeField] private SpriteRenderer m_HowToPlay2;
 	[SerializeField] private SpriteRenderer m_HowToPlay3;
 	[SerializeField] private SpriteRenderer m_HowToPlay4;
 	[SerializeField] private Transform m_GameInfoPrefab;
-
-	[SerializeField] private Texture m_ButtonOrderActive;
-	[SerializeField] private Texture m_ButtonOrderInactive;
-	[SerializeField] private Texture m_ButtonChaosActive;
-	[SerializeField] private Texture m_ButtonChaosInactive;
-
-	[SerializeField] private Texture m_ButtonTimedActive;
-	[SerializeField] private Texture m_ButtonTimedInactive;
-	[SerializeField] private Texture m_ButtonMovesActive;
-	[SerializeField] private Texture m_ButtonMovesInactive;
-
-	[SerializeField] private Texture m_ButtonTimedOption1Active;
-	[SerializeField] private Texture m_ButtonTimedOption3Active;
-	[SerializeField] private Texture m_ButtonTimedOption5Active;
-	[SerializeField] private Texture m_ButtonTimedOption1Inactive;
-	[SerializeField] private Texture m_ButtonTimedOption3Inactive;
-	[SerializeField] private Texture m_ButtonTimedOption5Inactive;
-
-	[SerializeField] private Texture m_ButtonMovesOption50Active;
-	[SerializeField] private Texture m_ButtonMovesOption100Active;
-	[SerializeField] private Texture m_ButtonMovesOption150Active;
-	[SerializeField] private Texture m_ButtonMovesOption50Inactive;
-	[SerializeField] private Texture m_ButtonMovesOption100Inactive;
-	[SerializeField] private Texture m_ButtonMovesOption150Inactive;
 
 	[SerializeField] private Texture m_ButtonBegin;
 	[SerializeField] private Texture m_ButtonBack;
@@ -54,6 +35,7 @@ public class MainMenu : MonoBehaviour
 	[SerializeField] private Canvas m_CanvasMain;
 	[SerializeField] private Canvas m_CanvasArcade;
 	[SerializeField] private Canvas m_CanvasChallenge;
+	[SerializeField] private Canvas m_CanvasAudio;
 
 	[SerializeField] private Image[] m_ChallengeButtonList;
 	[SerializeField] private Sprite m_ChallengeBronze;
@@ -82,6 +64,9 @@ public class MainMenu : MonoBehaviour
 	{
 		// Load save data on startup
 		SaveManager.Instance.Load();
+
+		// Initialise Audio
+		AudioManager.Instance.SetupAudio(m_AudioMixer, m_AudioSourcePrefab, m_MusicArray);
 
 		for (int i = 0; i < m_ChallengeButtonList.Length; i++)
 		{
@@ -119,7 +104,7 @@ public class MainMenu : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
+		AudioManager.Instance.Update();
 	}
 
 	void OnGUI()
@@ -426,6 +411,12 @@ public class MainMenu : MonoBehaviour
 	{
 		m_MenuState = MenuState.HowToPlay1;
 		m_HowToPlay1.enabled = true;
+		m_CanvasMain.gameObject.SetActive(false);
+	}
+
+	public void Button_Audio()
+	{
+		m_CanvasAudio.gameObject.SetActive(true);
 		m_CanvasMain.gameObject.SetActive(false);
 	}
 

@@ -206,7 +206,7 @@ public class InventoryScript : MonoBehaviour
 			realSize *= 0.5f;
 			realSize.x -= 0.5f;
 			realSize.y = -(realSize.y - 0.5f);
-			collider.center = realSize;
+			collider.offset = realSize;
 		}
 	}
 	
@@ -1099,7 +1099,7 @@ public class InventoryScript : MonoBehaviour
 		{
 			int adjacentTreasureCells = 0;
 			int targetRotation = -1;
-			bool rotationEqual = false;
+			bool rotationEqual = true;
 			HashSet<InventoryItem> adjacentItemList = new HashSet<InventoryItem>();
 			foreach (InventoryTreasure treasure in allTreasure)
 			{
@@ -1116,18 +1116,22 @@ public class InventoryScript : MonoBehaviour
 				
 				// Get amount of adjacent treasure cells of same material type
 				adjacentTreasureCells += GetNumAdjacentSameTypeCells(treasure.BaseItem, adjacentItemList);
-				
-				// Check if all treasure is rotated the same way
-				if (targetRotation == -1)
+
+				// Ignore rotation for square items
+				if (treasure.BaseItem.Width != treasure.BaseItem.Height)
 				{
-					targetRotation = treasure.BaseItem.Rotation;
-					rotationEqual = true;
-				}
-				else
-				{
-					if (treasure.BaseItem.Rotation != targetRotation)
+					// Check if all treasure is rotated the same way
+					if (targetRotation == -1)
 					{
-						rotationEqual = false;
+						targetRotation = treasure.BaseItem.Rotation;
+						//rotationEqual = true;
+					}
+					else
+					{
+						if (treasure.BaseItem.Rotation != targetRotation)
+						{
+							rotationEqual = false;
+						}
 					}
 				}
 			}
@@ -1185,20 +1189,24 @@ public class InventoryScript : MonoBehaviour
 			if (allTreasureType.Count > MINIMUM_AMOUNT_FOR_ROTATION_BONUS)
 			{
 				int targetRotation = -1;
-				bool rotationEqual = false;
+				bool rotationEqual = true;
 				foreach (InventoryTreasure treasure in allTreasureType)
-				{					
-					// Check if all treasure of this type is rotated the same way
-					if (targetRotation == -1)
+				{
+					// Ignore rotation for square items
+					if (treasure.BaseItem.Width != treasure.BaseItem.Height)
 					{
-						targetRotation = treasure.BaseItem.Rotation;
-						rotationEqual = true;
-					}
-					else
-					{
-						if (treasure.BaseItem.Rotation != targetRotation)
+						// Check if all treasure of this type is rotated the same way
+						if (targetRotation == -1)
 						{
-							rotationEqual = false;
+							targetRotation = treasure.BaseItem.Rotation;
+							//rotationEqual = true;
+						}
+						else
+						{
+							if (treasure.BaseItem.Rotation != targetRotation)
+							{
+								rotationEqual = false;
+							}
 						}
 					}
 				}
@@ -1227,24 +1235,28 @@ public class InventoryScript : MonoBehaviour
 		{
 			int adjacentHealthCells = 0;
 			int targetRotation = -1;
-			bool rotationEqual = false;
+			bool rotationEqual = true;
 			HashSet<InventoryItem> adjacentItemList = new HashSet<InventoryItem>();
 			foreach (InventoryHealth health in allHealth)
 			{
 				// Get amount of adjacent health cells of same healing amount
 				adjacentHealthCells += GetNumAdjacentSameTypeCells(health.BaseItem, adjacentItemList);
-				
-				// Check if all health is rotated the same way
-				if (targetRotation == -1)
+
+				// Ignore rotation for square items
+				if (health.BaseItem.Width != health.BaseItem.Height)
 				{
-					targetRotation = health.BaseItem.Rotation;
-					rotationEqual = true;
-				}
-				else
-				{
-					if (health.BaseItem.Rotation != targetRotation)
+					// Check if all health is rotated the same way
+					if (targetRotation == -1)
 					{
-						rotationEqual = false;
+						targetRotation = health.BaseItem.Rotation;
+						//rotationEqual = true;
+					}
+					else
+					{
+						if (health.BaseItem.Rotation != targetRotation)
+						{
+							rotationEqual = false;
+						}
 					}
 				}
 			}

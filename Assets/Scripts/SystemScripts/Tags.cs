@@ -25,6 +25,7 @@ public class Tags : MonoBehaviour
 	public const string ENEMYSPAWNER = "EnemySpawner";
 	public const string GAMEMODEINFO = "GameModeInfo";
 	public const string GUIOBJECT = "GUI";
+	public const string AUDIOSOURCE = "AudioSource";
 
 	// Level IDs
 	public const int MAINMENU = 0;
@@ -41,6 +42,15 @@ public class Tags : MonoBehaviour
 	public const string PREF_CHALLENGE_TIME = "ChallengeTime_";
 	public const string PREF_CHALLENGE_MOVES = "ChallengeMoves_";
 	public const string PREF_DISTANCE = "Distance";
+
+	// Audio Pref keys
+	public const string PREF_AUDIO_MASTERVOLUME = "Audio_MasterVolume";
+	public const string PREF_AUDIO_MUSICVOLUME = "Audio_MusicVolume";
+	public const string PREF_AUDIO_SFXVOLUME = "Audio_SFXVolume";
+	public const string PREF_AUDIO_MUZAKVOLUME = "Audio_MuzakVolume";
+	public const string PREF_AUDIO_FIREVOLUME = "Audio_FireVolume";
+	public const string PREF_AUDIO_RIVERVOLUME = "Audio_RiverVolume";
+	public const string PREF_AUDIO_WAVESVOLUME = "Audio_WavesVolume";
 
 	// Constant values
 	public const float UNIT_SCALING = 32.0f;

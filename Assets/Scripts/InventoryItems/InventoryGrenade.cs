@@ -28,7 +28,7 @@ public class InventoryGrenade : InventoryWeapon
 		Transform itemText = transform.FindChild("ItemText");
 		if (itemText != null)
 		{
-			itemText.guiText.enabled = false;
+			itemText.GetComponent<GUIText>().enabled = false;
 		}
 		m_WeaponStats = GameObject.FindGameObjectWithTag(Tags.WEAPONSTATS).GetComponent<WeaponUpgradeStats>();
 		

@@ -45,7 +45,7 @@ public class EnemyAI : MonoBehaviour
 	void Awake()
 	{
 		m_Animator = GetComponentInChildren<Animator>();
-		particleSystem.enableEmission = false;
+		GetComponent<ParticleSystem>().enableEmission = false;
 		//m_AttackTimer = m_AttackSpeed;
 		
 		int j = 0;
@@ -83,7 +83,7 @@ public class EnemyAI : MonoBehaviour
 				else
 				{
 					m_OnFire = false;
-					particleSystem.enableEmission = false;
+					GetComponent<ParticleSystem>().enableEmission = false;
 				}
 			}
 
@@ -176,7 +176,7 @@ public class EnemyAI : MonoBehaviour
 	{
 		m_BurnTimer = burnTime;
 		m_OnFire = true;
-		particleSystem.enableEmission = true;
+		GetComponent<ParticleSystem>().enableEmission = true;
 		//m_Animator.SetFloat("Damage", 1.0f);
 		m_Animator.SetTrigger("Flinch");
 		m_Stunned = true;
@@ -223,7 +223,7 @@ public class EnemyAI : MonoBehaviour
 		{
 			// Create an item drop and set the itemID to the correct ID
 			Transform itemDrop = Instantiate(m_DropPrefab, transform.position + new Vector3(0.0f, 1.0f, -2.0f), Quaternion.identity) as Transform;
-			itemDrop.rigidbody2D.velocity = new Vector2(Random.Range(-4.8f, 4.8f), 8.0f);
+			itemDrop.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-4.8f, 4.8f), 8.0f);
 			ItemDrop itemComponent = itemDrop.GetComponent<ItemDrop>();
 			itemComponent.m_ItemID = itemID;
 			itemComponent.m_Amount = m_MoneyDropAmount;

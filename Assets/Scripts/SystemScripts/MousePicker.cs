@@ -329,10 +329,16 @@ public class MousePicker : MonoBehaviour
 					if (m_ItemOffset == new Vector3(-1.0f, -1.0f, -1.0f))
 					{
 						m_ItemOffset = pos - m_CurrentObject.transform.position;
-						// NO LONGER REMOVES ITEM ON PICKUP, ONLY REMOVED WHEN A NEW POSITION IS FOUND!
 						if (m_CurrentObject.FirstSpace != null)
 						{
 							m_CurrentObject.FirstSpace.inventory.RemoveItem(m_CurrentObject);
+
+							// Play the pickup sound effect
+							if (m_CurrentObject.PlacementSound != null)
+							{
+								AudioManager.Instance.PlaySound(m_CurrentObject.PickupSound);
+							}
+
 						}
 					}
 					m_IsCarrying = true;
@@ -355,7 +361,7 @@ public class MousePicker : MonoBehaviour
 			// If the player releases the LMB place the item into the inventory
 			// (Only drop item if a significant time since pickup, or item has been moved)
 			else if (Input.GetMouseButtonUp(0) && !m_EnabledThisFrame && 
-			         ((Time.realtimeSinceStartup - m_LastClickTime) > 0.2f || (pos - m_PickupPosition).magnitude > 0.5f))
+			         ((Time.realtimeSinceStartup - m_LastClickTime) > 0.15f))// || (pos - m_PickupPosition).magnitude > 0.9f))
 			{
 				if (m_CurrentObject != null)
 				{
@@ -405,6 +411,15 @@ public class MousePicker : MonoBehaviour
 
 						if (m_CurrentObject != null)
 						{
+							// Play the Placement sound effect, unless placement failed (May still play on item reset)
+							if (result != PlacementResult.Failed)
+							{
+								if (m_CurrentObject.PlacementSound != null)
+								{
+									AudioManager.Instance.PlaySound(m_CurrentObject.PlacementSound);
+								}
+							}
+
 							#if UNITY_ANDROID
 							if (result == PlacementResult.Failed || result == PlacementResult.AmmoTaken)
 							#else
@@ -425,6 +440,12 @@ public class MousePicker : MonoBehaviour
 									if (result == PlacementResult.Failed)
 									{
 										m_HoldingArea.PlaceItem(m_CurrentObject, out swapItem);
+									}
+
+									// Play the Placement sound effect
+									if (m_CurrentObject.PlacementSound != null)
+									{
+										AudioManager.Instance.PlaySound(m_CurrentObject.PlacementSound);
 									}
 
 									m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = false;

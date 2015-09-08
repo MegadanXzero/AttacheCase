@@ -21,10 +21,10 @@ public class BreakCamera : MonoBehaviour
 		}
 
 		float cameraHeight = (float)Screen.height / (float)(SCREEN_SECTOR * PIXELS_TO_UNITS * PIXEL_SCALING);
-		camera.orthographicSize = cameraHeight;
+		GetComponent<Camera>().orthographicSize = cameraHeight;
 
 		Vector3 pos = transform.position;
-		pos.y = m_BaseHeight + camera.orthographicSize;
+		pos.y = m_BaseHeight + GetComponent<Camera>().orthographicSize;
 		transform.position = pos;
 	}
 	

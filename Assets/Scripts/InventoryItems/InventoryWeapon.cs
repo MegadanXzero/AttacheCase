@@ -115,7 +115,7 @@ public class InventoryWeapon : MonoBehaviour
 		m_Radius = m_WeaponStats.GetRadius(m_WeaponName, m_RadiusUpgradeLevel);
 
 		m_AmmoLoaded = m_Capacity;
-		transform.FindChild("ItemText").guiText.text = m_AmmoLoaded.ToString();
+		transform.FindChild("ItemText").GetComponent<GUIText>().text = m_AmmoLoaded.ToString();
 	}
 
 	void OnGUI()
@@ -254,7 +254,7 @@ public class InventoryWeapon : MonoBehaviour
 				m_FiringTimer = m_FiringSpeed;
 				actionTime = m_FiringSpeed;
 				m_AmmoLoaded--;
-				transform.FindChild("ItemText").guiText.text = m_AmmoLoaded.ToString();
+				transform.FindChild("ItemText").GetComponent<GUIText>().text = m_AmmoLoaded.ToString();
 				return true;
 			}
 			else
@@ -318,7 +318,7 @@ public class InventoryWeapon : MonoBehaviour
 		{
 			m_AmmoLoaded += m_AmmoTaken;
 			m_AmmoTaken = 0;
-			transform.FindChild("ItemText").guiText.text = m_AmmoLoaded.ToString();
+			transform.FindChild("ItemText").GetComponent<GUIText>().text = m_AmmoLoaded.ToString();
 		}
 	}
 	

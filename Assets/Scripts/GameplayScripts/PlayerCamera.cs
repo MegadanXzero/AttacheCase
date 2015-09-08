@@ -16,8 +16,8 @@ public class PlayerCamera : MonoBehaviour
 	void Awake()
 	{
 		float cameraHeight = (float)Screen.height / (float)(SCREEN_SECTOR * PIXELS_TO_UNITS * PIXEL_SCALING);
-		camera.orthographicSize = cameraHeight;
-		m_HorizontalSize = cameraHeight * camera.aspect;
+		GetComponent<Camera>().orthographicSize = cameraHeight;
+		m_HorizontalSize = cameraHeight * GetComponent<Camera>().aspect;
 		m_PlayerCharacter = GameObject.FindGameObjectWithTag(Tags.PLAYER);
 	}
 	
@@ -41,7 +41,7 @@ public class PlayerCamera : MonoBehaviour
 			Vector3 playerPos = m_PlayerCharacter.transform.position;
 			Vector3 pos = transform.position;
 			pos.x = playerPos.x + m_HorizontalSize + m_DistanceFromCharacter;
-			pos.y = m_BaseHeight + camera.orthographicSize;
+			pos.y = m_BaseHeight + GetComponent<Camera>().orthographicSize;
 			transform.position = pos;
 		}
 	}

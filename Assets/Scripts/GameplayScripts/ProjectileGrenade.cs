@@ -17,7 +17,7 @@ public class ProjectileGrenade : MonoBehaviour
 	
 	void Awake()
 	{
-		transform.rigidbody2D.velocity = new Vector3(24.0f, 6.4f, 0.0f);
+		transform.GetComponent<Rigidbody2D>().velocity = new Vector3(24.0f, 6.4f, 0.0f);
 		UpdateStats();
 	}
 	

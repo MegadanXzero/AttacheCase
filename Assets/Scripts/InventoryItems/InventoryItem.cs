@@ -8,6 +8,10 @@ public class InventoryItem : MonoBehaviour
 	[SerializeField] private int m_PrefabID;
 	[SerializeField] private int m_Width = 1;
 	[SerializeField] private int m_Height = 1;
+
+	[SerializeField] private AudioClip m_PickupSound;
+	[SerializeField] private AudioClip m_PlacementSound;
+
 	private InventorySpace m_FirstSpace = null;
 	
 	private int m_Rotation = 0;
@@ -27,6 +31,9 @@ public class InventoryItem : MonoBehaviour
 	public int Height { get {return m_Height;}}
 	public int RotatedWidth { get {return m_Rotation == 1 || m_Rotation == 3 ? m_Height : m_Width;}}
 	public int RotatedHeight { get {return m_Rotation == 1 || m_Rotation == 3 ? m_Width : m_Height;}}
+
+	public AudioClip PickupSound { get {return m_PickupSound;}}
+	public AudioClip PlacementSound { get {return m_PlacementSound;}}
 	
 	public int PrefabID { get {return m_PrefabID;}}
 	public string ItemName { get {return m_ItemName;}}
@@ -49,6 +56,20 @@ public class InventoryItem : MonoBehaviour
 				{
 					imprint.GetComponent<SpriteRenderer>().enabled = false;
 				}
+
+				// Don't want sound to be played in certain situations, 
+				// so this has been moved to the MousePicker
+				/*if (m_PickupSound != null)
+				{
+					AudioManager.Instance.PlaySound(m_PickupSound);
+				}
+			}
+			else
+			{
+				if (m_PickupSound != null)
+				{
+					AudioManager.Instance.PlaySound(m_PutDownSound);
+				}*/
 			}
 		}
 	}
@@ -190,7 +211,7 @@ public class InventoryItem : MonoBehaviour
 				yPos--;
 			}
 			
-			movingHighlight.transform.position = new Vector3((float)xPos + truePlaneOffset.x, (float)yPos - truePlaneOffset.y, 0.0f);
+			movingHighlight.transform.position = new Vector3((float)xPos + truePlaneOffset.x, (float)yPos - truePlaneOffset.y, -0.2f);
 		}
 	}
 	
