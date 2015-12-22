@@ -26,6 +26,7 @@ public class Tags : MonoBehaviour
 	public const string GAMEMODEINFO = "GameModeInfo";
 	public const string GUIOBJECT = "GUI";
 	public const string AUDIOSOURCE = "AudioSource";
+	public const string LOADINGCANVAS = "LoadingCanvas";
 
 	// Level IDs
 	public const int MAINMENU = 0;

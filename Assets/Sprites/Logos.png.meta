@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: 23aa81ba8b1cf3a4b88eeb747299bc33
+timeCreated: 1446222827
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Logo_Loading
+    21300002: Logo_Sorted
+    21300004: Header_Tutorials
+    21300006: Header_Challenge
+    21300008: Header_Options
+    21300010: Header_Arcade
+    21300012: Header_Audio
+    21300014: Header_Paused
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -5
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 2
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 100
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Logo_Loading
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1751
+        width: 1404
+        height: 283
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Logo_Sorted
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 1466
+        width: 1113
+        height: 263
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Header_Tutorials
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1257
+        width: 1064
+        height: 191
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Header_Challenge
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 1064
+        width: 1141
+        height: 190
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Header_Options
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 864
+        width: 888
+        height: 194
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Header_Arcade
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 670
+        width: 801
+        height: 184
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Header_Audio
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 473
+        width: 673
+        height: 191
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Header_Paused
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 266
+        width: 768
+        height: 198
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

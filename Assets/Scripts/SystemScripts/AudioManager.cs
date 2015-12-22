@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections;
 
@@ -210,7 +210,7 @@ public sealed class AudioManager
 			MusicVolume = saveManager.GetFloat(Tags.PREF_AUDIO_MUSICVOLUME);
 			SFXVolume = saveManager.GetFloat(Tags.PREF_AUDIO_SFXVOLUME);
 
-			MuzakVolume = saveManager.GetFloat(Tags.PREF_AUDIO_MUZAKVOLUME);
+			MuzakVolume = saveManager.GetFloat(Tags.PREF_AUDIO_MUZAKVOLUME, 0.25f);
 			FireVolume = saveManager.GetFloat(Tags.PREF_AUDIO_FIREVOLUME);
 			RiverVolume = saveManager.GetFloat(Tags.PREF_AUDIO_RIVERVOLUME);
 			WavesVolume = saveManager.GetFloat(Tags.PREF_AUDIO_WAVESVOLUME);

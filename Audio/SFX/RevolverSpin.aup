@@ -1,22 +1,70 @@
 <?xml version="1.0" standalone="no" ?>
 <!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
-<project xmlns="http://audacity.sourceforge.net/xml/" projname="RevolverSpin_data" version="1.3.0" audacityversion="2.0.2" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="0.0000000000" zoom="959.5033949547" rate="44100.0">
-	<tags/>
-	<wavetrack name="24927__freqman__revolver-load-spin-fire-craftsman-rachet-11-16ths-socket-a" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="RevolverSpin_data" version="1.3.0" audacityversion="2.0.2" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="0.0000000000" zoom="1302.2062214213" rate="44100.0">
+	<tags>
+		<tag name="Encoded by" value="Sound Grinder 3.3.10"/>
+	</tags>
+	<wavetrack name="24927__freqman__revolver-load-spin-fire-craftsman-rachet-11-16ths-socket-a" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
 		<waveclip offset="0.00000000">
-			<sequence maxsamples="262144" sampleformat="262159" numsamples="26382">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="20828">
 				<waveblock start="0">
-					<simpleblockfile filename="e0000104.au" len="26382" min="-0.455017" max="0.450134" rms="0.034695"/>
+					<simpleblockfile filename="e000003a.au" len="7383" min="-0.294495" max="0.334106" rms="0.015416"/>
+				</waveblock>
+				<waveblock start="7383">
+					<simpleblockfile filename="e0000986.au" len="13445" min="-0.368958" max="0.450134" rms="0.020471"/>
 				</waveblock>
 			</sequence>
 			<envelope numpoints="0"/>
 		</waveclip>
 	</wavetrack>
-	<wavetrack name="24927__freqman__revolver-load-spin-fire-craftsman-rachet-11-16ths-socket-a" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+	<wavetrack name="24927__freqman__revolver-load-spin-fire-craftsman-rachet-11-16ths-socket-a" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
 		<waveclip offset="0.00000000">
-			<sequence maxsamples="262144" sampleformat="262159" numsamples="26382">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="20828">
 				<waveblock start="0">
-					<simpleblockfile filename="e0000a0d.au" len="26382" min="-0.382965" max="0.384033" rms="0.025833"/>
+					<simpleblockfile filename="e00009c1.au" len="7383" min="-0.382965" max="0.384033" rms="0.017335"/>
+				</waveblock>
+				<waveblock start="7383">
+					<simpleblockfile filename="e000059f.au" len="13445" min="-0.244263" max="0.231995" rms="0.011145"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="gun_tokarev_semi_automatic_pistol_cock" channel="0" linked="1" mute="1" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.43773243">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="10430">
+				<waveblock start="0">
+					<simpleblockfile filename="e00008d0.au" len="10430" min="-0.890141" max="0.708593" rms="0.018446"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="gun_tokarev_semi_automatic_pistol_cock" channel="1" linked="0" mute="1" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.43773243">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="10430">
+				<waveblock start="0">
+					<simpleblockfile filename="e00005fc.au" len="10430" min="-0.896315" max="0.719116" rms="0.017469"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="44413__bennychico11__gunloading" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0">
+		<waveclip offset="0.39470833">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="10026">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000175.au" len="10026" min="-0.395842" max="0.395774" rms="0.020845"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="44413__bennychico11__gunloading" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="48000" gain="1.0" pan="0.0">
+		<waveclip offset="0.39470833">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="10026">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000bdd.au" len="10026" min="-0.395791" max="0.395722" rms="0.020845"/>
 				</waveblock>
 			</sequence>
 			<envelope numpoints="0"/>

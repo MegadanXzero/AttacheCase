@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
 	[SerializeField] private bool m_ChaosMode;
 	[SerializeField] private bool m_TimeMode = true;
 	[SerializeField] private bool m_ChallengeMode = false;
+	[SerializeField] private bool m_Tutorial = false;
 	[SerializeField] private bool m_EnableDifficultyScaling;
 	[SerializeField] private bool m_ShowRotationBonus;
 	[SerializeField] private int m_MoveLimit;
@@ -39,10 +40,13 @@ public class GameController : MonoBehaviour
 	// GUI objects
 	[SerializeField] private Canvas m_MainCanvas;
 	[SerializeField] private Canvas m_PauseCanvas;
+	[SerializeField] private Canvas m_OptionsCanvas;
 	[SerializeField] private Canvas m_OverCanvas;
+	[SerializeField] private Canvas m_CountdownCanvas;
 	[SerializeField] private Text m_ScoreText;
 	[SerializeField] private Text m_LimitText;
 	[SerializeField] private Text m_GameOverText;
+	[SerializeField] private Text m_CountdownText;
 	[SerializeField] private Image m_MedalSmall;
 	[SerializeField] private Image m_MedalScore;
 
@@ -53,6 +57,12 @@ public class GameController : MonoBehaviour
 	[SerializeField] private Sprite m_MedalImage_Gold_S;
 	[SerializeField] private Sprite m_MedalImage_Silver_S;
 	[SerializeField] private Sprite m_MedalImage_Bronze_S;
+
+	// Sound Effects
+	[SerializeField] private AudioClip m_SoundCountdownBoop;
+	[SerializeField] private AudioClip m_SoundAlertBeep;
+	[SerializeField] private AudioClip m_SoundGameOver;
+	[SerializeField] private AudioClip m_SoundFlashBoop;
 
 	private const int DEFAULT_CHAOS_SCORE = 2000;
 	private const int PER_ITEM_CHAOS_SCORE = 30;
@@ -80,6 +90,8 @@ public class GameController : MonoBehaviour
 	private float m_GroupStartTime = 0.0f;
 	private float m_ScoreGroupTimer = 0.0f;
 	private float m_ScoreFlashTime = 0.2f;
+	private float m_AlertTimer = 0.5f;
+	private float m_CountdownTimer = 3.5f;
 	private bool m_FadingIn = true;
 	private List<HashSet<InventoryItem>> m_ItemScoringList;
 	private List<HashSet<InventoryItem>> m_RotationScoringList;
@@ -137,7 +149,7 @@ public class GameController : MonoBehaviour
 
 		//Application.LoadLevelAdditive(Tags.ACTIONSCENE);
 
-		if (!m_ChallengeMode)
+		if (!m_ChallengeMode && !m_Tutorial)
 		{
 			GetComponent<GUIText>().text = "SCORE: 0";
 			SpawnItems();
@@ -146,13 +158,36 @@ public class GameController : MonoBehaviour
 		{
 			m_RoundTimer = 0.0f;
 		}
-	}
 
+		if (m_TimeMode && !m_ChallengeMode)
+		{
+			m_MousePicker.Enabled = false;
+		}
+
+		if (!m_TimeMode)
+		{
+			m_CountdownText.gameObject.SetActive(false);
+			m_CountdownCanvas.gameObject.SetActive(false);
+			m_MainCanvas.gameObject.SetActive(true);
+		}
+	}
+	
 	void Start()
 	{
-		if (m_ChallengeMode)
+		if (m_ChallengeMode && !m_Tutorial)
 		{
 			m_LimitText.text = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET].Gold.ToString();
+		}
+	}
+
+	void OnLevelWasLoaded(int level)
+	{
+		// Hide the loading canvas that remains, as the level is loaded
+		GameObject loadingCanvas = GameObject.FindGameObjectWithTag(Tags.LOADINGCANVAS);
+		if (loadingCanvas != null)
+		{
+			//loadingCanvas.gameObject.SetActive(false);
+			loadingCanvas.GetComponent<Canvas>().enabled = false;
 		}
 	}
 
@@ -228,13 +263,14 @@ public class GameController : MonoBehaviour
 
 				if (GUI.Button(new Rect((screenQuarterX * 3) - 100, screenCentreY - 50, 200, 100), "CONTINUE"))
 				{
-					Application.LoadLevel(Tags.ACTIONSCENE);
 					m_GameState = GameState.Gameplay;
 					m_ShowEffects = true;
 					m_MousePicker.Enabled = true;
 
 					m_MainInventory.DrawLines = true;
 					m_HoldingArea.DrawLines = true;
+
+					Application.LoadLevel(Tags.ACTIONSCENE);
 				}
 
 				if (GUI.Button(new Rect(screenCentreX - 100, screenCentreY - 50, 200, 100), "SHOP"))
@@ -409,20 +445,23 @@ public class GameController : MonoBehaviour
 			}
 			else if (m_GameState == GameState.Paused)
 			{
-				if (m_ShowingScoring == 0)
+				if (m_PauseCanvas.gameObject.activeInHierarchy)
 				{
-					Time.timeScale = 1.0f;
-					m_MousePicker.Enabled = true;
+					if (m_ShowingScoring == 0)
+					{
+						Time.timeScale = 1.0f;
+						m_MousePicker.Enabled = true;
+					}
+
+					m_GameState = GameState.Gameplay;
+					m_ShowEffects = true;
+
+					m_PauseCanvas.gameObject.SetActive(false);
+					if (m_CountdownTimer <= 0.0f)
+					{
+						m_MainCanvas.gameObject.SetActive(true);
+					}
 				}
-
-				m_GameState = GameState.Gameplay;
-				m_ShowEffects = true;
-
-				m_MainCanvas.gameObject.SetActive(true);
-				m_PauseCanvas.gameObject.SetActive(false);
-
-				//m_MainInventory.DrawLines = true;
-				//m_HoldingArea.DrawLines = true;
 			}
 		}
 
@@ -523,6 +562,13 @@ public class GameController : MonoBehaviour
 							}
 						}
 					}
+					else
+					{
+						if (m_SoundFlashBoop != null)
+						{
+							AudioManager.Instance.PlaySound(m_SoundFlashBoop);
+						}
+					}
 				}
 			}
 		}
@@ -549,31 +595,113 @@ public class GameController : MonoBehaviour
 				m_RoundTimer += Time.deltaTime;
 
 				// In challenge mode, if the holding area is empty and no item carried, success!
-				if (m_HoldingArea.GetNumberOfItems() == 0 && !m_MousePicker.IsCarrying)
+				if (m_HoldingArea.GetNumberOfItems() == 0 && !m_MousePicker.IsCarrying && !m_Tutorial)
 				{
 					GameOver();
 				}
 			}
-			else
+			else if (!m_Tutorial)
 			{
 				if (!m_WaitForLevelEnd)
 				{
 					if (m_TimeMode)
 					{
-						// In time mode, game over when time runs out
-						m_RoundTimer -= Time.deltaTime;
-						if (m_RoundTimer <= 0.0f)
+						if (m_CountdownTimer > 0.0f)
 						{
-							AddScore();
-							LevelEnd();
-
-							// Set GUI Timer to 0:00 to prevent looking weird
-							if (m_LimitText != null)
+							// Timed mode has a countdown before starting, with beeps every second
+							m_CountdownTimer -= Time.deltaTime;
+							m_AlertTimer -= Time.deltaTime;
+							if (m_AlertTimer <= 0.0f)
 							{
-								m_LimitText.text = "Time: 0:00";
+								if (m_SoundCountdownBoop != null)
+								{
+									AudioManager.Instance.PlaySound(m_SoundCountdownBoop);
+								}
+								m_AlertTimer += 1.0f;
+
+								if (m_CountdownTimer > 2.0f)
+								{
+									m_CountdownText.text = "3";
+								}
+								else if (m_CountdownTimer > 1.0f)
+								{
+									m_CountdownText.text = "2";
+								}
+								else
+								{
+									m_CountdownText.text = "1";
+								}
 							}
 
-							//GameOver();
+							if (m_CountdownTimer <= 0.0f)
+							{
+								if (m_SoundAlertBeep != null)
+								{
+									AudioManager.Instance.PlaySound(m_SoundAlertBeep);
+								}
+
+								// Reset alert timer with times for gameplay time alerts
+								if (m_ModeOptionSelect == 0)
+								{
+									m_AlertTimer = 30.0f;
+								}
+								else if (m_ModeOptionSelect == 1)
+								{
+									m_AlertTimer = 90.0f;
+								}
+								else if (m_ModeOptionSelect == 2)
+								{
+									m_AlertTimer = 210.0f;
+								}
+
+								// Also enable the mouse picker to start actual gameplay
+								m_MousePicker.Enabled = true;
+								m_CountdownText.gameObject.SetActive(false);
+								m_CountdownCanvas.gameObject.SetActive(false);
+								m_MainCanvas.gameObject.SetActive(true);
+							}
+						}
+						else
+						{
+							// In time mode, game over when time runs out
+							m_RoundTimer -= Time.deltaTime;
+							if (m_RoundTimer <= 0.0f)
+							{
+								AddScore();
+								LevelEnd();
+
+								// Set GUI Timer to 0:00 to prevent looking weird
+								if (m_LimitText != null)
+								{
+									m_LimitText.text = "Time: 0:00";
+								}
+
+								//GameOver();
+							}
+
+							// Decrease timer for time-related 'alert' beep sound
+							// Sound plays at 1:30, :30, and every second below :10
+							m_AlertTimer -= Time.deltaTime;
+							if (m_AlertTimer <= 0.0f)
+							{
+								if (m_SoundAlertBeep != null)
+								{
+									AudioManager.Instance.PlaySound(m_SoundAlertBeep);
+								}
+
+								if (m_RoundTimer > 30.0f)
+								{
+									m_AlertTimer += 60.0f;
+								}
+								else if (m_RoundTimer > 10.0f)
+								{
+									m_AlertTimer += 20.0f;
+								}
+								else
+								{
+									m_AlertTimer += 1.0f;
+								}
+							}
 						}
 					}
 					else
@@ -620,6 +748,24 @@ public class GameController : MonoBehaviour
 					}
 				}
 
+				if (m_TimeMode && !m_Tutorial)
+				{
+					if (m_LimitText.color == Color.white)
+					{
+						if (m_RoundTimer <= 10.0f || (m_RoundTimer <= 90.0f && m_RoundTimer > 89.0f) || (m_RoundTimer <= 30.0f && m_RoundTimer > 29.0f))
+						{
+							m_LimitText.color = Color.red;
+						}
+					}
+					else
+					{
+						if ((m_RoundTimer <= 89.0f && m_RoundTimer > 30.0f) || (m_RoundTimer <= 29.0f && m_RoundTimer > 10.0f))
+						{
+							m_LimitText.color = Color.white;
+						}
+					}
+				}
+
 				// Create strings for showing Score/Time and set GUI text elements
 				string time = string.Format("{0}:{1:00}", ((int)m_RoundTimer + 1) / 60, ((int)m_RoundTimer + 1) % 60);
 				string mode = m_TimeMode ? "Time: " + time : "Moves: " + (m_MoveLimit - m_MovesUsed).ToString();
@@ -627,7 +773,7 @@ public class GameController : MonoBehaviour
 				{
 					m_ScoreText.text = "Score: " + m_DisplayedScore.ToString() + (m_ScoreIncrement < 0 ? " (" : " (+") + m_ScoreIncrement.ToString() + ") ";
 				}
-				if (m_LimitText != null)
+				if (m_LimitText != null && !m_Tutorial)
 				{
 					m_LimitText.text = mode;
 				}
@@ -656,7 +802,8 @@ public class GameController : MonoBehaviour
 		//DestroyAllObjects();
 		
 		Time.timeScale = 1.0f;
-		Application.LoadLevel(Tags.MAINMENU);
+		//Application.LoadLevel(Tags.MAINMENU);
+		MainMenu.LoadLevel(Tags.MAINMENU);
 	}
 
 	public void GameOver()
@@ -721,6 +868,11 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
+			if (m_SoundGameOver != null)
+			{
+				AudioManager.Instance.PlaySound(m_SoundGameOver);
+			}
+
 			//AddScore();
 
 			// Manually get and destroy all objects in the scene
@@ -901,12 +1053,15 @@ public class GameController : MonoBehaviour
 	{
 		m_MainInventory.ClearItems();
 		m_HoldingArea.ClearItems();
-		m_ItemDropManager.SpawnItems();
+		if (!m_Tutorial)
+		{
+			m_ItemDropManager.SpawnItems();
+		}
 	}
 
 	public void CashIn()
 	{
-		if (!m_MousePicker.IsCarrying)
+		if (!m_MousePicker.IsCarrying && m_ShowingScoring == 0)
 		{
 			AddScore();
 			
@@ -915,6 +1070,13 @@ public class GameController : MonoBehaviour
 				// Clear objects in inventory and spawn new items
 				// (Score is now added when moving to next inventory)
 				SpawnItems();
+			}
+			else
+			{
+				if (m_SoundFlashBoop != null)
+				{
+					AudioManager.Instance.PlaySound(m_SoundFlashBoop);
+				}
 			}
 		}
 	}
@@ -930,21 +1092,34 @@ public class GameController : MonoBehaviour
 			}
 			m_ScoreText.text = "Moves: " + m_MovesUsed.ToString();
 
-			MedalInfo info = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET];
-			if (m_MovesUsed + 1 <= info.Gold)
+			if (!m_Tutorial)
 			{
-				m_MedalSmall.sprite = m_MedalImage_Gold_S;
-				m_LimitText.text = info.Gold.ToString();
+				MedalInfo info = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET];
+				if (m_MovesUsed + 1 <= info.Gold)
+				{
+					m_MedalSmall.sprite = m_MedalImage_Gold_S;
+					m_LimitText.text = info.Gold.ToString();
+				}
+				else if (m_MovesUsed + 1 <= info.Silver)
+				{
+					m_MedalSmall.sprite = m_MedalImage_Silver_S;
+					m_LimitText.text = info.Silver.ToString();
+				}
+				else
+				{
+					m_MedalSmall.sprite = m_MedalImage_Bronze_S;
+					m_LimitText.text = info.Bronze.ToString();
+				}
 			}
-			else if (m_MovesUsed + 1 <= info.Silver)
+		}
+		else
+		{
+			if (!m_TimeMode)
 			{
-				m_MedalSmall.sprite = m_MedalImage_Silver_S;
-				m_LimitText.text = info.Silver.ToString();
-			}
-			else
-			{
-				m_MedalSmall.sprite = m_MedalImage_Bronze_S;
-				m_LimitText.text = info.Bronze.ToString();
+				if (m_MoveLimit - m_MovesUsed <= 10)
+				{
+					m_LimitText.color = Color.red;
+				}
 			}
 		}
 	}
@@ -959,8 +1134,11 @@ public class GameController : MonoBehaviour
 
 		m_GameState = GameState.Gameplay;
 		m_ShowEffects = true;
-		m_MainCanvas.gameObject.SetActive(true);
 		m_PauseCanvas.gameObject.SetActive(false);
+		if (m_CountdownTimer <= 0.0f)
+		{
+			m_MainCanvas.gameObject.SetActive(true);
+		}
 	}
 	
 	public void Button_Restart()
@@ -975,7 +1153,17 @@ public class GameController : MonoBehaviour
 		modeInfo.m_ChaosMode = m_ChaosMode;
 		modeInfo.m_ModeOptionSelect = m_ModeOptionSelect;
 		
-		Application.LoadLevel(Application.loadedLevel);
+		//Application.LoadLevel(Application.loadedLevel);
+		MainMenu.LoadLevel(Application.loadedLevel);
+	}
+
+	public void Button_Options()
+	{
+		if (m_OptionsCanvas != null)
+		{
+			m_OptionsCanvas.gameObject.SetActive(true);
+			m_PauseCanvas.gameObject.SetActive(false);
+		}
 	}
 	
 	public void Button_Quit()
@@ -995,6 +1183,7 @@ public class GameController : MonoBehaviour
 
 	public void Button_NextLevel()
 	{
-		Application.LoadLevel(Application.loadedLevel + 1);
+		//Application.LoadLevel(Application.loadedLevel + 1);
+		MainMenu.LoadLevel(Application.loadedLevel + 1);
 	}
 }

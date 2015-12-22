@@ -17,6 +17,8 @@ public class MousePicker : MonoBehaviour
 	[SerializeField] private Material m_MaterialSwap;
 	[SerializeField] private Material m_MaterialFailure;
 
+	[SerializeField] private AudioClip m_FailSound;
+
 	private Vector3 m_ItemOffset = new Vector3(-1.0f, -1.0f, -1.0f);
 	private Vector3 m_PickupPosition = new Vector3();
 	private Vector3 m_LastMousePosition = new Vector3();
@@ -334,9 +336,12 @@ public class MousePicker : MonoBehaviour
 							m_CurrentObject.FirstSpace.inventory.RemoveItem(m_CurrentObject);
 
 							// Play the pickup sound effect
-							if (m_CurrentObject.PlacementSound != null)
+							if (m_CurrentObject.PickupSound != null)
 							{
-								AudioManager.Instance.PlaySound(m_CurrentObject.PickupSound);
+								if (AudioManager.Instance != null)
+								{
+									AudioManager.Instance.PlaySound(m_CurrentObject.PickupSound);
+								}
 							}
 
 						}
@@ -416,7 +421,10 @@ public class MousePicker : MonoBehaviour
 							{
 								if (m_CurrentObject.PlacementSound != null)
 								{
-									AudioManager.Instance.PlaySound(m_CurrentObject.PlacementSound);
+									if (AudioManager.Instance != null)
+									{
+										AudioManager.Instance.PlaySound(m_CurrentObject.PlacementSound);
+									}
 								}
 							}
 
@@ -443,9 +451,12 @@ public class MousePicker : MonoBehaviour
 									}
 
 									// Play the Placement sound effect
-									if (m_CurrentObject.PlacementSound != null)
+									if (m_FailSound != null)
 									{
-										AudioManager.Instance.PlaySound(m_CurrentObject.PlacementSound);
+										if (AudioManager.Instance != null)
+										{
+											AudioManager.Instance.PlaySound(m_FailSound);
+										}
 									}
 
 									m_CurrentObject.transform.FindChild("MovingHighlight").GetComponent<MeshRenderer>().enabled = false;

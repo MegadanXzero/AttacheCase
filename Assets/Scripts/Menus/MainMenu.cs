@@ -12,10 +12,8 @@ public class MainMenu : MonoBehaviour
 		Main = 0,
 		ModeSelect,
 		ChallengeSelect,
-		HowToPlay1,
-		HowToPlay2,
-		HowToPlay3,
-		HowToPlay4,
+		Tutorials,
+		Options,
 	};
 
 	// Audio intialisation objects
@@ -35,7 +33,8 @@ public class MainMenu : MonoBehaviour
 	[SerializeField] private Canvas m_CanvasMain;
 	[SerializeField] private Canvas m_CanvasArcade;
 	[SerializeField] private Canvas m_CanvasChallenge;
-	[SerializeField] private Canvas m_CanvasAudio;
+	[SerializeField] private Canvas m_CanvasOptions;
+	[SerializeField] private Canvas m_CanvasTutorials;
 
 	[SerializeField] private Image[] m_ChallengeButtonList;
 	[SerializeField] private Sprite m_ChallengeBronze;
@@ -65,6 +64,32 @@ public class MainMenu : MonoBehaviour
 		// Load save data on startup
 		SaveManager.Instance.Load();
 
+		// Get GameModeInfo script to determine the menu state, then destroy
+		GameObject infoObject = GameObject.FindGameObjectWithTag(Tags.GAMEMODEINFO);
+		if (infoObject != null)
+		{
+			GameModeInfo gameInfo = infoObject.GetComponent<GameModeInfo>();
+			if (gameInfo.m_ChallengeSelect)
+			{
+				m_MenuState = MenuState.ChallengeSelect;
+				m_CanvasChallenge.gameObject.SetActive(true);
+				m_CanvasMain.gameObject.SetActive(false);
+			}
+			Destroy(gameInfo.gameObject);
+		}
+	}
+
+	void Start()
+	{
+		// Tell the loading canvas to never destroy itself
+		GameObject loadingCanvas = GameObject.FindGameObjectWithTag(Tags.LOADINGCANVAS);
+		if (loadingCanvas != null)
+		{
+			DontDestroyOnLoad(loadingCanvas);
+			//loadingCanvas.SetActive(false);
+			loadingCanvas.GetComponent<Canvas>().enabled = false;
+		}
+
 		// Initialise Audio
 		AudioManager.Instance.SetupAudio(m_AudioMixer, m_AudioSourcePrefab, m_MusicArray);
 
@@ -85,33 +110,68 @@ public class MainMenu : MonoBehaviour
 				m_ChallengeButtonList[i].sprite = m_ChallengeBronze;
 			}
 		}
+	}
 
-		// Get GameModeInfo script to determine the menu state, then destroy
-		GameObject infoObject = GameObject.FindGameObjectWithTag(Tags.GAMEMODEINFO);
-		if (infoObject != null)
+	void OnLevelWasLoaded(int level)
+	{
+		// Check if there are several loading canvases and if so destroy all but the first one
+		GameObject[] loadingCanvasList = GameObject.FindGameObjectsWithTag(Tags.LOADINGCANVAS);
+		if (loadingCanvasList.Length > 1)
 		{
-			GameModeInfo gameInfo = infoObject.GetComponent<GameModeInfo>();
-			if (gameInfo.m_ChallengeSelect)
+			for (int i = 1; i < loadingCanvasList.Length; i++)
 			{
-				m_MenuState = MenuState.ChallengeSelect;
-				m_CanvasChallenge.gameObject.SetActive(true);
-				m_CanvasMain.gameObject.SetActive(false);
+				Destroy(loadingCanvasList[i]);
 			}
-			Destroy(gameInfo.gameObject);
 		}
+		
+		// Hide the loading canvas that remains, as the level is loaded
+		//loadingCanvasList[0].gameObject.SetActive(false);
+		loadingCanvasList[0].GetComponent<Canvas>().enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update()
 	{
 		AudioManager.Instance.Update();
+
+		if (m_MenuState == MenuState.ModeSelect)
+		{
+			if (Input.GetButtonDown("Pause"))
+			{
+				Button_Back_Arcade();
+			}
+		}
+		else if (m_MenuState == MenuState.ChallengeSelect)
+		{
+			if (Input.GetButtonDown("Pause"))
+			{
+				Button_Back_Challenge();
+			}
+		}
+		else if (m_MenuState == MenuState.Tutorials)
+		{
+			if (Input.GetButtonDown("Pause"))
+			{
+				Button_Back_Tutorials();
+			}
+		}
+		else if (m_MenuState == MenuState.Options)
+		{
+			if (m_CanvasOptions.enabled)
+			{
+				if (Input.GetButtonDown("Pause"))
+				{
+					m_MenuState = MenuState.Main;
+				}
+			}
+		}
 	}
 
 	void OnGUI()
 	{
-		if (m_MenuState == MenuState.Main)
+		/*if (m_MenuState == MenuState.Main)
 		{
-			/*int centreX = Screen.width / 2;
+			int centreX = Screen.width / 2;
 			int centreY = Screen.height / 2;
 
 			if (GUI.Button(new Rect(centreX - 100, centreY - 160, 200, 100), "ARCADE"))
@@ -133,12 +193,12 @@ public class MainMenu : MonoBehaviour
 			if (GUI.Button(new Rect(centreX - 100, centreY + 170, 200, 100), "QUIT"))
 			{
 				Application.Quit();
-			}*/
+			}
 
 			// Testing Save/Load stuff
 			//SaveManager.Instance.Draw();
 
-			/*if (!FB.IsLoggedIn)
+			if (!FB.IsLoggedIn)
 			{
 				if (GUI.Button(new Rect(centreX - 100, centreY + 150, 200, 50), "Login to Facebook"))
 				{
@@ -189,11 +249,11 @@ public class MainMenu : MonoBehaviour
 						GUI.TextField(new Rect(138, 10 + (i * 128), 100, 128), firstName + "\n" + entry["score"]);
 					}
 				}
-			}*/
+			}
 		}
 		else if (m_MenuState == MenuState.ModeSelect)
 		{
-			/*int centreX = Screen.width / 2;
+			int centreX = Screen.width / 2;
 			int centreY = Screen.height / 2;
 			
 			//if (GUI.Button(new Rect(centreX - 250, centreY - 160, 200, 100), "Order Mode\nTimed")
@@ -277,11 +337,11 @@ public class MainMenu : MonoBehaviour
 			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
 				m_MenuState = MenuState.Main;
-			}*/
+			}
 		}
 		else if (m_MenuState == MenuState.ChallengeSelect)
 		{
-			/*// Create a button for each Challenge level which loads the level
+			// Create a button for each Challenge level which loads the level
 			int numChallenges = Application.levelCount - Tags.CHALLENGE_LEVEL_OFFSET;
 			int offset = Screen.width / 5;
 			for (int i = 0; i < numChallenges; i++)
@@ -309,7 +369,7 @@ public class MainMenu : MonoBehaviour
 			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
 			{
 				m_MenuState = MenuState.Main;
-			}*/
+			}
 		}
 		else if (m_MenuState == MenuState.HowToPlay1)
 		{
@@ -390,7 +450,7 @@ public class MainMenu : MonoBehaviour
 				m_HowToPlay3.enabled = true;
 				m_HowToPlay4.enabled = false;
 			}
-		}
+		}*/
 	}
 
 	public void Button_Arcade()
@@ -409,14 +469,18 @@ public class MainMenu : MonoBehaviour
 
 	public void Button_HowToPlay()
 	{
-		m_MenuState = MenuState.HowToPlay1;
-		m_HowToPlay1.enabled = true;
+		/*m_MenuState = MenuState.HowToPlay1;
+		m_HowToPlay1.enabled = true;*/
+
+		m_MenuState = MenuState.Tutorials;
 		m_CanvasMain.gameObject.SetActive(false);
+		m_CanvasTutorials.gameObject.SetActive(true);
 	}
 
-	public void Button_Audio()
+	public void Button_Options()
 	{
-		m_CanvasAudio.gameObject.SetActive(true);
+		m_MenuState = MenuState.Options;
+		m_CanvasOptions.gameObject.SetActive(true);
 		m_CanvasMain.gameObject.SetActive(false);
 	}
 
@@ -434,6 +498,13 @@ public class MainMenu : MonoBehaviour
 		m_CanvasChallenge.gameObject.SetActive(false);
 	}
 
+	public void Button_Back_Tutorials()
+	{
+		m_MenuState = MenuState.Main;
+		m_CanvasMain.gameObject.SetActive(true);
+		m_CanvasTutorials.gameObject.SetActive(false);
+	}
+
 	public void Button_Begin_Arcade()
 	{
 		Transform info = Instantiate(m_GameInfoPrefab) as Transform;
@@ -442,7 +513,20 @@ public class MainMenu : MonoBehaviour
 		modeInfo.m_ChaosMode = m_OrderSelection;
 		modeInfo.m_ModeOptionSelect = m_TimeSelection ? m_TimeOptionSelection : m_MovesOptionSelection;
 
-		Application.LoadLevel(Tags.ORDERINVENTORY);
+		//Application.LoadLevel(Tags.ORDERINVENTORY);
+		MainMenu.LoadLevel(1);
+	}
+
+	public void Button_Tutorial_Arcade()
+	{
+		//Application.LoadLevel(2);
+		MainMenu.LoadLevel(2);
+	}
+
+	public void Button_Tutorial_Challenge()
+	{
+		//Application.LoadLevel(3);
+		MainMenu.LoadLevel(3);
 	}
 
 	public void Button_Quit()
@@ -472,6 +556,20 @@ public class MainMenu : MonoBehaviour
 
 	public void LoadChallengeLevel(int level)
 	{
-		Application.LoadLevel(Tags.CHALLENGE_LEVEL_OFFSET + level);
+		//Application.LoadLevel(Tags.CHALLENGE_LEVEL_OFFSET + level);
+		LoadLevel(Tags.CHALLENGE_LEVEL_OFFSET + level);
+	}
+
+	public static void LoadLevel(int level)
+	{
+		// Show the loading canvas as a new level is loading
+		GameObject loadingCanvas = GameObject.FindGameObjectWithTag(Tags.LOADINGCANVAS);
+		if (loadingCanvas != null)
+		{
+			//loadingCanvas.gameObject.SetActive(true);
+			loadingCanvas.GetComponent<Canvas>().enabled = true;
+		}
+
+		Application.LoadLevel(level);
 	}
 }

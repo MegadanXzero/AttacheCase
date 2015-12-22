@@ -43,6 +43,11 @@ public class AudioMenu : MonoBehaviour
 		int fontSize = m_TextMaster.cachedTextGenerator.fontSizeUsedForBestFit;
 		m_TextMusic.fontSize = fontSize;
 		m_TextEffects.fontSize = fontSize;
+
+		if (Input.GetButtonDown("Pause"))
+		{
+			Button_Back();
+		}
 	}
 
 	public void AdjustVolume_Master(float volume)
@@ -83,6 +88,7 @@ public class AudioMenu : MonoBehaviour
 	public void Button_Back()
 	{
 		m_CanvasMain.gameObject.SetActive(true);
+		m_CanvasMain.enabled = true;
 		gameObject.SetActive(false);
 		AudioManager.Instance.SaveSettings();
 	}

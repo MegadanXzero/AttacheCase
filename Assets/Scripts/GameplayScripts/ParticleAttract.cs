@@ -9,6 +9,7 @@ public class ParticleAttract : MonoBehaviour
 	private Vector3 m_AttractPosition = new Vector3(0.0f, 0.0f, 0.0f);
 	private InventoryItem m_AttractTarget = null;
 	private Vector3 m_Velocity;
+	private float m_Rotation = 0.0f;
 	private float m_FloatTimer = 1.0f;
 
 	public Vector3 AttractPosition { set {m_AttractPosition = value;}}
@@ -19,8 +20,9 @@ public class ParticleAttract : MonoBehaviour
 	void Awake()
 	{
 		m_Velocity = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
+		m_Rotation = Random.Range(-0.5f, 0.5f);
 	}
-	
+
 	// Update is called once per frame
 	void Update()
 	{
@@ -54,5 +56,6 @@ public class ParticleAttract : MonoBehaviour
 		m_Velocity += (distance * Time.deltaTime) * 8.0f;*/
 		
 		transform.position += m_Velocity * Time.deltaTime;
+		transform.Rotate(new Vector3(0.0f, 0.0f, m_Rotation));
 	}
 }

@@ -46,7 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\GameplayScripts\ArcadeTutorial.cs" />
      <Compile Include="Assets\Scripts\GameplayScripts\BreakCamera.cs" />
+     <Compile Include="Assets\Scripts\GameplayScripts\ChallengeTutorial.cs" />
      <Compile Include="Assets\Scripts\GameplayScripts\CharacterAnim.cs" />
      <Compile Include="Assets\Scripts\GameplayScripts\CharacterScript.cs" />
      <Compile Include="Assets\Scripts\GameplayScripts\DiscardedItem.cs" />
@@ -68,6 +70,7 @@
      <Compile Include="Assets\Scripts\InventoryItems\InventoryWeapon.cs" />
      <Compile Include="Assets\Scripts\Menus\AudioMenu.cs" />
      <Compile Include="Assets\Scripts\Menus\MainMenu.cs" />
+     <Compile Include="Assets\Scripts\Menus\OptionsMenu.cs" />
      <Compile Include="Assets\Scripts\Menus\ShopMenu.cs" />
      <Compile Include="Assets\Scripts\SystemScripts\AmmoDropManager.cs" />
      <Compile Include="Assets\Scripts\SystemScripts\AudioManager.cs" />
