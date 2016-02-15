@@ -127,6 +127,14 @@ public class MainMenu : MonoBehaviour
 		// Hide the loading canvas that remains, as the level is loaded
 		//loadingCanvasList[0].gameObject.SetActive(false);
 		loadingCanvasList[0].GetComponent<Canvas>().enabled = false;
+
+		// Find the animated background and move it to the back
+		GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+		BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+		if (animBG != null)
+		{
+			animBG.SendToBack();
+		}
 	}
 	
 	// Update is called once per frame
@@ -514,18 +522,21 @@ public class MainMenu : MonoBehaviour
 		modeInfo.m_ModeOptionSelect = m_TimeSelection ? m_TimeOptionSelection : m_MovesOptionSelection;
 
 		//Application.LoadLevel(Tags.ORDERINVENTORY);
+		HideUI();
 		MainMenu.LoadLevel(1);
 	}
 
 	public void Button_Tutorial_Arcade()
 	{
 		//Application.LoadLevel(2);
+		HideUI();
 		MainMenu.LoadLevel(2);
 	}
 
 	public void Button_Tutorial_Challenge()
 	{
 		//Application.LoadLevel(3);
+		HideUI();
 		MainMenu.LoadLevel(3);
 	}
 
@@ -554,9 +565,19 @@ public class MainMenu : MonoBehaviour
 		m_MovesOptionSelection = moveOption;
 	}
 
+	private void HideUI()
+	{
+		m_CanvasMain.enabled = false;
+		m_CanvasArcade.enabled = false;
+		m_CanvasChallenge.enabled = false;
+		m_CanvasOptions.enabled = false;
+		m_CanvasTutorials.enabled = false;
+	}
+
 	public void LoadChallengeLevel(int level)
 	{
 		//Application.LoadLevel(Tags.CHALLENGE_LEVEL_OFFSET + level);
+		HideUI();
 		LoadLevel(Tags.CHALLENGE_LEVEL_OFFSET + level);
 	}
 
@@ -568,6 +589,14 @@ public class MainMenu : MonoBehaviour
 		{
 			//loadingCanvas.gameObject.SetActive(true);
 			loadingCanvas.GetComponent<Canvas>().enabled = true;
+		}
+
+		// Find the animated background and move it to the front
+		GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+		BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+		if (animBG != null)
+		{
+			animBG.BringToFront();
 		}
 
 		Application.LoadLevel(level);

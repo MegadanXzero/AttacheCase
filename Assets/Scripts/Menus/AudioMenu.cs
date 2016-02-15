@@ -28,13 +28,40 @@ public class AudioMenu : MonoBehaviour
 		AudioManager audioManager = AudioManager.Instance;
 
 		//audioManager.SetupAudio(m_AudioMixer, m_AudioSourcePrefab);
-		m_SliderMaster.value = audioManager.MasterVolume;
-		m_SliderMusic.value = audioManager.MusicVolume;
-		m_SliderSFX.value = audioManager.SFXVolume;
-		m_SliderMuzak.value = audioManager.MuzakVolume;
-		m_SliderFire.value = audioManager.FireVolume;
-		m_SliderRiver.value = audioManager.RiverVolume;
-		m_SliderWaves.value = audioManager.WavesVolume;
+		if (m_SliderMaster != null)
+		{
+			m_SliderMaster.value = audioManager.MasterVolume;
+		}
+
+		if (m_SliderMusic != null)
+		{
+			m_SliderMusic.value = audioManager.MusicVolume;
+		}
+
+		if (m_SliderSFX != null)
+		{
+			m_SliderSFX.value = audioManager.SFXVolume;
+		}
+
+		if (m_SliderMuzak != null)
+		{
+			m_SliderMuzak.value = audioManager.MuzakVolume;
+		}
+
+		if (m_SliderFire != null)
+		{
+			m_SliderFire.value = audioManager.FireVolume;
+		}
+
+		if (m_SliderRiver != null)
+		{
+			m_SliderRiver.value = audioManager.RiverVolume;
+		}
+
+		if (m_SliderMaster != null)
+		{
+			m_SliderWaves.value = audioManager.WavesVolume;
+		}
 	}
 	
 	// Update is called once per frame

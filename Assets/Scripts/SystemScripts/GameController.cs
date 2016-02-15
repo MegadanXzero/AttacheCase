@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour
 	[SerializeField] private Text m_LimitText;
 	[SerializeField] private Text m_GameOverText;
 	[SerializeField] private Text m_CountdownText;
+	[SerializeField] private GameObject m_HighScoreText;
 	[SerializeField] private Image m_MedalSmall;
 	[SerializeField] private Image m_MedalScore;
 
@@ -108,6 +109,7 @@ public class GameController : MonoBehaviour
 		//DontDestroyOnLoad(GameObject.FindObjectOfType<Light>().gameObject);
 
 		float aspectRatio = (float)Screen.width / (float)Screen.height;
+		aspectRatio = Mathf.Min(aspectRatio, 1.78f);
 		Camera.main.orthographicSize = 9.0f / aspectRatio;
 
 		// Get GameModeInfo script to determine the game mode for this session, then destroy
@@ -169,6 +171,14 @@ public class GameController : MonoBehaviour
 			m_CountdownText.gameObject.SetActive(false);
 			m_CountdownCanvas.gameObject.SetActive(false);
 			m_MainCanvas.gameObject.SetActive(true);
+
+			// Find the animated background and move it to the back
+			GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+			BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+			if (animBG != null)
+			{
+				animBG.SendToBack();
+			}
 		}
 	}
 	
@@ -302,6 +312,7 @@ public class GameController : MonoBehaviour
 					//PlayerPrefs.DeleteKey(pref);
 					string pref = Tags.PREF_CHALLENGE_MOVES + Application.loadedLevel;
 					SaveManager.Instance.DeleteKey(pref);
+					SaveManager.Instance.Save();
 				}
 
 				/*if (Application.loadedLevel != Application.levelCount - 1)
@@ -439,15 +450,29 @@ public class GameController : MonoBehaviour
 
 				m_MainCanvas.gameObject.SetActive(false);
 				m_PauseCanvas.gameObject.SetActive(true);
+				if (m_CountdownCanvas != null)
+				{
+					m_CountdownCanvas.gameObject.SetActive(false);
+				}
 
 				//m_MainInventory.DrawLines = false;
 				//m_HoldingArea.DrawLines = false;
+
+				// Find the animated background and bring it to the front
+				GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+				BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+				if (animBG != null)
+				{
+					animBG.BringToFront();
+				}
 			}
 			else if (m_GameState == GameState.Paused)
 			{
 				if (m_PauseCanvas.gameObject.activeInHierarchy)
 				{
-					if (m_ShowingScoring == 0)
+					Button_Resume();
+
+					/*if (m_ShowingScoring == 0)
 					{
 						Time.timeScale = 1.0f;
 						m_MousePicker.Enabled = true;
@@ -457,10 +482,18 @@ public class GameController : MonoBehaviour
 					m_ShowEffects = true;
 
 					m_PauseCanvas.gameObject.SetActive(false);
-					if (m_CountdownTimer <= 0.0f)
+					if (m_CountdownTimer <= 0.0f || m_ChallengeMode)
 					{
 						m_MainCanvas.gameObject.SetActive(true);
 					}
+
+					// Find the animated background and move it to the back
+					GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+					BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+					if (animBG != null)
+					{
+						animBG.SendToBack();
+					}*/
 				}
 			}
 		}
@@ -659,6 +692,14 @@ public class GameController : MonoBehaviour
 								m_CountdownText.gameObject.SetActive(false);
 								m_CountdownCanvas.gameObject.SetActive(false);
 								m_MainCanvas.gameObject.SetActive(true);
+
+								// Find the animated background and send it to the back
+								GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+								BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+								if (animBG != null)
+								{
+									animBG.SendToBack();
+								}
 							}
 						}
 						else
@@ -790,7 +831,7 @@ public class GameController : MonoBehaviour
 		Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
 		foreach (Transform trans in objectList)
 		{
-			if (trans.tag != Tags.AUDIOSOURCE)
+			if (trans.tag != Tags.AUDIOSOURCE && trans.tag != Tags.ANIMATEDBACKGROUND)
 			{
 				Destroy(trans.gameObject);
 			}
@@ -803,6 +844,7 @@ public class GameController : MonoBehaviour
 		
 		Time.timeScale = 1.0f;
 		//Application.LoadLevel(Tags.MAINMENU);
+		HideUI();
 		MainMenu.LoadLevel(Tags.MAINMENU);
 	}
 
@@ -818,9 +860,20 @@ public class GameController : MonoBehaviour
 			foreach (Transform trans in objectList)
 			{
 				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject 
-				    && trans.gameObject.tag != Tags.GUIOBJECT && trans.tag != Tags.AUDIOSOURCE)
+				    && trans.gameObject.tag != Tags.GUIOBJECT && trans.tag != Tags.AUDIOSOURCE
+				    && trans.tag != Tags.ANIMATEDBACKGROUND && trans.tag != Tags.LOADINGCANVAS)
 				{
-					Destroy(trans.gameObject);
+					if (trans.parent != null)
+					{
+						if (trans.parent.tag != Tags.ANIMATEDBACKGROUND && trans.parent.tag != Tags.LOADINGCANVAS)
+						{
+							Destroy(trans.gameObject);
+						}
+					}
+					else
+					{
+						Destroy(trans.gameObject);
+					}
 				}
 			}
 
@@ -837,7 +890,7 @@ public class GameController : MonoBehaviour
 
 			// Construct string for saving best time/moves
 			//guiText.text = "MOVES:\n" + m_MovesUsed.ToString();
-			m_GameOverText.text += m_MovesUsed.ToString() + "\n";
+			m_GameOverText.text += m_MovesUsed.ToString() + " moves";
 
 			string movesPref = Tags.PREF_CHALLENGE_MOVES + Application.loadedLevel;
 			//int leastMoves = PlayerPrefs.GetInt(movesPref, 9999);
@@ -849,7 +902,8 @@ public class GameController : MonoBehaviour
 				SaveManager.Instance.SetInt(movesPref, m_MovesUsed);
 				SaveManager.Instance.Save();
 				//guiText.text += "NEW BEST!";
-				m_GameOverText.text += "NEW BEST!";
+				//m_GameOverText.text += "\nNEW BEST!";
+				m_HighScoreText.SetActive(true);
 			}
 
 			MedalInfo info = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET];
@@ -881,9 +935,20 @@ public class GameController : MonoBehaviour
 			foreach (Transform trans in objectList)
 			{
 				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject 
-				    && trans.gameObject.tag != Tags.GUIOBJECT && trans.tag != Tags.AUDIOSOURCE)
+				    && trans.gameObject.tag != Tags.GUIOBJECT && trans.tag != Tags.AUDIOSOURCE
+				    && trans.tag != Tags.ANIMATEDBACKGROUND && trans.tag != Tags.LOADINGCANVAS)
 				{
-					Destroy(trans.gameObject);
+					if (trans.parent != null)
+					{
+						if (trans.parent.tag != Tags.ANIMATEDBACKGROUND && trans.parent.tag != Tags.LOADINGCANVAS)
+						{
+							Destroy(trans.gameObject);
+						}
+					}
+					else
+					{
+						Destroy(trans.gameObject);
+					}
 				}
 			}
 			
@@ -903,7 +968,7 @@ public class GameController : MonoBehaviour
 			//guiText.text = "FINAL SCORE:\n" + m_Score.ToString();
 
 			// Use new GUI system
-			m_GameOverText.text += m_Score.ToString() + "\n";
+			m_GameOverText.text += m_Score.ToString();
 
 			// Get string for saving high score
 			string scorePref;
@@ -937,7 +1002,8 @@ public class GameController : MonoBehaviour
 				//PlayerPrefs.SetInt(scorePref, m_Score);
 				SaveManager.Instance.SetInt(scorePref, m_Score);
 				//guiText.text += "\n(NEW HIGH SCORE!)";
-				m_GameOverText.text += "NEW BEST!";
+				//m_GameOverText.text += "\nNEW BEST!";
+				m_HighScoreText.SetActive(true);
 				SaveManager.Instance.Save();
 			}
 
@@ -1124,6 +1190,18 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	private void HideUI()
+	{
+		m_MainCanvas.enabled = false;
+		m_OverCanvas.enabled = false;
+		m_PauseCanvas.enabled = false;
+		m_OptionsCanvas.enabled = false;
+		if (m_CountdownCanvas != null)
+		{
+			m_CountdownCanvas.enabled = false;
+		}
+	}
+
 	public void Button_Resume()
 	{
 		if (m_ShowingScoring == 0)
@@ -1135,10 +1213,27 @@ public class GameController : MonoBehaviour
 		m_GameState = GameState.Gameplay;
 		m_ShowEffects = true;
 		m_PauseCanvas.gameObject.SetActive(false);
-		if (m_CountdownTimer <= 0.0f)
+		if (m_CountdownTimer <= 0.0f || m_ChallengeMode || m_Tutorial)
 		{
 			m_MainCanvas.gameObject.SetActive(true);
+
+			// Find the animated background and move it to the back
+			GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+			BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+			if (animBG != null)
+			{
+				animBG.SendToBack();
+			}
 		}
+		else
+		{
+			if (m_CountdownCanvas != null)
+			{
+				m_CountdownCanvas.gameObject.SetActive(true);
+			}
+		}
+
+
 	}
 	
 	public void Button_Restart()
@@ -1154,6 +1249,7 @@ public class GameController : MonoBehaviour
 		modeInfo.m_ModeOptionSelect = m_ModeOptionSelect;
 		
 		//Application.LoadLevel(Application.loadedLevel);
+		HideUI();
 		MainMenu.LoadLevel(Application.loadedLevel);
 	}
 
@@ -1184,6 +1280,7 @@ public class GameController : MonoBehaviour
 	public void Button_NextLevel()
 	{
 		//Application.LoadLevel(Application.loadedLevel + 1);
+		HideUI();
 		MainMenu.LoadLevel(Application.loadedLevel + 1);
 	}
 }

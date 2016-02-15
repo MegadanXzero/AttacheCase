@@ -34,13 +34,15 @@ public class InventoryScript : MonoBehaviour
 	const int SCORE_TYPE_ADJACENCY_BONUS = 15;
 	const int SCORE_FULL_TYPE_ADJACENCY_BONUS = 50;
 	const int SCORE_FULL_ADJACENCY_BONUS = 100;
-	
+	const int SCORE_TYPE_BOXED_BONUS = 50;
+
+	const int SCORE_MINOR_ROTATION_BONUS = 5;
 	const int SCORE_TYPE_ROTATION_BONUS = 50;
 	const int SCORE_FULL_TYPE_ROTATION_BONUS = 50;
 	const int SCORE_FULL_ROTATION_BONUS = 200;
 
-	const int MINIMUM_AMOUNT_FOR_ADJACENT_BONUS = 2;
-	const int MINIMUM_AMOUNT_FOR_ROTATION_BONUS = 2;
+	const int MINIMUM_AMOUNT_FOR_ADJACENT_BONUS = 1;
+	const int MINIMUM_AMOUNT_FOR_ROTATION_BONUS = 1;
 
 	const int MAXIMUM_RANDOM_PLACEMENT_TRIES = 25;
 	
@@ -164,6 +166,89 @@ public class InventoryScript : MonoBehaviour
 		else
 		{
 			GUI.TextArea(new Rect(0, 20, 20, 20), m_ItemCount.ToString());
+		}*/
+
+		/*if (m_Width != 5)
+		{
+			// Check for rotation bonus. Gives extra points for each item rotated the same way
+			HashSet<InventoryItem> allItems = FindAllItemsWithComponent<InventoryItem>();
+			int[] horizontalRotations = new int[4];
+			int[] verticalRotations = new int[4];
+			
+			foreach (InventoryItem item in allItems)
+			{
+				// Check if we have a square shaped treasure, and if so ignore it
+				if (item.Width == item.Height)
+				{
+					InventoryTreasure treasure = item.GetComponent<InventoryTreasure>();
+					if (treasure != null)
+					{
+						continue;
+					}
+				}
+				
+				// Separate rotation amounts for items which start horizontal/vertical into different lists
+				if (item.Width > item.Height)
+				{
+					// Add to relevant rotation amount
+					horizontalRotations[item.Rotation] += 1;
+				}
+				else
+				{
+					verticalRotations[item.Rotation] += 1;
+				}
+			}
+			
+			// Check which rotation has the most items for both horizontal/vertical
+			int highestHRotation = 0;
+			int highestVRotation = 0;
+			for (int i = 0; i < 4; i++)
+			{
+				if (horizontalRotations[i] > highestHRotation)
+				{
+					highestHRotation = i;
+				}
+				
+				if (verticalRotations[i] > highestVRotation)
+				{
+					highestVRotation = i;
+				}
+			}
+			
+			// Combine relevant horizontal/vertical rotation amounts to give a more 'fair' results
+			if (horizontalRotations[highestHRotation] > verticalRotations[highestVRotation])
+			{
+				if (highestHRotation == 0 || highestHRotation == 2)
+				{
+					horizontalRotations[highestHRotation] += verticalRotations[1] + verticalRotations[3];
+				}
+				else
+				{
+					horizontalRotations[highestHRotation] += verticalRotations[0] + verticalRotations[2];
+				}
+				
+				// Multiply highest shared rotation by score bonus and add to score
+				GUI.TextArea(new Rect(0, 0, 100, 20), (SCORE_MINOR_ROTATION_BONUS * horizontalRotations[highestHRotation]).ToString());
+			}
+			else
+			{
+				if (highestVRotation == 0 || highestVRotation == 2)
+				{
+					verticalRotations[highestVRotation] += horizontalRotations[1] + horizontalRotations[3];
+				}
+				else
+				{
+					verticalRotations[highestVRotation] += horizontalRotations[0] + horizontalRotations[2];
+				}
+				
+				GUI.TextArea(new Rect(0, 0, 100, 20), (SCORE_MINOR_ROTATION_BONUS * verticalRotations[highestVRotation]).ToString());
+			}
+		}*/
+
+		/*if (m_Width != 5)
+		{
+			// Check if items are boxed
+			GUI.TextArea(new Rect(0, 0, 200, 20), AreItemsOfTypeBoxed<InventoryGrenade>() ? "Grenades boxed" : "Grenades not boxed!");
 		}*/
 	}
 	
@@ -803,6 +888,119 @@ public class InventoryScript : MonoBehaviour
 		}
 		
 		return itemList;
+	}
+
+	public bool AreItemsOfTypeBoxed<T>()
+	{
+		// Bounds of rectangle containing all items of this type
+		Vector2 topLeft = new Vector2(99.0f, 99.0f);
+		Vector2 bottomRight = new Vector2(-1.0f, -1.0f);
+
+		// Search through all inventory spaces
+		for (int y = 0; y < m_Height; y++)
+		{
+			for (int x = 0; x < m_Width; x++)
+			{
+				// If the space has an item in it and the item has the correct component
+				if (m_InventoryList[x,y].currentObject != null)
+				{
+					if (!m_InventoryList[x,y].currentObject.IsCarried)
+					{
+						T component = m_InventoryList[x,y].currentObject.GetComponent<T>();
+						if (component != null)
+						{
+							if (component.GetType() == typeof(T))
+							{
+								// If the location of this cell is outside the bounds of the current rect, expand it
+								if ((float)x < topLeft.x)
+								{
+									topLeft.x = (float)x;
+								}
+
+								if ((float)x > bottomRight.x)
+								{
+									bottomRight.x = (float)x;
+								}
+
+								if ((float)y < topLeft.y)
+								{
+									topLeft.y = (float)y;
+								}
+								
+								if ((float)y > bottomRight.y)
+								{
+									bottomRight.y = (float)y;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// If the rect is less than 2 cells in either direction give no bonus
+		Vector2 size = bottomRight - topLeft;
+		if (size.x < 1.0f || size.y < 1.0f)
+		{
+			return false;
+		}
+
+		// Now search through the rect we just created and see if there are 
+		// any cells without the correct item type inside it
+		for (int y = (int)topLeft.y; y <= (int)bottomRight.y; y++)
+		{
+			for (int x = (int)topLeft.x; x <= (int)bottomRight.x; x++)
+			{
+				// If the space has an item in it and the item has the correct component
+				if (m_InventoryList[x,y].currentObject != null)
+				{
+					if (!m_InventoryList[x,y].currentObject.IsCarried)
+					{
+						T component = m_InventoryList[x,y].currentObject.GetComponent<T>();
+						if (component == null)
+						{
+							// Item is not the correct type, items are not boxed
+							return false;
+						}
+						else
+						{
+							if (component.GetType() != typeof(T))
+							{
+								return false;
+							}
+						}
+					}
+				}
+				else
+				{
+					// If a space is empty items are not boxed
+					return false;
+				}
+			}
+		}
+
+		// If we didn't find any wrong items on the second pass the items are boxed
+		return true;
+	}
+
+	public HashSet<InventorySpace> FindAllEmptyCells()
+	{
+		HashSet<InventorySpace> spaceList = new HashSet<InventorySpace>();
+
+		// Search through all inventory spaces
+		for (int y = 0; y < m_Height; y++)
+		{
+			for (int x = 0; x < m_Width; x++)
+			{
+				// If the space has no item in it, add to the list
+				if (m_InventoryList[x,y].currentObject == null)
+				{
+					spaceList.Add(m_InventoryList[x,y]);
+				}
+			}
+		}
+
+		return spaceList;
 	}
 
 	public HashSet<InventoryItem> FindItemsWithPrefabID(int id)
@@ -1478,6 +1676,19 @@ public class InventoryScript : MonoBehaviour
 		{
 			rotationScoringList.Add(rotationArmourList);
 		}
+
+		// Check if all empty inventory spaces are adjacent
+		HashSet<InventorySpace> allEmpty = FindAllEmptyCells();
+		if (allEmpty.Count > 1)
+		{
+			HashSet<InventorySpace> adjacentEmpty = CheckEmptyAdjacency();
+
+			// If list of all empty cells matches all adjacent cells, add score based on number of empty
+			if (adjacentEmpty.SetEquals(allEmpty))
+			{
+				currentScore += allEmpty.Count < 6 ? allEmpty.Count * SCORE_TYPE_ADJACENCY_BONUS : 90;
+			}
+		}
 		
 		// Check if all weapons are adjacent to each other
 		HashSet<InventoryWeapon> allWeapons = FindAllItemsWithComponent<InventoryWeapon>();
@@ -1552,7 +1763,7 @@ public class InventoryScript : MonoBehaviour
 		}
 		
 		// Check if all items are rotated the same way
-		HashSet<InventoryItem> allItems = FindAllItemsWithComponent<InventoryItem>();
+		/*HashSet<InventoryItem> allItems = FindAllItemsWithComponent<InventoryItem>();
 		int targetTotalRotation = -1;
 		bool totalRotationEqual = false;
 		foreach (InventoryItem item in allItems)
@@ -1624,6 +1835,106 @@ public class InventoryScript : MonoBehaviour
 		if (totalRotationEqual && allItems.Count > MINIMUM_AMOUNT_FOR_ROTATION_BONUS)
 		{
 			currentScore += SCORE_FULL_ROTATION_BONUS;
+		}*/
+
+		// Check for rotation bonus. Gives extra points for each item rotated the same way
+		HashSet<InventoryItem> allItems = FindAllItemsWithComponent<InventoryItem>();
+		int[] horizontalRotations = new int[4];
+		int[] verticalRotations = new int[4];
+
+		foreach (InventoryItem item in allItems)
+		{
+			// Check if we have a square shaped treasure, and if so ignore it
+			if (item.Width == item.Height)
+			{
+				InventoryTreasure treasure = item.GetComponent<InventoryTreasure>();
+				if (treasure != null)
+				{
+					continue;
+				}
+			}
+
+			// Separate rotation amounts for items which start horizontal/vertical into different lists
+			if (item.Width > item.Height)
+			{
+				// Add to relevant rotation amount
+				horizontalRotations[item.Rotation] += 1;
+			}
+			else
+			{
+				verticalRotations[item.Rotation] += 1;
+			}
+		}
+
+		// Check which rotation has the most items for both horizontal/vertical
+		int highestHRotation = 0;
+		int highestVRotation = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			if (horizontalRotations[i] > highestHRotation)
+			{
+				highestHRotation = i;
+			}
+
+			if (verticalRotations[i] > highestVRotation)
+			{
+				highestVRotation = i;
+			}
+		}
+
+		// Combine relevant horizontal/vertical rotation amounts to give a more 'fair' results
+		if (horizontalRotations[highestHRotation] > verticalRotations[highestVRotation])
+		{
+			if (highestHRotation == 0 || highestHRotation == 2)
+			{
+				horizontalRotations[highestHRotation] += verticalRotations[1] + verticalRotations[3];
+			}
+			else
+			{
+				horizontalRotations[highestHRotation] += verticalRotations[0] + verticalRotations[2];
+			}
+
+			// Multiply highest shared rotation by score bonus and add to score
+			currentScore += (SCORE_MINOR_ROTATION_BONUS * horizontalRotations[highestHRotation]);
+		}
+		else
+		{
+			if (highestVRotation == 0 || highestVRotation == 2)
+			{
+				verticalRotations[highestVRotation] += horizontalRotations[1] + horizontalRotations[3];
+			}
+			else
+			{
+				verticalRotations[highestVRotation] += horizontalRotations[0] + horizontalRotations[2];
+			}
+
+			currentScore += (SCORE_MINOR_ROTATION_BONUS * verticalRotations[highestVRotation]);
+		}
+
+		// Check if items are arranged into a box shape
+		if (AreItemsOfTypeBoxed<InventoryWeapon>())
+		{
+			currentScore += SCORE_TYPE_BOXED_BONUS;
+		}
+
+		if (AreItemsOfTypeBoxed<InventoryAmmo>())
+		{
+			currentScore += SCORE_TYPE_BOXED_BONUS;
+		}
+
+		if (AreItemsOfTypeBoxed<InventoryGrenade>())
+		{
+			currentScore += SCORE_TYPE_BOXED_BONUS;
+		}
+
+		if (AreItemsOfTypeBoxed<InventoryHealth>())
+		{
+			currentScore += SCORE_TYPE_BOXED_BONUS;
+		}
+
+		if (AreItemsOfTypeBoxed<InventoryTreasure>())
+		{
+			currentScore += SCORE_TYPE_BOXED_BONUS;
 		}
 		
 		return currentScore;
@@ -2343,6 +2654,110 @@ public class InventoryScript : MonoBehaviour
 		// Reset the checked value of all cells back to false
 		ResetCells();
 		return adjacentArmourList;
+	}
+
+	private HashSet<InventorySpace> CheckEmptyAdjacency()
+	{
+		// Add beginning cell to a list of neighbour cells
+		HashSet<InventorySpace> adjacentEmptyList = new HashSet<InventorySpace>();
+		List<Vector2> cellList = new List<Vector2>();
+
+		// Search through all inventory spaces
+		for (int y = 0; y < m_Height; y++)
+		{
+			for (int x = 0; x < m_Width; x++)
+			{
+				// If the space has no item in it, add to the list
+				if (m_InventoryList[x,y].currentObject == null)
+				{
+					// Add the space to the adjacent list, as well as the cell location to the neighbour list
+					adjacentEmptyList.Add(m_InventoryList[x,y]);
+					m_InventoryList[x,y].cellChecked = true;
+					cellList.Add(new Vector2((float)x, (float)y));
+					x = m_Width;
+					y = m_Height;
+				}
+			}
+		}
+		
+		// While there are still unchecked cells in the list
+		while (cellList.Count > 0)
+		{			
+			// Check space to the left
+			InventorySpace tempSpace;
+			if (cellList[0].x > 0)
+			{
+				// If cell hasn't already been checked
+				tempSpace = m_InventoryList[(int)cellList[0].x - 1, (int)cellList[0].y];
+				if (!tempSpace.cellChecked)
+				{
+					if (tempSpace.currentObject == null)
+					{
+						// Add the item to the adjacent list, as well as the cell to the neighbour list
+						adjacentEmptyList.Add(tempSpace);
+						cellList.Add(new Vector2(cellList[0].x - 1, cellList[0].y));
+						tempSpace.cellChecked = true;
+					}
+				}
+			}
+			
+			// Check space above
+			if (cellList[0].y > 0)
+			{
+				// If cell hasn't already been checked
+				tempSpace = m_InventoryList[(int)cellList[0].x, (int)cellList[0].y - 1];
+				if (!tempSpace.cellChecked)
+				{
+					if (tempSpace.currentObject == null)
+					{
+						// Add the item to the adjacent list, as well as the cell to the neighbour list
+						adjacentEmptyList.Add(tempSpace);
+						cellList.Add(new Vector2(cellList[0].x, cellList[0].y - 1));
+						tempSpace.cellChecked = true;
+					}
+				}
+			}
+			
+			// Check space to the right
+			if (cellList[0].x < m_Width - 1)
+			{
+				// If cell hasn't already been checked
+				tempSpace = m_InventoryList[(int)cellList[0].x + 1, (int)cellList[0].y];
+				if (!tempSpace.cellChecked)
+				{
+					if (tempSpace.currentObject == null)
+					{
+						// Add the item to the adjacent list, as well as the cell to the neighbour list
+						adjacentEmptyList.Add(tempSpace);
+						cellList.Add(new Vector2(cellList[0].x + 1, cellList[0].y));
+						tempSpace.cellChecked = true;
+					}
+				}
+			}
+			
+			// Check space below
+			if (cellList[0].y < m_Height - 1)
+			{
+				// If cell hasn't already been checked
+				tempSpace = m_InventoryList[(int)cellList[0].x, (int)cellList[0].y + 1];	
+				if (!tempSpace.cellChecked)
+				{
+					if (tempSpace.currentObject == null)
+					{
+						// Add the item to the adjacent list, as well as the cell to the neighbour list
+						adjacentEmptyList.Add(tempSpace);
+						cellList.Add(new Vector2(cellList[0].x, cellList[0].y + 1));
+						tempSpace.cellChecked = true;
+					}
+				}
+			}
+			
+			cellList.RemoveAt(0);
+		}
+		
+		// Reset the checked value of all cells back to false
+		ResetCells();
+		return adjacentEmptyList;
 	}
 	
 	private int GetNumAdjacentSameTypeCells(InventoryItem baseItem, HashSet<InventoryItem> itemScoringList)

@@ -14,6 +14,8 @@ public class ChallengeTutorial : MonoBehaviour
 	
 	[SerializeField] private InventoryScript m_MainInventory;
 	[SerializeField] private MousePicker m_MousePicker;
+	[SerializeField] private GameObject m_PauseCanvas;
+	[SerializeField] private GameObject m_MainCanvas;
 	
 	private int m_CurrentMessage = 0;
 	private const int NUM_MESSAGES = 8;
@@ -33,6 +35,31 @@ public class ChallengeTutorial : MonoBehaviour
 			{
 				Button_NextMessage();
 			}
+		}
+	
+		if (Input.GetButtonDown("Pause"))
+		{
+			if (m_PauseCanvas.gameObject.activeInHierarchy)
+			{
+				Button_Resume();
+			}
+			else
+			{
+				Canvas canvas = GetComponent<Canvas>();
+				if (canvas != null)
+				{
+					canvas.enabled = false;
+				}
+			}
+		}
+	}
+	
+	public void Button_Resume()
+	{
+		Canvas canvas = GetComponent<Canvas>();
+		if (canvas != null)
+		{
+			canvas.enabled = true;
 		}
 	}
 	
@@ -83,6 +110,8 @@ public class ChallengeTutorial : MonoBehaviour
 			{
 				//Application.LoadLevel(0);
 				MainMenu.LoadLevel(0);
+				gameObject.SetActive(false);
+				m_MainCanvas.SetActive(false);
 			}
 		}
 	}

@@ -210,10 +210,15 @@ public sealed class AudioManager
 			MusicVolume = saveManager.GetFloat(Tags.PREF_AUDIO_MUSICVOLUME);
 			SFXVolume = saveManager.GetFloat(Tags.PREF_AUDIO_SFXVOLUME);
 
-			MuzakVolume = saveManager.GetFloat(Tags.PREF_AUDIO_MUZAKVOLUME, 0.25f);
-			FireVolume = saveManager.GetFloat(Tags.PREF_AUDIO_FIREVOLUME);
-			RiverVolume = saveManager.GetFloat(Tags.PREF_AUDIO_RIVERVOLUME);
-			WavesVolume = saveManager.GetFloat(Tags.PREF_AUDIO_WAVESVOLUME);
+			// If ambiance stuff ever gets added back in just uncomment these
+			//MuzakVolume = saveManager.GetFloat(Tags.PREF_AUDIO_MUZAKVOLUME, 0.25f);
+			//FireVolume = saveManager.GetFloat(Tags.PREF_AUDIO_FIREVOLUME);
+			//RiverVolume = saveManager.GetFloat(Tags.PREF_AUDIO_RIVERVOLUME);
+			//WavesVolume = saveManager.GetFloat(Tags.PREF_AUDIO_WAVESVOLUME);
+			MuzakVolume = 1.0f;
+			FireVolume = 0.0f;
+			RiverVolume = 0.0f;
+			WavesVolume = 0.0f;
 		}
 	}
 
