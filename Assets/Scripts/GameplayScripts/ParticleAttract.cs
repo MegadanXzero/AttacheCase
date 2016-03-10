@@ -10,7 +10,7 @@ public class ParticleAttract : MonoBehaviour
 	private InventoryItem m_AttractTarget = null;
 	private Vector3 m_Velocity;
 	private float m_Rotation = 0.0f;
-	private float m_FloatTimer = 1.0f;
+	private float m_FloatTimer = 0.5f;
 
 	public Vector3 AttractPosition { set {m_AttractPosition = value;}}
 	public InventoryItem AttractTarget { set {m_AttractTarget = value;}}
@@ -19,7 +19,7 @@ public class ParticleAttract : MonoBehaviour
 	// Use this for initialization
 	void Awake()
 	{
-		m_Velocity = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0.0f);
+		m_Velocity = new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0.0f);
 		m_Rotation = Random.Range(-0.5f, 0.5f);
 	}
 
@@ -36,13 +36,17 @@ public class ParticleAttract : MonoBehaviour
 			distance = m_AttractPosition - transform.position;
 		}
 
-		if (distance.sqrMagnitude <= 0.5f)
+		if (distance.sqrMagnitude <= 1.0f)
 		{
 			Destroy(transform.gameObject);
 		}
 
 		m_FloatTimer -= Time.deltaTime;
 		if (m_FloatTimer <= 0.0f)
+		{
+			m_Velocity += ((distance.normalized * 10.0f) * Mathf.Abs(m_FloatTimer * 2.0f)) * 0.05f;
+		}
+		else if (m_FloatTimer <= -0.5f)
 		{
 			m_Velocity = (distance.normalized * 10.0f) * Mathf.Abs(m_FloatTimer * 2.0f);
 		}
@@ -54,7 +58,7 @@ public class ParticleAttract : MonoBehaviour
 		distance *= magnitude;
 		
 		m_Velocity += (distance * Time.deltaTime) * 8.0f;*/
-		
+
 		transform.position += m_Velocity * Time.deltaTime;
 		transform.Rotate(new Vector3(0.0f, 0.0f, m_Rotation));
 	}

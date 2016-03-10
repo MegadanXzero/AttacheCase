@@ -14,8 +14,10 @@ public class ArcadeTutorial : MonoBehaviour
 	[SerializeField] private MousePicker m_MousePicker;
 	[SerializeField] private GameObject m_PauseCanvas;
 	[SerializeField] private GameObject m_MainCanvas;
+	[SerializeField] private GameController m_GameController;
 
 	private int m_CurrentMessage = 0;
+	private bool m_PickerEnabled = false;
 	private const int NUM_MESSAGES = 11;
 
 	void Awake()
@@ -29,7 +31,8 @@ public class ArcadeTutorial : MonoBehaviour
 	{
 		if (m_CurrentMessage == 2)
 		{
-			if (m_MainInventory.GetNumberOfItems() < 16)
+			//if (m_MainInventory.GetNumberOfItems() < 16)
+			if (m_GameController.MovesUsed >= 3)
 			{
 				Button_NextMessage();
 			}
@@ -43,11 +46,7 @@ public class ArcadeTutorial : MonoBehaviour
 			}
 			else
 			{
-				Canvas canvas = GetComponent<Canvas>();
-				if (canvas != null)
-				{
-					canvas.enabled = false;
-				}
+				Button_Pause();
 			}
 		}
 	}
@@ -59,6 +58,8 @@ public class ArcadeTutorial : MonoBehaviour
 		{
 			canvas.enabled = true;
 		}
+
+		m_MousePicker.Enabled = m_PickerEnabled;
 	}
 
 	public void Button_NextMessage()
@@ -72,6 +73,7 @@ public class ArcadeTutorial : MonoBehaviour
 
 				if (m_CurrentMessage == 2)
 				{
+					m_PickerEnabled = true;
 					m_MousePicker.Enabled = true;
 				}
 				else if (m_CurrentMessage == 4)
@@ -85,6 +87,7 @@ public class ArcadeTutorial : MonoBehaviour
 				}
 				else if (m_CurrentMessage == 6)
 				{
+					m_PickerEnabled = false;
 					m_MousePicker.Enabled = false;
 					m_ItemDropManager.SpawnItems();
 				}
@@ -105,6 +108,15 @@ public class ArcadeTutorial : MonoBehaviour
 				gameObject.SetActive(false);
 				m_MainCanvas.SetActive(false);
 			}
+		}
+	}
+
+	public void Button_Pause()
+	{
+		Canvas canvas = GetComponent<Canvas>();
+		if (canvas != null)
+		{
+			canvas.enabled = false;
 		}
 	}
 }

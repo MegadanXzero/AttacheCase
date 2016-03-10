@@ -105,180 +105,13 @@ public class InventoryScript : MonoBehaviour
 
 	void OnGUI()
 	{
-		/*if (m_DrawLines)
-		{
-			// Draw outlines for inventory grid spaces
-			int height = -1;
-			for (int i = 0; i <= m_Width; i++)
-			{
-				// Get the WorldSpace start and end for the line
-				Vector3 start = transform.position;
-				start.x += (float)i;
-
-				if (height == -1)
-				{
-					Vector3 end = start;
-					end.y -= m_Height;
-
-					// Convert it to screen space to use in the GUI function
-					start = Camera.main.WorldToScreenPoint(start);
-					end = Camera.main.WorldToScreenPoint(end);
-					height = (int)(start.y - end.y) + 1;
-				}
-				else
-				{
-					start = Camera.main.WorldToScreenPoint(start);
-				}
-
-				GUI.DrawTexture(new Rect(start.x, Screen.height - start.y, m_LineWidth, height), m_LineTexture);
-			}
-
-			int width = -1;
-			for (int i = 0; i <= m_Height; i++)
-			{
-				// Get the WorldSpace start and end for the line
-				Vector3 start = transform.position;
-				start.y -= (float)i;
-
-				if (width == -1)
-				{
-					Vector3 end = start;
-					end.x += m_Width;
-					
-					// Convert it to screen space to use in the GUI function
-					start = Camera.main.WorldToScreenPoint(start);
-					end = Camera.main.WorldToScreenPoint(end);
-					width = (int)(end.x - start.x) + 1;
-				}
-				else
-				{
-					start = Camera.main.WorldToScreenPoint(start);
-				}
-				
-				GUI.DrawTexture(new Rect(start.x, Screen.height - start.y, width, m_LineWidth), m_LineTexture);
-			}
-		}*/
-
-		/*if (CompareTag(Tags.MAININVENTORY))
-		{
-			GUI.TextArea(new Rect(0, 0, 20, 20), m_ItemCount.ToString());
-		}
-		else
-		{
-			GUI.TextArea(new Rect(0, 20, 20, 20), m_ItemCount.ToString());
-		}*/
-
-		/*if (m_Width != 5)
-		{
-			// Check for rotation bonus. Gives extra points for each item rotated the same way
-			HashSet<InventoryItem> allItems = FindAllItemsWithComponent<InventoryItem>();
-			int[] horizontalRotations = new int[4];
-			int[] verticalRotations = new int[4];
-			
-			foreach (InventoryItem item in allItems)
-			{
-				// Check if we have a square shaped treasure, and if so ignore it
-				if (item.Width == item.Height)
-				{
-					InventoryTreasure treasure = item.GetComponent<InventoryTreasure>();
-					if (treasure != null)
-					{
-						continue;
-					}
-				}
-				
-				// Separate rotation amounts for items which start horizontal/vertical into different lists
-				if (item.Width > item.Height)
-				{
-					// Add to relevant rotation amount
-					horizontalRotations[item.Rotation] += 1;
-				}
-				else
-				{
-					verticalRotations[item.Rotation] += 1;
-				}
-			}
-			
-			// Check which rotation has the most items for both horizontal/vertical
-			int highestHRotation = 0;
-			int highestVRotation = 0;
-			for (int i = 0; i < 4; i++)
-			{
-				if (horizontalRotations[i] > highestHRotation)
-				{
-					highestHRotation = i;
-				}
-				
-				if (verticalRotations[i] > highestVRotation)
-				{
-					highestVRotation = i;
-				}
-			}
-			
-			// Combine relevant horizontal/vertical rotation amounts to give a more 'fair' results
-			if (horizontalRotations[highestHRotation] > verticalRotations[highestVRotation])
-			{
-				if (highestHRotation == 0 || highestHRotation == 2)
-				{
-					horizontalRotations[highestHRotation] += verticalRotations[1] + verticalRotations[3];
-				}
-				else
-				{
-					horizontalRotations[highestHRotation] += verticalRotations[0] + verticalRotations[2];
-				}
-				
-				// Multiply highest shared rotation by score bonus and add to score
-				GUI.TextArea(new Rect(0, 0, 100, 20), (SCORE_MINOR_ROTATION_BONUS * horizontalRotations[highestHRotation]).ToString());
-			}
-			else
-			{
-				if (highestVRotation == 0 || highestVRotation == 2)
-				{
-					verticalRotations[highestVRotation] += horizontalRotations[1] + horizontalRotations[3];
-				}
-				else
-				{
-					verticalRotations[highestVRotation] += horizontalRotations[0] + horizontalRotations[2];
-				}
-				
-				GUI.TextArea(new Rect(0, 0, 100, 20), (SCORE_MINOR_ROTATION_BONUS * verticalRotations[highestVRotation]).ToString());
-			}
-		}*/
-
-		/*if (m_Width != 5)
-		{
-			// Check if items are boxed
-			GUI.TextArea(new Rect(0, 0, 200, 20), AreItemsOfTypeBoxed<InventoryGrenade>() ? "Grenades boxed" : "Grenades not boxed!");
-		}*/
+		
 	}
 	
 	// Update is called once per frame
 	void Update()
 	{
-		/*if (Input.GetMouseButtonDown(2))
-		{
-			m_TotalMoney += 10000;
-		}
 
-		if (Input.GetMouseButtonDown(3))
-		{
-			UpgradeSize();
-		}*/
-
-		// Draw outlines for inventory grid spaces
-		/*Vector3 pos = transform.position;
-		
-		for (int i = 0; i <= m_Width; i++)
-		{
-			Debug.DrawLine(new Vector3(pos.x + ((float)i * m_Spacing), pos.y), 
-						   new Vector3(pos.x + ((float)i * m_Spacing), pos.y - ((float)m_Height * m_Spacing)), Color.white);
-		}
-		
-		for (int i = 0; i <= m_Height; i++)
-		{
-			Debug.DrawLine(new Vector3(pos.x, pos.y - ((float)i * m_Spacing)), 
-						   new Vector3(pos.x + ((float)m_Width * m_Spacing), pos.y - ((float)i * m_Spacing)), Color.white);
-		}*/
 	}
 
 	private void ResizeCollider()
@@ -1170,7 +1003,12 @@ public class InventoryScript : MonoBehaviour
 	public int GetCurrentScore(List<HashSet<InventoryItem>> itemScoringList, List<HashSet<InventoryItem>> rotationScoringList, bool chaosMode)
 	{
 		int currentScore = 0;
-		
+
+		// Achievement Variables
+		int groupAdjacencyBonuses = 0;
+		int groupRotationBonuses = 0;
+		int groupSquaredBonuses = 0;
+
 		// Check if all ammo packs are adjacent to each other
 		HashSet<InventoryAmmo> allAmmo = FindAllItemsWithComponent<InventoryAmmo>();
 		if (allAmmo.Count > 1)
@@ -1215,6 +1053,7 @@ public class InventoryScript : MonoBehaviour
 					if (adjacentAmmo.SetEquals(allAmmo))
 					{
 						currentScore += SCORE_FULL_ADJACENCY_BONUS;
+						groupAdjacencyBonuses++;
 					}
 				}
 			}
@@ -1224,6 +1063,8 @@ public class InventoryScript : MonoBehaviour
 			if (rotationEqual && allAmmo.Count > MINIMUM_AMOUNT_FOR_ROTATION_BONUS)
 			{
 				currentScore += SCORE_FULL_TYPE_ROTATION_BONUS;
+				groupRotationBonuses++;
+
 			}
 		}
 		
@@ -1350,6 +1191,7 @@ public class InventoryScript : MonoBehaviour
 					if (adjacentTreasure.SetEquals(allTreasure))
 					{
 						currentScore += SCORE_FULL_ADJACENCY_BONUS;
+						groupAdjacencyBonuses++;
 					}
 				}
 			}
@@ -1359,6 +1201,7 @@ public class InventoryScript : MonoBehaviour
 			if (rotationEqual && allTreasure.Count > MINIMUM_AMOUNT_FOR_ROTATION_BONUS)
 			{
 				currentScore += SCORE_FULL_TYPE_ROTATION_BONUS;
+				groupRotationBonuses++;
 			}
 		}
 
@@ -1441,7 +1284,7 @@ public class InventoryScript : MonoBehaviour
 				adjacentHealthCells += GetNumAdjacentSameTypeCells(health.BaseItem, adjacentItemList);
 
 				// Ignore rotation for square items
-				if (health.BaseItem.Width != health.BaseItem.Height)
+				//if (health.BaseItem.Width != health.BaseItem.Height)
 				{
 					// Check if all health is rotated the same way
 					if (targetRotation == -1)
@@ -1475,6 +1318,7 @@ public class InventoryScript : MonoBehaviour
 					if (adjacentHealth.SetEquals(allHealth))
 					{
 						currentScore += SCORE_FULL_ADJACENCY_BONUS;
+						groupAdjacencyBonuses++;
 					}
 				}
 			}
@@ -1484,6 +1328,7 @@ public class InventoryScript : MonoBehaviour
 			if (rotationEqual && allHealth.Count > MINIMUM_AMOUNT_FOR_ROTATION_BONUS)
 			{
 				currentScore += SCORE_FULL_TYPE_ROTATION_BONUS;
+				groupRotationBonuses++;
 
 				foreach (InventoryHealth health in allHealth)
 				{
@@ -1540,6 +1385,7 @@ public class InventoryScript : MonoBehaviour
 					if (adjacentGrenades.SetEquals(allGrenades))
 					{
 						currentScore += SCORE_FULL_ADJACENCY_BONUS;
+						groupAdjacencyBonuses++;
 					}
 				}
 			}
@@ -1549,6 +1395,7 @@ public class InventoryScript : MonoBehaviour
 			if (rotationEqual && allGrenades.Count > MINIMUM_AMOUNT_FOR_ROTATION_BONUS)
 			{
 				currentScore += SCORE_FULL_TYPE_ROTATION_BONUS;
+				groupRotationBonuses++;
 			}
 		}
 		
@@ -1704,6 +1551,7 @@ public class InventoryScript : MonoBehaviour
 				if (adjacentWeapons.SetEquals(allWeapons))
 				{
 					currentScore += SCORE_FULL_ADJACENCY_BONUS;
+					groupAdjacencyBonuses++;
 				}
 			}
 		}
@@ -1751,6 +1599,7 @@ public class InventoryScript : MonoBehaviour
 		if (weaponRotationEqual && allWeapons.Count > 1)
 		{
 			currentScore += SCORE_FULL_TYPE_ROTATION_BONUS;
+			groupRotationBonuses++;
 
 			foreach (InventoryWeapon weapon in allWeapons)
 			{
@@ -1896,6 +1745,12 @@ public class InventoryScript : MonoBehaviour
 
 			// Multiply highest shared rotation by score bonus and add to score
 			currentScore += (SCORE_MINOR_ROTATION_BONUS * horizontalRotations[highestHRotation]);
+
+			// Check if 15 or more items were rotated the same way and unlock achievement
+			if (horizontalRotations[highestHRotation] >= 15)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_spin_me_right_round);
+			}
 		}
 		else
 		{
@@ -1909,34 +1764,58 @@ public class InventoryScript : MonoBehaviour
 			}
 
 			currentScore += (SCORE_MINOR_ROTATION_BONUS * verticalRotations[highestVRotation]);
+
+			// Check if 15 or more items were rotated the same way and unlock achievement
+			if (verticalRotations[highestVRotation] >= 15)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_spin_me_right_round);
+			}
 		}
 
 		// Check if items are arranged into a box shape
 		if (AreItemsOfTypeBoxed<InventoryWeapon>())
 		{
 			currentScore += SCORE_TYPE_BOXED_BONUS;
+			groupSquaredBonuses++;
 		}
 
 		if (AreItemsOfTypeBoxed<InventoryAmmo>())
 		{
 			currentScore += SCORE_TYPE_BOXED_BONUS;
+			groupSquaredBonuses++;
 		}
 
 		if (AreItemsOfTypeBoxed<InventoryGrenade>())
 		{
 			currentScore += SCORE_TYPE_BOXED_BONUS;
+			groupSquaredBonuses++;
 		}
 
 		if (AreItemsOfTypeBoxed<InventoryHealth>())
 		{
 			currentScore += SCORE_TYPE_BOXED_BONUS;
+			groupSquaredBonuses++;
 		}
 
 		if (AreItemsOfTypeBoxed<InventoryTreasure>())
 		{
 			currentScore += SCORE_TYPE_BOXED_BONUS;
+			groupSquaredBonuses++;
 		}
-		
+
+		if (groupAdjacencyBonuses >= 5)
+		{
+			SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_total_groupie);
+		}
+		if (groupRotationBonuses >= 5)
+		{
+			SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_master_of_rotation);
+		}
+		if (groupSquaredBonuses >= 4)
+		{
+			SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_squaring_off);
+		}
+
 		return currentScore;
 	}
 	

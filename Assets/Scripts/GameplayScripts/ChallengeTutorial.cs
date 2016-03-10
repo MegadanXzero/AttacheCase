@@ -18,6 +18,7 @@ public class ChallengeTutorial : MonoBehaviour
 	[SerializeField] private GameObject m_MainCanvas;
 	
 	private int m_CurrentMessage = 0;
+	private bool m_PickerEnabled = false;
 	private const int NUM_MESSAGES = 8;
 	
 	void Awake()
@@ -45,11 +46,7 @@ public class ChallengeTutorial : MonoBehaviour
 			}
 			else
 			{
-				Canvas canvas = GetComponent<Canvas>();
-				if (canvas != null)
-				{
-					canvas.enabled = false;
-				}
+				Button_Pause();
 			}
 		}
 	}
@@ -61,7 +58,9 @@ public class ChallengeTutorial : MonoBehaviour
 		{
 			canvas.enabled = true;
 		}
-	}
+
+		m_MousePicker.Enabled = m_PickerEnabled;
+}
 	
 	public void Button_NextMessage()
 	{
@@ -99,10 +98,12 @@ public class ChallengeTutorial : MonoBehaviour
 				}
 				else if (m_CurrentMessage == 6)
 				{
+					m_PickerEnabled = true;
 					m_MousePicker.Enabled = true;
 				}
 				else if (m_CurrentMessage == 7)
 				{
+					m_PickerEnabled = false;
 					m_MousePicker.Enabled = false;
 				}
 			}
@@ -113,6 +114,15 @@ public class ChallengeTutorial : MonoBehaviour
 				gameObject.SetActive(false);
 				m_MainCanvas.SetActive(false);
 			}
+		}
+	}
+
+	public void Button_Pause()
+	{
+		Canvas canvas = GetComponent<Canvas>();
+		if (canvas != null)
+		{
+			canvas.enabled = false;
 		}
 	}
 }

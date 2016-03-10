@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -48,6 +49,9 @@ public class GameController : MonoBehaviour
 	[SerializeField] private Text m_GameOverText;
 	[SerializeField] private Text m_CountdownText;
 	[SerializeField] private GameObject m_HighScoreText;
+	[SerializeField] private GameObject m_AuthenticationCanvas;
+	[SerializeField] private Button m_ButtonLeaderboard;
+	[SerializeField] private Button m_ButtonSignIn;
 	[SerializeField] private Image m_MedalSmall;
 	[SerializeField] private Image m_MedalScore;
 
@@ -64,6 +68,7 @@ public class GameController : MonoBehaviour
 	[SerializeField] private AudioClip m_SoundAlertBeep;
 	[SerializeField] private AudioClip m_SoundGameOver;
 	[SerializeField] private AudioClip m_SoundFlashBoop;
+	[SerializeField] private AudioClip m_SoundScoreCount;
 
 	private const int DEFAULT_CHAOS_SCORE = 2000;
 	private const int PER_ITEM_CHAOS_SCORE = 30;
@@ -73,11 +78,13 @@ public class GameController : MonoBehaviour
 	private int m_DisplayedScore = 0;
 	private int m_ScoreIncrement = 0;
 	private int m_ModeOptionSelect = 1;
-	private int m_Distance = 0;
+	//private int m_Distance = 0;
 	private int m_MovesUsed = 0;
+	private int m_MovesUsedThisInventory = 0;
+	private int m_InventoriesSorted = 0;
 	private GameState m_GameState = GameState.Gameplay;
 	private bool m_WaitForLevelEnd = false;
-	private float m_LevelEndTimer = 0.0f;
+	//private float m_LevelEndTimer = 0.0f;
 	private bool m_ShowEffects = true;
 
 	private float m_HealthScaling = 0.9f;
@@ -99,7 +106,11 @@ public class GameController : MonoBehaviour
 
 	public float HealthScaling { get {return m_HealthScaling;}}
 	public float DamageScaling { get {return m_DamageScaling;}}
+	public int MovesUsed { get { return m_MovesUsed; } }
 	public bool ShowEffects { get {return m_ShowEffects;} set {m_ShowEffects = value;}}
+
+	// DEBUG VARIABLES // - Can be removed
+	//private int DEBUG_ItemID = 0;
 
 	void Awake()
 	{
@@ -108,6 +119,7 @@ public class GameController : MonoBehaviour
 		//DontDestroyOnLoad(GameObject.FindGameObjectWithTag(Tags.DISCARDAREA).gameObject);
 		//DontDestroyOnLoad(GameObject.FindObjectOfType<Light>().gameObject);
 
+		// Change camera aspect ratio to fit everything in frame
 		float aspectRatio = (float)Screen.width / (float)Screen.height;
 		aspectRatio = Mathf.Min(aspectRatio, 1.78f);
 		Camera.main.orthographicSize = 9.0f / aspectRatio;
@@ -151,16 +163,6 @@ public class GameController : MonoBehaviour
 
 		//Application.LoadLevelAdditive(Tags.ACTIONSCENE);
 
-		if (!m_ChallengeMode && !m_Tutorial)
-		{
-			GetComponent<GUIText>().text = "SCORE: 0";
-			SpawnItems();
-		}
-		else
-		{
-			m_RoundTimer = 0.0f;
-		}
-
 		if (m_TimeMode && !m_ChallengeMode)
 		{
 			m_MousePicker.Enabled = false;
@@ -184,9 +186,20 @@ public class GameController : MonoBehaviour
 	
 	void Start()
 	{
+		if (!m_ChallengeMode && !m_Tutorial)
+		{
+			GetComponent<GUIText>().text = "SCORE: 0";
+			SpawnItems();
+		}
+		else
+		{
+			m_RoundTimer = 0.0f;
+		}
+
 		if (m_ChallengeMode && !m_Tutorial)
 		{
-			m_LimitText.text = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET].Gold.ToString();
+			//m_LimitText.text = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET].Gold.ToString();
+			m_LimitText.text = ChallengeMedals.MedalRequirements[SceneManager.GetActiveScene().buildIndex - Tags.CHALLENGE_LEVEL_OFFSET].Gold.ToString();
 		}
 	}
 
@@ -203,196 +216,23 @@ public class GameController : MonoBehaviour
 
 	void OnGUI()
 	{
-		//if (m_Paused)
-		if (m_GameState == GameState.Paused)
+		if (m_GameState == GameState.GameOver)
 		{
-			/*int top = Screen.height / 4;
-			int side = Screen.width / 5;
-			GUI.DrawTexture(new Rect(0, 0 , Screen.width, Screen.height), m_BackgroundTexture);
-
-			if (GUI.Button(new Rect(side * 2, top, side, top / 2), "RESUME"))
-			{
-				if (m_ShowingScoring == 0)
-				{
-					Time.timeScale = 1.0f;
-				}
-
-				//m_Paused = false;
-				m_GameState = GameState.Gameplay;
-				m_ShowEffects = true;
-				m_MousePicker.Enabled = true;
-				m_MainInventory.DrawLines = true;
-				m_HoldingArea.DrawLines = true;
-			}
-
-			if (GUI.Button(new Rect(side * 2, top * 2, side, top / 2), "RESTART"))
-			{
-				Time.timeScale = 1.0f;
-				//DestroyAllObjects();
-
-				// Create new GameModeInfo based on this game mode and reload level
-				Transform info = Instantiate(m_GameInfoPrefab) as Transform;
-				GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
-				modeInfo.m_TimeMode = m_TimeMode;
-				modeInfo.m_ChaosMode = m_ChaosMode;
-				modeInfo.m_ModeOptionSelect = m_ModeOptionSelect;
-
-				Application.LoadLevel(Application.loadedLevel);
-			}
-
 			if (m_ChallengeMode)
 			{
-				if (GUI.Button(new Rect(side * 2, top * 3, side, top / 2), "LEVEL SELECT"))
-				{
-					Quit();
-					
-					// Create new GameModeInfo to show correct menu state
-					Transform info = Instantiate(m_GameInfoPrefab) as Transform;
-					GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
-					modeInfo.m_ChallengeSelect = true;
-				}
-			}
-			else
-			{
-				if (GUI.Button(new Rect(side * 2, top * 3, side, top / 2), "QUIT"))
-				{
-					Quit();
-				}
-			}*/
-		}
-		else if (m_GameState == GameState.InBreak)
-		{
-			if (!m_ShopMenu.ShopShowing)
-			{
-				int top = Screen.height / 4;
-				GUI.DrawTexture(new Rect(0, top , Screen.width, Screen.height), m_BackgroundTexture);
-
-				int screenCentreX = Screen.width / 2;
-				int screenCentreY = top + ((top * 3) / 2);
-				int screenQuarterX = Screen.width / 4;
-
-				if (GUI.Button(new Rect((screenQuarterX * 3) - 100, screenCentreY - 50, 200, 100), "CONTINUE"))
-				{
-					m_GameState = GameState.Gameplay;
-					m_ShowEffects = true;
-					m_MousePicker.Enabled = true;
-
-					m_MainInventory.DrawLines = true;
-					m_HoldingArea.DrawLines = true;
-
-					Application.LoadLevel(Tags.ACTIONSCENE);
-				}
-
-				if (GUI.Button(new Rect(screenCentreX - 100, screenCentreY - 50, 200, 100), "SHOP"))
-				{
-					m_ShopMenu.ToggleShop();
-				}
-
-				if (GUI.Button(new Rect(screenQuarterX - 100, screenCentreY - 50, 200, 100), "QUIT"))
-				{
-					Quit();
-				}
-			}
-		}
-		else if (m_GameState == GameState.GameOver)
-		{
-			//GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), m_BackgroundTexture);
-			//int top = (Screen.height / 4) * 3;
-			
-			//int screenCentreX = Screen.width / 2;
-			//int screenCentreY = top + ((top * 3) / 2);
-			//int screenQuarterX = Screen.width / 4;
-
-			if (m_ChallengeMode)
-			{
-				if (GUI.Button(new Rect(Screen.width - 150, Screen.height / 2, 150, 100), "-DEBUG-\nCLEAR SCORES\n(CAN'T UNDO!)"))
+				/*if (GUI.Button(new Rect(Screen.width - 150, Screen.height / 2, 150, 100), "-DEBUG-\nCLEAR SCORES\n(CAN'T UNDO!)"))
 				{
 					// Construct string for deleting time/moves scores
-					//string pref = Tags.PREF_CHALLENGE_TIME + Application.loadedLevel;
-					//PlayerPrefs.DeleteKey(pref);
-					string pref = Tags.PREF_CHALLENGE_MOVES + Application.loadedLevel;
+					string pref = Tags.PREF_CHALLENGE_MOVES + SceneManager.GetActiveScene().buildIndex.ToString();
 					SaveManager.Instance.DeleteKey(pref);
+					SaveManager.Instance.DeleteKey(Tags.PREF_CHALLENGES_COMPLETED);
+					SaveManager.Instance.DeleteKey(Tags.PREF_CHALLENGES_GOLDED);
 					SaveManager.Instance.Save();
-				}
-
-				/*if (Application.loadedLevel != Application.levelCount - 1)
-				{
-					if (GUI.Button(new Rect((screenQuarterX * 3) - 100, top, 200, 100), "NEXT LEVEL"))
-					{
-						//DestroyAllObjects();
-						Application.LoadLevel(Application.loadedLevel + 1);
-					}
-				}
-
-				if (GUI.Button(new Rect(screenCentreX - 100, top, 200, 100), "TRY AGAIN"))
-				{
-					//DestroyAllObjects();
-					Application.LoadLevel(Application.loadedLevel);
-				}
-
-				if (GUI.Button(new Rect(screenQuarterX - 100, top, 200, 100), "LEVEL SELECT"))
-				{
-					// Create new GameModeInfo to show correct menu state
-					Transform info = Instantiate(m_GameInfoPrefab) as Transform;
-					GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
-					modeInfo.m_ChallengeSelect = true;
-
-					Quit();
-				}*/
-			}
-			else
-			{
-				/*if (GUI.Button(new Rect((screenQuarterX * 3) - 100, top, 200, 100), "TRY AGAIN"))
-				{
-					//DestroyAllObjects();
-
-					// Create new GameModeInfo based on this game mode and reload level
-					Transform info = Instantiate(m_GameInfoPrefab) as Transform;
-					GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
-					modeInfo.m_TimeMode = m_TimeMode;
-					modeInfo.m_ChaosMode = m_ChaosMode;
-					modeInfo.m_ModeOptionSelect = m_ModeOptionSelect;
-					
-					Application.LoadLevel(Tags.ORDERINVENTORY);
-				}
-				
-				//if (GUI.Button(new Rect(screenCentreX - 100, top, 200, 100), "LEADERBOARD\n(Coming Soon)"))
-				{
-
-				}
-				
-				if (GUI.Button(new Rect(screenQuarterX - 100, top, 200, 100), "QUIT"))
-				{
-					Quit();
 				}*/
 			}
 		}
-		else
+		else if (m_GameState == GameState.Gameplay)
 		{
-			/*int screenCentreX = Screen.width / 2;
-			if (!m_ChallengeMode)
-			{
-				if (GUI.Button(new Rect(screenCentreX - 100, 50, 200, 100), "CASH IN"))
-				{
-					if (!m_MousePicker.IsCarrying)
-					{
-						AddScore();
-
-						if (m_ItemScoringList.Count == 0 && m_RotationScoringList.Count == 0)
-						{
-							// Clear objects in inventory and spawn new items
-							// (Score is now added when moving to next inventory)
-							SpawnItems();
-						}
-					}
-				}
-			}*/
-
-			/*if (m_LevelEndTimer > 0.0f)
-			{
-				GUI.TextArea(new Rect((float)Screen.width * 0.73f, (float)Screen.height * 0.25f, (float)Screen.width * 0.192f, Screen.height / 30), m_LevelEndTimer.ToString());
-			}*/
-
 			if (m_ShowingScoring != 0)
 			{
 				foreach(InventoryItem item in m_ShowingScoring == 1 ? m_ItemScoringList[m_ScoreGroupIndex] : m_RotationScoringList[m_ScoreGroupIndex])
@@ -430,6 +270,36 @@ public class GameController : MonoBehaviour
 					}
 				}
 			}
+
+			// Debug mode for creating Challenge levels // - DEBUG
+			/*if (GUI.Button(new Rect(Screen.width - 250, Screen.height - 50, 50, 50), "<"))
+			{
+				DEBUG_ItemID--;
+				if (DEBUG_ItemID < 0)
+				{
+					DEBUG_ItemID = 43;
+				}
+			}
+			if (GUI.Button(new Rect(Screen.width - 50, Screen.height - 50, 50, 50), ">"))
+			{
+				DEBUG_ItemID++;
+				if (DEBUG_ItemID > 43)
+				{
+					DEBUG_ItemID = 0;
+				}
+			}
+			if (GUI.Button(new Rect(Screen.width - 200, Screen.height - 50, 150, 50), "Spawn Item\n" + DEBUG_ItemID.ToString()))
+			{
+				Transform item = Instantiate(PrefabIDList.GetPrefabWithID(DEBUG_ItemID)) as Transform;
+				InventoryItem itemComponent = item.GetComponent<InventoryItem>();
+				if (itemComponent != null)
+				{
+					if (!GameObject.FindGameObjectWithTag(Tags.HOLDINGAREA).GetComponent<InventoryScript>().FindAvailableSpace(itemComponent))
+					{
+						Destroy(itemComponent.gameObject);
+					}
+				}
+			}*/
 		}
 	}
 	
@@ -443,28 +313,7 @@ public class GameController : MonoBehaviour
 			//m_Paused = !m_Paused;
 			if (m_GameState == GameState.Gameplay)
 			{
-				Time.timeScale = 0.0f;
-				m_MousePicker.Enabled = false;
-				m_GameState = GameState.Paused;
-				m_ShowEffects = false;
-
-				m_MainCanvas.gameObject.SetActive(false);
-				m_PauseCanvas.gameObject.SetActive(true);
-				if (m_CountdownCanvas != null)
-				{
-					m_CountdownCanvas.gameObject.SetActive(false);
-				}
-
-				//m_MainInventory.DrawLines = false;
-				//m_HoldingArea.DrawLines = false;
-
-				// Find the animated background and bring it to the front
-				GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
-				BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
-				if (animBG != null)
-				{
-					animBG.BringToFront();
-				}
+				Button_Pause();
 			}
 			else if (m_GameState == GameState.Paused)
 			{
@@ -531,19 +380,22 @@ public class GameController : MonoBehaviour
 					m_FadingIn = false;
 
 					//foreach (InventoryItem item in m_ItemScoringList[m_ScoreGroupIndex])
-					foreach (InventoryItem item in m_ShowingScoring == 1 ? m_ItemScoringList[m_ScoreGroupIndex] : m_RotationScoringList[m_ScoreGroupIndex])
+					if (!m_WaitForLevelEnd)
 					{
-						if (item != null)
+						foreach (InventoryItem item in m_ShowingScoring == 1 ? m_ItemScoringList[m_ScoreGroupIndex] : m_RotationScoringList[m_ScoreGroupIndex])
 						{
-							//for (int i = 0; i < m_OrbsToSpawn / m_ItemScoringList[m_ScoreGroupIndex].Count; i++)
-							for (int i = 0; i < m_OrbsToSpawn / (m_ShowingScoring == 1 ? m_ItemScoringList[m_ScoreGroupIndex].Count : m_RotationScoringList[m_ScoreGroupIndex].Count); i++)
+							if (item != null)
 							{
-								Vector3 pos = item.CentrePosition;
-								pos.z = -5.0f;
-								Transform trans = Instantiate(m_ParticlePrefab, pos, Quaternion.identity) as Transform;
-								ParticleAttract particle = trans.GetComponent<ParticleAttract>();
-								//particle.AttractPosition = new Vector3(3.5f, 0.5f, -5.0f);
-								particle.AttractPosition = gameObject.transform.position;
+								//for (int i = 0; i < m_OrbsToSpawn / m_ItemScoringList[m_ScoreGroupIndex].Count; i++)
+								for (int i = 0; i < m_OrbsToSpawn / (m_ShowingScoring == 1 ? m_ItemScoringList[m_ScoreGroupIndex].Count : m_RotationScoringList[m_ScoreGroupIndex].Count); i++)
+								{
+									Vector3 pos = item.CentrePosition;
+									pos.z = -1.5f;
+									Transform trans = Instantiate(m_ParticlePrefab, pos, Quaternion.identity) as Transform;
+									ParticleAttract particle = trans.GetComponent<ParticleAttract>();
+									//particle.AttractPosition = new Vector3(3.5f, 0.5f, -5.0f);
+									particle.AttractPosition = gameObject.transform.position;
+								}
 							}
 						}
 					}
@@ -568,7 +420,7 @@ public class GameController : MonoBehaviour
 								m_ShowingScoring = 0;
 								Time.timeScale = 1.0f;
 								m_ScoreGroupIndex = 0;
-								m_ScoreOrbTimer = 1.4f;
+								m_ScoreOrbTimer = 1.0f;
 								m_MousePicker.Enabled = true;
 
 								// Clear objects in inventory and spawn new items
@@ -584,7 +436,7 @@ public class GameController : MonoBehaviour
 							m_ShowingScoring = 0;
 							Time.timeScale = 1.0f;
 							m_ScoreGroupIndex = 0;
-							m_ScoreOrbTimer = 1.4f;
+							m_ScoreOrbTimer = 1.0f;
 							m_MousePicker.Enabled = true;
 
 							// Clear objects in inventory and spawn new items
@@ -767,6 +619,64 @@ public class GameController : MonoBehaviour
 				}
 			}
 		}
+		else if (m_GameState == GameState.GameOver)
+		{
+			if (m_AuthenticationCanvas != null)
+			{
+				if (m_AuthenticationCanvas.activeInHierarchy)
+				{
+					if (!SocialManager.Instance.WaitingForAuthentication)
+					{
+						m_AuthenticationCanvas.SetActive(false);
+						m_OverCanvas.gameObject.SetActive(true);
+
+						if (Social.localUser.authenticated)
+						{
+							if (m_ButtonLeaderboard != null)
+							{
+								m_ButtonLeaderboard.gameObject.SetActive(true);
+							}
+							if (m_ButtonSignIn != null)
+							{
+								m_ButtonSignIn.gameObject.SetActive(false);
+							}
+
+
+							string leaderboardPref;
+							if (m_TimeMode)
+							{
+								if (m_ChaosMode)
+								{
+									leaderboardPref = Sorted.GPGSIDs.leaderboard_chaos__timed;
+								}
+								else
+								{
+									leaderboardPref = Sorted.GPGSIDs.leaderboard_order__timed;
+								}
+							}
+							else
+							{
+								if (m_ChaosMode)
+								{
+									leaderboardPref = Sorted.GPGSIDs.leaderboard_chaos__moves;
+								}
+								else
+								{
+									leaderboardPref = Sorted.GPGSIDs.leaderboard_order__moves;
+								}
+							}
+
+							int leaderboardScore = SaveManager.Instance.GetInt(leaderboardPref);
+							if (m_Score > leaderboardScore)
+							{
+								// Send score to GPGS leaderboard
+								SocialManager.Instance.UpdateLeaderboard(leaderboardPref, m_Score);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	private void FixedUpdate()
@@ -776,8 +686,18 @@ public class GameController : MonoBehaviour
 			if (!m_ChallengeMode)
 			{
 				// Handle timer for scoring orbs & increment displayed score
-				m_ScoreOrbTimer -= Time.deltaTime;
-				if (m_ScoreOrbTimer <= 0.0f)
+				if (m_ScoreOrbTimer > 0.0f)
+				{
+					m_ScoreOrbTimer -= Time.deltaTime;
+					if (m_ScoreOrbTimer <= 0.0f && m_ScoreIncrement > 0)
+					{
+						if (m_SoundScoreCount != null)
+						{
+							AudioManager.Instance.PlaySound(m_SoundScoreCount);
+						}
+					}
+				}
+				else
 				{
 					if (m_DisplayedScore <= m_Score - 10)
 					{
@@ -843,20 +763,18 @@ public class GameController : MonoBehaviour
 		//DestroyAllObjects();
 		
 		Time.timeScale = 1.0f;
-		//Application.LoadLevel(Tags.MAINMENU);
 		HideUI();
 		MainMenu.LoadLevel(Tags.MAINMENU);
 	}
 
 	public void GameOver()
 	{
-		//m_Distance += (int)GameObject.FindGameObjectWithTag(Tags.PLAYER).GetComponent<CharacterScript>().transform.position.x;
 
 		if (m_ChallengeMode)
 		{
 			// Manually get and destroy all objects in the scene
 			// (Because everything on the bottom is set to not destroy on load)
-			Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
+			/*Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
 			foreach (Transform trans in objectList)
 			{
 				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject 
@@ -875,6 +793,14 @@ public class GameController : MonoBehaviour
 						Destroy(trans.gameObject);
 					}
 				}
+			}*/
+
+			// Find the animated background and bring it to the front
+			GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+			BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+			if (animBG != null)
+			{
+				animBG.BringToFront();
 			}
 
 			Time.timeScale = 1.0f;
@@ -889,24 +815,12 @@ public class GameController : MonoBehaviour
 			GetComponent<GUIText>().alignment = TextAlignment.Center;
 
 			// Construct string for saving best time/moves
-			//guiText.text = "MOVES:\n" + m_MovesUsed.ToString();
 			m_GameOverText.text += m_MovesUsed.ToString() + " moves";
 
-			string movesPref = Tags.PREF_CHALLENGE_MOVES + Application.loadedLevel;
-			//int leastMoves = PlayerPrefs.GetInt(movesPref, 9999);
+			string movesPref = Tags.PREF_CHALLENGE_MOVES + SceneManager.GetActiveScene().buildIndex.ToString();
 			int leastMoves = SaveManager.Instance.GetInt(movesPref, 9999);
 
-			if (m_MovesUsed < leastMoves)
-			{
-				//PlayerPrefs.SetInt(movesPref, m_MovesUsed);
-				SaveManager.Instance.SetInt(movesPref, m_MovesUsed);
-				SaveManager.Instance.Save();
-				//guiText.text += "NEW BEST!";
-				//m_GameOverText.text += "\nNEW BEST!";
-				m_HighScoreText.SetActive(true);
-			}
-
-			MedalInfo info = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET];
+			MedalInfo info = ChallengeMedals.MedalRequirements[SceneManager.GetActiveScene().buildIndex - Tags.CHALLENGE_LEVEL_OFFSET];
 			if (m_MovesUsed <= info.Gold)
 			{
 				m_MedalScore.sprite = m_MedalImage_Gold;
@@ -918,6 +832,53 @@ public class GameController : MonoBehaviour
 			else
 			{
 				m_MedalScore.sprite = m_MedalImage_Bronze;
+			}
+
+			int challengesCompleted = SaveManager.Instance.GetInt(Tags.PREF_CHALLENGES_COMPLETED);
+			int challengesGolded = SaveManager.Instance.GetInt(Tags.PREF_CHALLENGES_GOLDED);
+			if (m_MovesUsed < leastMoves)
+			{
+				if (leastMoves == 9999)
+				{
+					// This is the first time this challenge has been completed, increment the achievement counter
+					challengesCompleted++;
+					SaveManager.Instance.SetInt(Tags.PREF_CHALLENGES_COMPLETED, challengesCompleted);
+				}
+
+				if (m_MovesUsed <= info.Gold)
+				{
+					// Player got a gold medal for the first time, increment the achievement counter
+					challengesGolded++;
+					SaveManager.Instance.SetInt(Tags.PREF_CHALLENGES_GOLDED, challengesGolded);
+				}
+
+				SaveManager.Instance.SetInt(movesPref, m_MovesUsed);
+				SaveManager.Instance.Save();
+				m_HighScoreText.SetActive(true);
+			}
+
+			// Unlock the challenge achievements if enough have been completed
+			if (challengesCompleted >= 12)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_a_new_challenger);
+			}
+			if (challengesCompleted >= 24)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_not_so_challenging);
+			}
+
+			// Unlock the gold achievements if enough have been golded
+			if (challengesGolded >= 8)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_struck_gold);
+			}
+			if (challengesGolded >= 16)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_gold_digger);
+			}
+			if (challengesGolded >= 24)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_golden_god);
 			}
 		}
 		else
@@ -931,7 +892,7 @@ public class GameController : MonoBehaviour
 
 			// Manually get and destroy all objects in the scene
 			// (Because everything on the bottom is set to not destroy on load)
-			Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
+			/*Transform[] objectList = GameObject.FindObjectsOfType<Transform>();
 			foreach (Transform trans in objectList)
 			{
 				if (trans.gameObject != gameObject && trans.gameObject != Camera.main.gameObject 
@@ -950,8 +911,16 @@ public class GameController : MonoBehaviour
 						Destroy(trans.gameObject);
 					}
 				}
+			}*/
+
+			// Find the animated background and bring it to the front
+			GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+			BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+			if (animBG != null)
+			{
+				animBG.BringToFront();
 			}
-			
+
 			Time.timeScale = 1.0f;
 			m_ShowEffects = false;
 			m_GameState = GameState.GameOver;
@@ -959,28 +928,38 @@ public class GameController : MonoBehaviour
 			m_OverCanvas.gameObject.SetActive(true);
 			Camera.main.rect = new Rect(0, 0, 1, 1);
 
-			//Instantiate(m_DeathMessage, new Vector3(10.5f, -0.5f, 0.0f), Quaternion.identity);
-
-			//guiText.enabled = false;
-			//transform.position = new Vector3(0.5f, 0.5f, 0.0f);
-			//guiText.anchor = TextAnchor.MiddleCenter;
-			//guiText.alignment = TextAlignment.Center;
-			//guiText.text = "FINAL SCORE:\n" + m_Score.ToString();
+			if (Social.localUser.authenticated)
+			{
+				if (m_ButtonLeaderboard != null)
+				{
+					m_ButtonLeaderboard.gameObject.SetActive(true);
+				}
+			}
+			else
+			{
+				if (m_ButtonSignIn != null)
+				{
+					m_ButtonSignIn.gameObject.SetActive(true);
+				}
+			}
 
 			// Use new GUI system
 			m_GameOverText.text += m_Score.ToString();
 
 			// Get string for saving high score
 			string scorePref;
+			string leaderboardPref;
 			if (m_TimeMode)
 			{
 				if (m_ChaosMode)
 				{
 					scorePref = Tags.PREF_CHAOS_TIME_SCORE + m_ModeOptionSelect.ToString();
+					leaderboardPref = Sorted.GPGSIDs.leaderboard_chaos__timed;
 				}
 				else
 				{
 					scorePref = Tags.PREF_ORDER_TIME_SCORE + m_ModeOptionSelect.ToString();
+					leaderboardPref = Sorted.GPGSIDs.leaderboard_order__timed;
 				}
 			}
 			else
@@ -988,10 +967,12 @@ public class GameController : MonoBehaviour
 				if (m_ChaosMode)
 				{
 					scorePref = Tags.PREF_CHAOS_MOVE_SCORE + m_ModeOptionSelect.ToString();
+					leaderboardPref = Sorted.GPGSIDs.leaderboard_chaos__moves;
 				}
 				else
 				{
 					scorePref = Tags.PREF_ORDER_MOVE_SCORE + m_ModeOptionSelect.ToString();
+					leaderboardPref = Sorted.GPGSIDs.leaderboard_order__moves;
 				}
 			}
 
@@ -1001,10 +982,20 @@ public class GameController : MonoBehaviour
 			{
 				//PlayerPrefs.SetInt(scorePref, m_Score);
 				SaveManager.Instance.SetInt(scorePref, m_Score);
+				SaveManager.Instance.Save();
 				//guiText.text += "\n(NEW HIGH SCORE!)";
 				//m_GameOverText.text += "\nNEW BEST!";
 				m_HighScoreText.SetActive(true);
-				SaveManager.Instance.Save();
+			}
+
+			int leaderboardScore = SaveManager.Instance.GetInt(leaderboardPref);
+			if (m_Score > leaderboardScore)
+			{
+				// Send score to GPGS leaderboard
+				if (Social.localUser.authenticated)
+				{
+					SocialManager.Instance.UpdateLeaderboard(leaderboardPref, m_Score);
+				}
 			}
 
 			//PlayerPrefs.Save();
@@ -1036,16 +1027,63 @@ public class GameController : MonoBehaviour
 		if (m_TimeMode ? m_RoundTimer > 0.0f : m_MovesUsed < m_MoveLimit)
 		{
 			m_ScoreIncrement -= m_HoldingArea.GetNumberOfItems() * (m_ChaosMode ? LEFTOVER_PENALTY * 3 : LEFTOVER_PENALTY);
+
+			// Extra protection from Cash In spamming
+			if (m_HoldingArea.GetNumberOfItems() > 5)
+			{
+				m_ScoreIncrement -= 100;
+			}
 		}
 		m_Score += m_ScoreIncrement;
 		m_Score = m_Score < 0 ? 0 : m_Score;
 
+		// Unlock single cash-in score achievements
+		if (m_ChaosMode)
+		{
+			if (m_ScoreIncrement > 1500)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_a_case_of_chaos);
+			}
+		}
+		else
+		{
+			if (m_ScoreIncrement > 2000)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_order_in_the_case);
+			}
+		}
+		// Cash in a positive inventory using 5 or less moves
+		if (!m_TimeMode)
+		{
+			if (m_MovesUsedThisInventory <= 5 && m_Score > 0)
+			{
+				SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_bust_a_move);
+			}
+		}
+
+		// Check if 10+ positive inventories have been cashed in and unlock achievement
+		if (m_Score > 0)
+		{
+			m_InventoriesSorted++;
+
+			if (m_InventoriesSorted > 10)
+			{
+				if (m_TimeMode)
+				{
+					SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_quick_sort);
+				}
+				else
+				{
+					SocialManager.Instance.UnlockAchievement(Sorted.GPGSIDs.achievement_efficient_sort);
+				}
+			}
+		}
+
 		if (!m_WaitForLevelEnd)
 		{
-
 			if (m_ItemScoringList.Count > 0)
 			{
-				m_OrbsToSpawn = (currentScore / m_ItemScoringList.Count) / 20;
+				m_OrbsToSpawn = m_ScoreIncrement > 0 ? (currentScore / m_ItemScoringList.Count) / 20 : 0;
 				m_ShowingScoring = 1;
 				m_GroupStartTime = Time.realtimeSinceStartup;
 				Time.timeScale = 0.0f;
@@ -1053,7 +1091,7 @@ public class GameController : MonoBehaviour
 			}
 			else if (m_RotationScoringList.Count > 0)
 			{
-				m_OrbsToSpawn = (currentScore / m_RotationScoringList.Count) / 20;
+				m_OrbsToSpawn = m_ScoreIncrement > 0 ? (currentScore / m_RotationScoringList.Count) / 20 : 0;
 				m_ShowingScoring = 2;
 				m_GroupStartTime = Time.realtimeSinceStartup;
 				Time.timeScale = 0.0f;
@@ -1130,6 +1168,7 @@ public class GameController : MonoBehaviour
 		if (!m_MousePicker.IsCarrying && m_ShowingScoring == 0)
 		{
 			AddScore();
+			m_MovesUsedThisInventory = 0;
 			
 			if (m_ItemScoringList.Count == 0 && m_RotationScoringList.Count == 0)
 			{
@@ -1150,6 +1189,7 @@ public class GameController : MonoBehaviour
 	public void MoveUsed()
 	{
 		m_MovesUsed++;
+		m_MovesUsedThisInventory++;
 		if (m_ChallengeMode)
 		{
 			if (m_MovesUsed > 99)
@@ -1160,7 +1200,8 @@ public class GameController : MonoBehaviour
 
 			if (!m_Tutorial)
 			{
-				MedalInfo info = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET];
+				//MedalInfo info = ChallengeMedals.MedalRequirements[Application.loadedLevel - Tags.CHALLENGE_LEVEL_OFFSET];
+				MedalInfo info = ChallengeMedals.MedalRequirements[SceneManager.GetActiveScene().buildIndex - Tags.CHALLENGE_LEVEL_OFFSET];
 				if (m_MovesUsed + 1 <= info.Gold)
 				{
 					m_MedalSmall.sprite = m_MedalImage_Gold_S;
@@ -1202,9 +1243,35 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	public void Button_Pause()
+	{
+		Time.timeScale = 0.0f;
+		m_MousePicker.Enabled = false;
+		m_GameState = GameState.Paused;
+		m_ShowEffects = false;
+
+		m_MainCanvas.gameObject.SetActive(false);
+		m_PauseCanvas.gameObject.SetActive(true);
+		if (m_CountdownCanvas != null)
+		{
+			m_CountdownCanvas.gameObject.SetActive(false);
+		}
+
+		//m_MainInventory.DrawLines = false;
+		//m_HoldingArea.DrawLines = false;
+
+		// Find the animated background and bring it to the front
+		GameObject bgObject = GameObject.FindGameObjectWithTag(Tags.ANIMATEDBACKGROUND);
+		BackgroundAnimated animBG = bgObject.GetComponent<BackgroundAnimated>();
+		if (animBG != null)
+		{
+			animBG.BringToFront();
+		}
+	}
+
 	public void Button_Resume()
 	{
-		if (m_ShowingScoring == 0)
+		if (m_ShowingScoring == 0 && !m_Tutorial)
 		{
 			Time.timeScale = 1.0f;
 			m_MousePicker.Enabled = true;
@@ -1213,7 +1280,7 @@ public class GameController : MonoBehaviour
 		m_GameState = GameState.Gameplay;
 		m_ShowEffects = true;
 		m_PauseCanvas.gameObject.SetActive(false);
-		if (m_CountdownTimer <= 0.0f || m_ChallengeMode || m_Tutorial)
+		if (m_CountdownTimer <= 0.0f || m_ChallengeMode || m_Tutorial || !m_TimeMode)
 		{
 			m_MainCanvas.gameObject.SetActive(true);
 
@@ -1248,9 +1315,10 @@ public class GameController : MonoBehaviour
 		modeInfo.m_ChaosMode = m_ChaosMode;
 		modeInfo.m_ModeOptionSelect = m_ModeOptionSelect;
 		
-		//Application.LoadLevel(Application.loadedLevel);
 		HideUI();
-		MainMenu.LoadLevel(Application.loadedLevel);
+		//Application.LoadLevel(Application.loadedLevel);
+		//MainMenu.LoadLevel(Application.loadedLevel);
+		MainMenu.LoadLevel(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	public void Button_Options()
@@ -1267,20 +1335,65 @@ public class GameController : MonoBehaviour
 		Quit();
 	}
 
+	public void Button_Leaderboard()
+	{
+		if (m_ChaosMode)
+		{
+			if (m_TimeMode)
+			{
+				SocialManager.Instance.ShowLeaderboard(Sorted.GPGSIDs.leaderboard_chaos__timed);
+			}
+			else
+			{
+				SocialManager.Instance.ShowLeaderboard(Sorted.GPGSIDs.leaderboard_chaos__moves);
+			}
+		}
+		else
+		{
+			if (m_TimeMode)
+			{
+				SocialManager.Instance.ShowLeaderboard(Sorted.GPGSIDs.leaderboard_order__timed);
+			}
+			else
+			{
+				SocialManager.Instance.ShowLeaderboard(Sorted.GPGSIDs.leaderboard_order__moves);
+			}
+		}
+	}
+
 	public void Button_LevelSelect()
 	{
 		// Create new GameModeInfo to show correct menu state
 		Transform info = Instantiate(m_GameInfoPrefab) as Transform;
 		GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
-		modeInfo.m_ChallengeSelect = true;
+		int levelIndex = SceneManager.GetActiveScene().buildIndex;
+		if (levelIndex > 15)
+		{
+			modeInfo.m_ChallengeSelect = 2;
+		}
+		else
+		{
+			modeInfo.m_ChallengeSelect = 1;
+		}
 		
 		Quit();
 	}
 
 	public void Button_NextLevel()
 	{
-		//Application.LoadLevel(Application.loadedLevel + 1);
 		HideUI();
-		MainMenu.LoadLevel(Application.loadedLevel + 1);
+		//Application.LoadLevel(Application.loadedLevel + 1);
+		//MainMenu.LoadLevel(Application.loadedLevel + 1);
+		MainMenu.LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+	}
+
+	public void Button_SignIn()
+	{
+		SocialManager.Instance.Authenticate();
+		if (m_AuthenticationCanvas != null)
+		{
+			m_AuthenticationCanvas.SetActive(true);
+			m_OverCanvas.gameObject.SetActive(false);
+		}
 	}
 }

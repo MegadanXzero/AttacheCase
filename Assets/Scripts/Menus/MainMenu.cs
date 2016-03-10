@@ -4,6 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+#if UNITY_ANDROID
+using GooglePlayGames;
+#endif
 
 public class MainMenu : MonoBehaviour
 {
@@ -12,6 +16,7 @@ public class MainMenu : MonoBehaviour
 		Main = 0,
 		ModeSelect,
 		ChallengeSelect,
+		ChallengeSelect2,
 		Tutorials,
 		Options,
 	};
@@ -21,20 +26,24 @@ public class MainMenu : MonoBehaviour
 	[SerializeField] private GameObject m_AudioSourcePrefab;
 	[SerializeField] private AudioClip[] m_MusicArray;
 
-	[SerializeField] private SpriteRenderer m_HowToPlay1;
-	[SerializeField] private SpriteRenderer m_HowToPlay2;
-	[SerializeField] private SpriteRenderer m_HowToPlay3;
-	[SerializeField] private SpriteRenderer m_HowToPlay4;
+	//[SerializeField] private SpriteRenderer m_HowToPlay1;
+	//[SerializeField] private SpriteRenderer m_HowToPlay2;
+	//[SerializeField] private SpriteRenderer m_HowToPlay3;
+	//[SerializeField] private SpriteRenderer m_HowToPlay4;
 	[SerializeField] private Transform m_GameInfoPrefab;
 
-	[SerializeField] private Texture m_ButtonBegin;
-	[SerializeField] private Texture m_ButtonBack;
+	//[SerializeField] private Texture m_ButtonBegin;
+	//[SerializeField] private Texture m_ButtonBack;
 
 	[SerializeField] private Canvas m_CanvasMain;
 	[SerializeField] private Canvas m_CanvasArcade;
 	[SerializeField] private Canvas m_CanvasChallenge;
+	[SerializeField] private Canvas m_CanvasChallenge2;
 	[SerializeField] private Canvas m_CanvasOptions;
 	[SerializeField] private Canvas m_CanvasTutorials;
+	[SerializeField] private Canvas m_CanvasAuthentication;
+	[SerializeField] private GameObject m_PlayServicesUI;
+	[SerializeField] private GameObject m_StartupMessage;
 
 	[SerializeField] private Image[] m_ChallengeButtonList;
 	[SerializeField] private Sprite m_ChallengeBronze;
@@ -64,15 +73,26 @@ public class MainMenu : MonoBehaviour
 		// Load save data on startup
 		SaveManager.Instance.Load();
 
+		// Change camera aspect ratio to fit everything in frame
+		float aspectRatio = (float)Screen.width / (float)Screen.height;
+		aspectRatio = Mathf.Min(aspectRatio, 1.78f);
+		Camera.main.orthographicSize = 9.0f / aspectRatio;
+
 		// Get GameModeInfo script to determine the menu state, then destroy
 		GameObject infoObject = GameObject.FindGameObjectWithTag(Tags.GAMEMODEINFO);
 		if (infoObject != null)
 		{
 			GameModeInfo gameInfo = infoObject.GetComponent<GameModeInfo>();
-			if (gameInfo.m_ChallengeSelect)
+			if (gameInfo.m_ChallengeSelect == 1)
 			{
 				m_MenuState = MenuState.ChallengeSelect;
 				m_CanvasChallenge.gameObject.SetActive(true);
+				m_CanvasMain.gameObject.SetActive(false);
+			}
+			else if (gameInfo.m_ChallengeSelect == 2)
+			{
+				m_MenuState = MenuState.ChallengeSelect2;
+				m_CanvasChallenge2.gameObject.SetActive(true);
 				m_CanvasMain.gameObject.SetActive(false);
 			}
 			Destroy(gameInfo.gameObject);
@@ -110,6 +130,35 @@ public class MainMenu : MonoBehaviour
 				m_ChallengeButtonList[i].sprite = m_ChallengeBronze;
 			}
 		}
+
+		int messageShown = SaveManager.Instance.GetInt(Tags.PREF_STARTUPMESSAGE);
+		if (messageShown == 0)
+		{
+			m_CanvasMain.gameObject.SetActive(false);
+			m_CanvasAuthentication.gameObject.SetActive(false);
+			m_StartupMessage.SetActive(true);
+		}
+		else
+		{
+			if (Application.internetReachability != NetworkReachability.NotReachable
+			&& !Social.localUser.authenticated)
+			{
+				if (!SocialManager.Instance.CheckLoginStatus())
+				{
+					m_CanvasAuthentication.gameObject.SetActive(false);
+				}
+				else
+				{
+					m_CanvasMain.gameObject.SetActive(false);
+				}
+			}
+			else
+			{
+				m_CanvasAuthentication.gameObject.SetActive(false);
+			}
+		}
+
+		CheckPlayServicesUI();
 	}
 
 	void OnLevelWasLoaded(int level)
@@ -173,291 +222,52 @@ public class MainMenu : MonoBehaviour
 				}
 			}
 		}
+
+		if (m_MenuState == MenuState.Main)
+		{
+			if (m_CanvasAuthentication.gameObject.activeInHierarchy)
+			{
+				if (!SocialManager.Instance.WaitingForAuthentication)
+				{
+					m_CanvasAuthentication.gameObject.SetActive(false);
+					m_CanvasMain.gameObject.SetActive(true);
+					m_PlayServicesUI.SetActive(true);
+				}
+			}
+		}
+
+		CheckPlayServicesUI();
 	}
 
 	void OnGUI()
 	{
-		/*if (m_MenuState == MenuState.Main)
+		/*if (GUI.Button(new Rect(Screen.width - 150, Screen.height - 50, 150, 50), "Challenge Debug"))
 		{
-			int centreX = Screen.width / 2;
-			int centreY = Screen.height / 2;
+			SceneManager.LoadScene(27);
+		}*/
 
-			if (GUI.Button(new Rect(centreX - 100, centreY - 160, 200, 100), "ARCADE"))
-			{
-				m_MenuState = MenuState.ModeSelect;
-			}
-
-			if (GUI.Button(new Rect(centreX - 100, centreY - 50, 200, 100), "CHALLENGE"))
-			{
-				m_MenuState = MenuState.ChallengeSelect;
-			}
-
-			if (GUI.Button(new Rect(centreX - 100, centreY + 60, 200, 100), "HOW TO PLAY"))
-			{
-				m_HowToPlay1.enabled = true;
-				m_MenuState = MenuState.HowToPlay1;
-			}
-
-			if (GUI.Button(new Rect(centreX - 100, centreY + 170, 200, 100), "QUIT"))
-			{
-				Application.Quit();
-			}
-
-			// Testing Save/Load stuff
-			//SaveManager.Instance.Draw();
-
-			if (!FB.IsLoggedIn)
-			{
-				if (GUI.Button(new Rect(centreX - 100, centreY + 150, 200, 50), "Login to Facebook"))
-				{
-					FB.Login("email,publish_actions", LoginCallback);
-				}
-			}
-			else
-			{
-				if (GUI.Button(new Rect(centreX - 100, centreY + 150, 200, 50), "Logout of Facebook"))
-				{
-					FB.Logout();
-				}
-
-				if (GUI.Button(new Rect(centreX - 100, centreY + 220, 200, 50), "Challenge Friends"))
-				{
-					OnChallengeClicked();
-				}
-
-				if (GUI.Button(new Rect(centreX - 100, centreY + 290, 200, 50), "Brag on Facebook"))
-				{
-					OnBragClicked();
-				}
-
-				GUI.DrawTexture(new Rect(10, 10, 128, 128), userPicture);
-				GUI.TextField(new Rect(138, 10, 100, 128), username + "\n" + m_Score.ToString());
-
-				int i = 1;
-				foreach(object score in scores) 
-				{
-					var entry = (Dictionary<string,object>) score;
-					var user = (Dictionary<string,object>) entry["user"];
-					
-					string userId = (string)user["id"];
-					string firstName = (string)user["name"];
-
-					foreach(object friendObj in friends)
-					{
-
-					}
-					
-					if (string.Equals(userId,FB.UserId))
-					{
-						// This entry is the current player, do nothing
-					}
-					else
-					{
-						GUI.DrawTexture(new Rect(10, 10 + (i * 128), 128, 128), friendImages[userId]);
-						GUI.TextField(new Rect(138, 10 + (i * 128), 100, 128), firstName + "\n" + entry["score"]);
-					}
-				}
-			}
-		}
-		else if (m_MenuState == MenuState.ModeSelect)
+		/*if (GUI.Button(new Rect(Screen.width - 150, Screen.height - 50, 150, 50), "Clear Challenges"))
 		{
-			int centreX = Screen.width / 2;
-			int centreY = Screen.height / 2;
-			
-			//if (GUI.Button(new Rect(centreX - 250, centreY - 160, 200, 100), "Order Mode\nTimed")
-			if (GUI.Button(new Rect(centreX - 250, centreY - 200, 200, 125), m_OrderSelection ? m_ButtonOrderInactive : m_ButtonOrderActive, GUIStyle.none))
+			for (int i = 4; i < 28; i++)
 			{
-				m_OrderSelection = false;
+				// Construct string for deleting time/moves scores
+				string pref = Tags.PREF_CHALLENGE_MOVES + i.ToString();
+				SaveManager.Instance.DeleteKey(pref);
 			}
+			SaveManager.Instance.DeleteKey(Tags.PREF_CHALLENGES_COMPLETED);
+			SaveManager.Instance.DeleteKey(Tags.PREF_CHALLENGES_GOLDED);
+			SaveManager.Instance.DeleteKey(Sorted.GPGSIDs.achievement_not_so_challenging);
+			SaveManager.Instance.DeleteKey(Sorted.GPGSIDs.achievement_a_new_challenger);
+			SaveManager.Instance.DeleteKey(Sorted.GPGSIDs.achievement_golden_god);
+			SaveManager.Instance.DeleteKey(Sorted.GPGSIDs.achievement_gold_digger);
+			SaveManager.Instance.DeleteKey(Sorted.GPGSIDs.achievement_struck_gold);
+			SaveManager.Instance.Save();
+		}*/
 
-			//if (GUI.Button(new Rect(centreX + 50, centreY - 160, 200, 100), "Chaos Mode\nTimed"))
-			if (GUI.Button(new Rect(centreX + 50, centreY - 200, 200, 125), m_OrderSelection ? m_ButtonChaosActive : m_ButtonChaosInactive, GUIStyle.none))
-			{
-				m_OrderSelection = true;
-			}
-			
-			//if (GUI.Button(new Rect(centreX - 250, centreY, 200, 100), "Timed"))
-			if (GUI.Button(new Rect(centreX - 250, centreY - 40, 200, 125), m_TimeSelection ? m_ButtonTimedActive : m_ButtonTimedInactive, GUIStyle.none))
-			{
-				m_TimeSelection = true;
-			}
-			
-			//if (GUI.Button(new Rect(centreX + 50, centreY, 200, 100), "Moves"))
-			if (GUI.Button(new Rect(centreX + 50, centreY - 40, 200, 125), m_TimeSelection ? m_ButtonMovesInactive : m_ButtonMovesActive, GUIStyle.none))
-			{
-				m_TimeSelection = false;
-			}
-
-			if (m_TimeSelection)
-			{
-				if (GUI.Button(new Rect(centreX - 250, centreY + 85, 67, 60), 
-				               m_TimeOptionSelection == 0 ? m_ButtonTimedOption1Active : m_ButtonTimedOption1Inactive, GUIStyle.none))
-				{
-					m_TimeOptionSelection = 0;
-				}
-
-				if (GUI.Button(new Rect(centreX - 183, centreY + 85, 66, 60), 
-				               m_TimeOptionSelection == 1 ? m_ButtonTimedOption3Active : m_ButtonTimedOption3Inactive, GUIStyle.none))
-				{
-					m_TimeOptionSelection = 1;
-				}
-
-				if (GUI.Button(new Rect(centreX - 117, centreY + 85, 67, 60), 
-				               m_TimeOptionSelection == 2 ? m_ButtonTimedOption5Active : m_ButtonTimedOption5Inactive, GUIStyle.none))
-				{
-					m_TimeOptionSelection = 2;
-				}
-			}
-			else
-			{
-				if (GUI.Button(new Rect(centreX + 50, centreY + 85, 67, 60), 
-				               m_MovesOptionSelection == 0 ? m_ButtonMovesOption50Active : m_ButtonMovesOption50Inactive, GUIStyle.none))
-				{
-					m_MovesOptionSelection = 0;
-				}
-				
-				if (GUI.Button(new Rect(centreX + 117, centreY + 85, 66, 60), 
-				               m_MovesOptionSelection == 1 ? m_ButtonMovesOption100Active : m_ButtonMovesOption100Inactive, GUIStyle.none))
-				{
-					m_MovesOptionSelection = 1;
-				}
-				
-				if (GUI.Button(new Rect(centreX + 183, centreY + 85, 67, 60), 
-				               m_MovesOptionSelection == 2 ? m_ButtonMovesOption150Active : m_ButtonMovesOption150Inactive, GUIStyle.none))
-				{
-					m_MovesOptionSelection = 2;
-				}
-			}
-			
-			//if (GUI.Button(new Rect(centreX - 100, centreY + 200, 200, 100), "Begin"))
-			if (GUI.Button(new Rect(centreX - 100, centreY + 200, 200, 125), m_ButtonBegin, GUIStyle.none))
-			{
-				Transform info = Instantiate(m_GameInfoPrefab) as Transform;
-				GameModeInfo modeInfo = info.GetComponent<GameModeInfo>();
-				modeInfo.m_TimeMode = m_TimeSelection;
-				modeInfo.m_ChaosMode = m_OrderSelection;
-				modeInfo.m_ModeOptionSelect = m_TimeSelection ? m_TimeOptionSelection : m_MovesOptionSelection;
-				
-				Application.LoadLevel(Tags.ORDERINVENTORY);
-			}
-
-			//if (GUI.Button(new Rect(10, Screen.height - 110, 100, 100), "Back"))
-			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
-			{
-				m_MenuState = MenuState.Main;
-			}
-		}
-		else if (m_MenuState == MenuState.ChallengeSelect)
+		/*if (GUI.Button(new Rect(Screen.width - 150, Screen.height - 50, 150, 50), "Clear Startup"))
 		{
-			// Create a button for each Challenge level which loads the level
-			int numChallenges = Application.levelCount - Tags.CHALLENGE_LEVEL_OFFSET;
-			int offset = Screen.width / 5;
-			for (int i = 0; i < numChallenges; i++)
-			{
-				int x = (i % 4) + 1;
-				int y = i / 4;
-
-				// Construct string for getting moves
-				string scores = "";
-				string movesPref = Tags.PREF_CHALLENGE_MOVES + (Tags.CHALLENGE_LEVEL_OFFSET + i).ToString();
-				//int leastMoves = PlayerPrefs.GetInt(movesPref, -1);
-				int leastMoves = SaveManager.Instance.GetInt(movesPref, -1);
-				if (leastMoves != -1)
-				{
-					scores = "\nMOVES: " + leastMoves.ToString();
-				}
-
-				if (GUI.Button(new Rect((x * offset) - 75, 250 + (y * (offset / 2)), 150, 100), (i + 1).ToString() + scores))
-				{
-					Application.LoadLevel(Tags.CHALLENGE_LEVEL_OFFSET + i);
-				}
-			}
-
-			// Go back to the main menu
-			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
-			{
-				m_MenuState = MenuState.Main;
-			}
-		}
-		else if (m_MenuState == MenuState.HowToPlay1)
-		{
-			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
-			{
-				m_CanvasMain.gameObject.SetActive(true);
-				m_MenuState = MenuState.Main;
-				m_HowToPlay1.enabled = false;
-				m_HowToPlay2.enabled = false;
-			}
-
-			if (GUI.Button(new Rect(Screen.width - 110, Screen.height / 2 - 50, 100, 100), "Next"))
-			{
-				m_MenuState = MenuState.HowToPlay2;
-				m_HowToPlay1.enabled = false;
-				m_HowToPlay2.enabled = true;
-			}
-		}
-		else if (m_MenuState == MenuState.HowToPlay2)
-		{
-			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
-			{
-				m_CanvasMain.gameObject.SetActive(true);
-				m_MenuState = MenuState.Main;
-				m_HowToPlay1.enabled = false;
-				m_HowToPlay2.enabled = false;
-			}
-
-			if (GUI.Button(new Rect(10, Screen.height / 2 - 50, 100, 100), "Previous"))
-			{
-				m_MenuState = MenuState.HowToPlay1;
-				m_HowToPlay1.enabled = true;
-				m_HowToPlay2.enabled = false;
-			}
-			
-			if (GUI.Button(new Rect(Screen.width - 110, Screen.height / 2 - 50, 100, 100), "Next"))
-			{
-				m_MenuState = MenuState.HowToPlay3;
-				m_HowToPlay2.enabled = false;
-				m_HowToPlay3.enabled = true;
-			}
-		}
-		else if (m_MenuState == MenuState.HowToPlay3)
-		{
-			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
-			{
-				m_CanvasMain.gameObject.SetActive(true);
-				m_MenuState = MenuState.Main;
-				m_HowToPlay3.enabled = false;
-			}
-			
-			if (GUI.Button(new Rect(10, Screen.height / 2 - 50, 100, 100), "Previous"))
-			{
-				m_MenuState = MenuState.HowToPlay2;
-				m_HowToPlay2.enabled = true;
-				m_HowToPlay3.enabled = false;
-			}
-			
-			if (GUI.Button(new Rect(Screen.width - 110, Screen.height / 2 - 50, 100, 100), "Next"))
-			{
-				m_MenuState = MenuState.HowToPlay4;
-				m_HowToPlay3.enabled = false;
-				m_HowToPlay4.enabled = true;
-			}
-		}
-		else if (m_MenuState == MenuState.HowToPlay4)
-		{
-			if (GUI.Button(new Rect(10, Screen.height - 80, 100, 70), m_ButtonBack, GUIStyle.none))
-			{
-				m_CanvasMain.gameObject.SetActive(true);
-				m_MenuState = MenuState.Main;
-				m_HowToPlay4.enabled = false;
-			}
-			
-			if (GUI.Button(new Rect(10, Screen.height / 2 - 50, 100, 100), "Previous"))
-			{
-				m_MenuState = MenuState.HowToPlay3;
-				m_HowToPlay3.enabled = true;
-				m_HowToPlay4.enabled = false;
-			}
+			SaveManager.Instance.SetInt(Tags.PREF_STARTUPMESSAGE, 0);
+			SaveManager.Instance.Save();
 		}*/
 	}
 
@@ -506,6 +316,20 @@ public class MainMenu : MonoBehaviour
 		m_CanvasChallenge.gameObject.SetActive(false);
 	}
 
+	public void Button_Back_Challenge2()
+	{
+		m_MenuState = MenuState.ChallengeSelect;
+		m_CanvasChallenge.gameObject.SetActive(true);
+		m_CanvasChallenge2.gameObject.SetActive(false);
+	}
+
+	public void Button_Next_Challenge()
+	{
+		m_MenuState = MenuState.ChallengeSelect2;
+		m_CanvasChallenge.gameObject.SetActive(false);
+		m_CanvasChallenge2.gameObject.SetActive(true);
+	}
+
 	public void Button_Back_Tutorials()
 	{
 		m_MenuState = MenuState.Main;
@@ -545,6 +369,39 @@ public class MainMenu : MonoBehaviour
 		Application.Quit();
 	}
 
+	public void Button_Achievements()
+	{
+		Social.ShowAchievementsUI();
+	}
+
+	public void Button_Leaderboards()
+	{
+		Social.ShowLeaderboardUI();
+	}
+
+	public void Button_SignIn()
+	{
+		if (m_StartupMessage != null)
+		{
+			SocialManager.Instance.Authenticate();
+			m_CanvasAuthentication.gameObject.SetActive(true);
+			m_StartupMessage.SetActive(false);
+			SaveManager.Instance.SetInt(Tags.PREF_STARTUPMESSAGE, 1);
+			SaveManager.Instance.Save();
+		}
+	}
+
+	public void Button_Continue()
+	{
+		if (m_StartupMessage != null)
+		{
+			m_StartupMessage.SetActive(false);
+			m_CanvasMain.gameObject.SetActive(true);
+			SaveManager.Instance.SetInt(Tags.PREF_STARTUPMESSAGE, 1);
+			SaveManager.Instance.Save();
+		}
+	}
+
 	public void SetChaosMode(bool chaosMode)
 	{
 		m_OrderSelection = chaosMode;
@@ -570,6 +427,7 @@ public class MainMenu : MonoBehaviour
 		m_CanvasMain.enabled = false;
 		m_CanvasArcade.enabled = false;
 		m_CanvasChallenge.enabled = false;
+		m_CanvasChallenge2.enabled = false;
 		m_CanvasOptions.enabled = false;
 		m_CanvasTutorials.enabled = false;
 	}
@@ -599,6 +457,19 @@ public class MainMenu : MonoBehaviour
 			animBG.BringToFront();
 		}
 
-		Application.LoadLevel(level);
+		//Application.LoadLevel(level);
+		SceneManager.LoadScene(level);
+	}
+
+	void CheckPlayServicesUI()
+	{
+		if (Social.localUser.authenticated)
+		{
+			m_PlayServicesUI.SetActive(true);
+		}
+		else
+		{
+			m_PlayServicesUI.SetActive(false);
+		}
 	}
 }

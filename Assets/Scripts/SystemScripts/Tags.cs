@@ -28,6 +28,7 @@ public class Tags : MonoBehaviour
 	public const string AUDIOSOURCE = "AudioSource";
 	public const string LOADINGCANVAS = "LoadingCanvas";
 	public const string ANIMATEDBACKGROUND = "AnimatedBackground";
+	public const string AUTHENTICATIONCANVAS = "AuthenticationCanvas";
 
 	// Level IDs
 	public const int MAINMENU = 0;
@@ -44,6 +45,7 @@ public class Tags : MonoBehaviour
 	public const string PREF_CHALLENGE_TIME = "ChallengeTime_";
 	public const string PREF_CHALLENGE_MOVES = "ChallengeMoves_";
 	public const string PREF_DISTANCE = "Distance";
+	public const string PREF_STARTUPMESSAGE = "StartupMessage";
 
 	// Audio Pref keys
 	public const string PREF_AUDIO_MASTERVOLUME = "Audio_MasterVolume";
@@ -53,6 +55,10 @@ public class Tags : MonoBehaviour
 	public const string PREF_AUDIO_FIREVOLUME = "Audio_FireVolume";
 	public const string PREF_AUDIO_RIVERVOLUME = "Audio_RiverVolume";
 	public const string PREF_AUDIO_WAVESVOLUME = "Audio_WavesVolume";
+
+	// Achievement tracking
+	public const string PREF_CHALLENGES_COMPLETED = "Cheevo_ChallengesCompleted";
+	public const string PREF_CHALLENGES_GOLDED = "Cheevo_ChallengesGolded";
 
 	// Constant values
 	public const float UNIT_SCALING = 32.0f;

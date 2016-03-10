@@ -45,7 +45,8 @@ public class EnemyAI : MonoBehaviour
 	void Awake()
 	{
 		m_Animator = GetComponentInChildren<Animator>();
-		GetComponent<ParticleSystem>().enableEmission = false;
+		// DEPRECATED, BUT I'M NOT USING THIS SCRIPT ANYMORE ANYWAY
+		//GetComponent<ParticleSystem>().enableEmission = false;
 		//m_AttackTimer = m_AttackSpeed;
 		
 		int j = 0;
@@ -83,7 +84,7 @@ public class EnemyAI : MonoBehaviour
 				else
 				{
 					m_OnFire = false;
-					GetComponent<ParticleSystem>().enableEmission = false;
+					//GetComponent<ParticleSystem>().enableEmission = false;
 				}
 			}
 
@@ -176,7 +177,7 @@ public class EnemyAI : MonoBehaviour
 	{
 		m_BurnTimer = burnTime;
 		m_OnFire = true;
-		GetComponent<ParticleSystem>().enableEmission = true;
+		//GetComponent<ParticleSystem>().enableEmission = true;
 		//m_Animator.SetFloat("Damage", 1.0f);
 		m_Animator.SetTrigger("Flinch");
 		m_Stunned = true;

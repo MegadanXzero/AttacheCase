@@ -262,7 +262,7 @@ public class MousePicker : MonoBehaviour
 						m_ItemOffset = pos - m_CurrentObject.transform.position;
 						m_ItemRotations++;
 					}
-					
+
 					//bool enableHighlight = false;
 					if (m_MouseOverArea == 1)
 					{
@@ -292,6 +292,15 @@ public class MousePicker : MonoBehaviour
 					{
 						currentSpaceFree = true;
 					}
+
+					// DEBUG FOR DELETING ITEMS MAKE SURE YOU REMOVE THIS OH GOD // ------------------------------------------------------------------
+					/*if (Input.GetMouseButtonDown(4))
+					{
+						Destroy(m_CurrentObject.gameObject);
+						m_IsCarrying = false;
+						m_CurrentObject = null;
+					}*/
+					// DEBUG FOR DELETING ITEMS MAKE SURE YOU REMOVE THIS OH GOD // ------------------------------------------------------------------
 				}
 			}
 			else
@@ -372,7 +381,7 @@ public class MousePicker : MonoBehaviour
 				{
 					if (m_IsCarrying)
 					{
-						bool placedInHolding = false;
+						//bool placedInHolding = false;
 						PlacementResult result = PlacementResult.Failed;
 						if (currentSpaceFree)
 						{
@@ -391,7 +400,7 @@ public class MousePicker : MonoBehaviour
 						else if (m_MouseOverArea == 2)
 						{
 							result = m_HoldingArea.PlaceItem(m_CurrentObject, out swapItem, true);
-							placedInHolding = true;
+							//placedInHolding = true;
 						}
 						else if (m_MouseOverArea == 3)
 						{

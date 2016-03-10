@@ -58,7 +58,14 @@ public sealed class AudioManager
 		set
 		{
 			m_SFXVolume = value;
-			m_AudioMixer.SetFloat("SFXVolume", -Mathf.Pow(-value, 2.72270623229f));
+			if (value > 0.0f)
+			{
+				m_AudioMixer.SetFloat("SFXVolume", value);
+			}
+			else
+			{
+				m_AudioMixer.SetFloat("SFXVolume", -Mathf.Pow(-value, 2.72270623229f));
+			}
 		}
 	}
 
